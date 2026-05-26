@@ -1,286 +1,1806 @@
-# ✦ Bíblia Sagrada — Web App
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
+<title>Bíblia Sagrada — Palavra de Deus</title>
+<meta name="description" content="Aplicativo completo da Bíblia Sagrada com múltiplas versões, temas e recursos de leitura">
+<meta name="theme-color" content="#f8f5ef">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Crimson+Pro:ital,wght@0,300;0,400;0,600;1,400&family=Spectral:ital,wght@0,300;0,400;0,600;1,400&family=EB+Garamond:ital,wght@0,400;0,500;1,400&family=Lora:ital,wght@0,400;0,500;1,400&family=Merriweather:ital,wght@0,300;0,400;0,700;1,400&family=Source+Serif+4:ital,opsz,wght@0,8..60,300;0,8..60,400;0,8..60,600;1,8..60,400&display=swap" rel="stylesheet">
+<style>
+/* =============================================
+   BÍBLIA SAGRADA — CSS COMPLETO
+   ============================================= */
 
-> Aplicativo completo da Bíblia Sagrada para web e mobile, com múltiplas versões, temas personalizáveis e experiência de leitura refinada.
+*, *::before, *::after {
+  margin: 0; padding: 0; box-sizing: border-box;
+}
 
-![HTML5](https://img.shields.io/badge/HTML5-E34F26?style=flat&logo=html5&logoColor=white)
-![CSS3](https://img.shields.io/badge/CSS3-1572B6?style=flat&logo=css3&logoColor=white)
-![JavaScript](https://img.shields.io/badge/JavaScript-F7DF1E?style=flat&logo=javascript&logoColor=black)
-![Zero Dependencies](https://img.shields.io/badge/dependências-zero-brightgreen?style=flat)
-![Mobile Ready](https://img.shields.io/badge/mobile-ready-blue?style=flat)
-![Offline](https://img.shields.io/badge/offline-capable-orange?style=flat)
+/* ---------- TOKENS / TEMAS ---------- */
+:root {
+  --bg:         #f8f5ef;
+  --bg2:        #efe9dc;
+  --bg3:        #e5dccb;
+  --surface:    #ffffff;
+  --surface2:   #faf8f4;
+  --text:       #1a1208;
+  --text2:      #4a3f2f;
+  --text3:      #8a7a62;
+  --accent:     #7c4f1e;
+  --accent2:    #a06830;
+  --accent3:    #c8954a;
+  --border:     #d4c9b0;
+  --border2:    #c4b698;
+  --verse-num:  #a06830;
+  --chap-color: #7c4f1e;
+  --shadow:     rgba(60,40,10,0.10);
+  --font-body:  'Crimson Pro', Georgia, serif;
+  --font-size:  18px;
+  --line-height:1.85;
+  --sidebar-w:  300px;
+}
 
----
+[data-theme="dark"] {
+  --bg:#0f0d09; --bg2:#1a1710; --bg3:#231f14;
+  --surface:#1e1a12; --surface2:#28231a;
+  --text:#f0e8d0; --text2:#c4b090; --text3:#7a6a52;
+  --accent:#e0a855; --accent2:#c88c3a; --accent3:#a07020;
+  --border:#3a3020; --border2:#4a3c28;
+  --verse-num:#e0a855; --chap-color:#e0a855;
+  --shadow:rgba(0,0,0,0.45);
+}
 
-## 📸 Visão Geral
+[data-theme="sepia"] {
+  --bg:#f4ede0; --bg2:#ede3d0; --bg3:#e5d8c0;
+  --surface:#f9f4ec; --surface2:#f4ede0;
+  --text:#3d2b10; --text2:#6b4f2a; --text3:#9b7a4a;
+  --accent:#8b5e1a; --accent2:#a06830; --accent3:#c8954a;
+  --border:#c8b898; --border2:#b8a888;
+  --verse-num:#8b5e1a; --chap-color:#8b5e1a;
+}
 
-Aplicativo de leitura bíblica desenvolvido com HTML, CSS e JavaScript puro — sem frameworks, sem dependências, zero configuração. Basta abrir o arquivo no navegador e começar a ler.
+[data-theme="night"] {
+  --bg:#080c14; --bg2:#0d1220; --bg3:#121828;
+  --surface:#0f1520; --surface2:#161e2c;
+  --text:#b8c8e0; --text2:#7890aa; --text3:#4a5e74;
+  --accent:#4a90d0; --accent2:#3878b8; --accent3:#2060a0;
+  --border:#1e2c40; --border2:#2a3c54;
+  --verse-num:#4a90d0; --chap-color:#4a90d0;
+  --shadow:rgba(0,0,0,0.6);
+}
 
----
+[data-theme="forest"] {
+  --bg:#0d1509; --bg2:#141e0d; --bg3:#1a2812;
+  --surface:#131d0f; --surface2:#192614;
+  --text:#d0e8c0; --text2:#90b878; --text3:#5a7a44;
+  --accent:#78c040; --accent2:#60a030; --accent3:#488020;
+  --border:#243818; --border2:#304820;
+  --verse-num:#78c040; --chap-color:#78c040;
+  --shadow:rgba(0,0,0,0.5);
+}
 
-## ✨ Funcionalidades
+[data-theme="rose"] {
+  --bg:#fdf4f5; --bg2:#f8e8ea; --bg3:#f0d8dc;
+  --surface:#ffffff; --surface2:#fdf4f5;
+  --text:#2d1418; --text2:#6b3040; --text3:#9b6070;
+  --accent:#c04060; --accent2:#a03050; --accent3:#e06080;
+  --border:#e8c8cc; --border2:#d8b0b8;
+  --verse-num:#c04060; --chap-color:#c04060;
+}
 
-### 📖 Bíblia
-- **66 livros** completos — 39 do Antigo Testamento e 27 do Novo Testamento
-- **26 versões** em 5 idiomas (Português, Inglês, Espanhol, Francês e Alemão)
-- Navegação por livro, capítulo e versículo
-- Separação visual por categorias bíblicas com cores distintas
+/* ---------- BASE ---------- */
+html { font-size: 16px; scroll-behavior: smooth; }
 
-### 🎨 Personalização
-- **6 temas visuais** — Claro, Sépia, Escuro, Noite, Floresta e Rosa
-- **6 fontes tipográficas** — Crimson Pro, EB Garamond, Lora, Merriweather, Spectral e Source Serif 4
-- Tamanho de fonte ajustável de 12px a 28px (slider + botões)
-- Espaçamento entre linhas ajustável (1.2 a 2.5)
-- Preferências salvas automaticamente no navegador (localStorage)
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--font-body);
+  font-size: var(--font-size);
+  line-height: var(--line-height);
+  min-height: 100vh;
+  transition: background .3s, color .3s;
+  overflow: hidden;
+}
 
-### 🔍 Navegação e Leitura
-- Busca de palavras e trechos dentro do capítulo (com destaque visual)
-- Destaque de versículos com duplo clique
-- Barra de progresso de leitura do capítulo
-- Capítulos já lidos marcados na grade de capítulos
-- Sistema de favoritos (salvar capítulos)
+button { font-family: inherit; cursor: pointer; }
+input, select { font-family: inherit; }
+a { color: var(--accent); }
 
-### ⌨️ Atalhos de Teclado
-| Atalho | Ação |
-|--------|------|
-| `Alt + →` | Próximo capítulo |
-| `Alt + ←` | Capítulo anterior |
-| `Ctrl + F` | Abrir busca |
-| `M` | Abrir/fechar menu lateral |
-| `Esc` | Fechar painel/busca abertos |
+/* ---------- LAYOUT ---------- */
+.app {
+  display: flex;
+  height: 100vh;
+  overflow: hidden;
+  position: relative;
+}
 
-### 📱 Mobile
-- Layout totalmente responsivo
-- Menu lateral deslizante (drawer)
-- Botão flutuante (FAB) para acesso rápido aos capítulos
-- Touch-friendly em todos os controles
-- Experiência otimizada para telas pequenas
+/* ---------- SIDEBAR ---------- */
+.sidebar {
+  width: var(--sidebar-w);
+  min-width: var(--sidebar-w);
+  background: var(--surface);
+  border-right: 1px solid var(--border);
+  display: flex;
+  flex-direction: column;
+  transition: transform .3s ease, width .3s ease, min-width .3s ease;
+  overflow: hidden;
+  z-index: 100;
+  flex-shrink: 0;
+}
 
----
+.sidebar.collapsed {
+  width: 0;
+  min-width: 0;
+}
 
-## 📚 Versões Disponíveis
+/* sidebar header */
+.sidebar-header {
+  padding: 16px;
+  border-bottom: 1px solid var(--border);
+  background: var(--surface2);
+  flex-shrink: 0;
+}
 
-### 🇧🇷 Português (Brasil)
-| Código | Nome |
-|--------|------|
-| NVI | Nova Versão Internacional |
-| ARA | Almeida Revista e Atualizada |
-| ACF | Almeida Corrigida Fiel |
-| AA | Almeida Antiga (1681) |
-| NTLH | Nova Tradução na Linguagem de Hoje |
-| NVT | Nova Versão Transformadora |
-| NAA | Nova Almeida Atualizada |
-| BVL | Bíblia Viva |
+.app-logo {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 14px;
+}
 
-### 🇺🇸 Inglês
-| Código | Nome |
-|--------|------|
-| KJV | King James Version |
-| ESV | English Standard Version |
-| NIV | New International Version |
-| NKJV | New King James Version |
-| MSG | The Message |
-| NLT | New Living Translation |
-| NASB | New American Standard Bible |
-| CSB | Christian Standard Bible |
-| CEV | Contemporary English Version |
-| GNT | Good News Translation |
-| AMP | Amplified Bible |
+.logo-icon {
+  width: 38px; height: 38px;
+  background: var(--accent);
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #fff;
+  font-size: 20px;
+  flex-shrink: 0;
+  box-shadow: 0 2px 8px var(--shadow);
+}
 
-### 🌍 Outros idiomas
-| Código | Nome | Idioma |
-|--------|------|--------|
-| RVR | Reina-Valera Revisada | Espanhol |
-| RV09 | Reina-Valera 1909 | Espanhol |
-| RV60 | Reina-Valera 1960 | Espanhol |
-| LSG | Louis Segond 1910 | Francês |
-| NEG | Nouvelle Édition de Genève | Francês |
-| LUT | Lutherbibel 2017 | Alemão |
-| ELB | Elberfelder Bibel | Alemão |
+.logo-title { font-size: 17px; font-weight: 600; color: var(--text); line-height: 1.2; }
+.logo-sub   { font-size: 10px; color: var(--text3); letter-spacing: 1.5px; text-transform: uppercase; }
 
----
+.version-select {
+  width: 100%;
+  padding: 9px 12px;
+  background: var(--bg2);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  color: var(--text);
+  font-size: 13px;
+  cursor: pointer;
+  appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%23888' stroke-width='1.5' fill='none'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 10px center;
+  padding-right: 30px;
+}
+.version-select:focus { outline: none; border-color: var(--accent); }
 
-## 🎨 Categorias e Cores dos Livros
+/* testament tabs */
+.testament-tabs {
+  display: flex;
+  border-bottom: 1px solid var(--border);
+  background: var(--surface2);
+  flex-shrink: 0;
+}
 
-| Categoria | Cor | Livros |
-|-----------|-----|--------|
-| Pentateuco | 🟠 Laranja | Gênesis, Êxodo, Levítico, Números, Deuteronômio |
-| Históricos | 🟫 Marrom Dourado | Josué → Ester |
-| Poéticos | 🟢 Verde | Jó, Salmos, Provérbios, Eclesiastes, Cânticos |
-| Profetas Maiores | 🔵 Azul | Isaías, Jeremias, Lamentações, Ezequiel, Daniel |
-| Profetas Menores | 🟣 Roxo | Oséias → Malaquias |
-| Evangelhos | 🔴 Vermelho | Mateus, Marcos, Lucas, João |
-| Atos | 🩵 Teal | Atos dos Apóstolos |
-| Epístolas de Paulo | 🟤 Terra | Romanos → Filemom |
-| Epístolas Gerais | 🫒 Oliva | Hebreus → Judas |
-| Profético NT | 🟪 Púrpura | Apocalipse |
+.tab-btn {
+  flex: 1;
+  padding: 10px 6px;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.8px;
+  text-transform: uppercase;
+  color: var(--text3);
+  border: none;
+  background: none;
+  border-bottom: 2px solid transparent;
+  transition: color .2s, border-color .2s;
+}
+.tab-btn:hover  { color: var(--text2); }
+.tab-btn.active { color: var(--accent); border-bottom-color: var(--accent); }
 
----
+/* books search */
+.books-search {
+  padding: 10px 12px;
+  border-bottom: 1px solid var(--border);
+  background: var(--surface2);
+  flex-shrink: 0;
+}
+.books-search input {
+  width: 100%;
+  padding: 7px 10px;
+  background: var(--bg2);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  color: var(--text);
+  font-size: 13px;
+}
+.books-search input:focus { outline: none; border-color: var(--accent); }
 
-## 🚀 Como Usar
+/* books list */
+.books-list {
+  flex: 1;
+  overflow-y: auto;
+  padding: 6px 8px 80px;
+}
+.books-list::-webkit-scrollbar { width: 4px; }
+.books-list::-webkit-scrollbar-thumb { background: var(--border2); border-radius: 2px; }
 
-### Uso imediato (sem instalação)
-```bash
-# Clone o repositório
-git clone https://github.com/seu-usuario/biblia-sagrada.git
+.category-header {
+  padding: 8px 8px 4px;
+  font-size: 9px;
+  font-weight: 800;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--text3);
+  margin-top: 8px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+.category-header::after {
+  content: '';
+  flex: 1;
+  height: 1px;
+  background: var(--border);
+}
 
-# Abra o arquivo no navegador
-cd biblia-sagrada
-open biblia-sagrada.html        # macOS
-start biblia-sagrada.html       # Windows
-xdg-open biblia-sagrada.html   # Linux
-```
+.book-item {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  padding: 7px 9px;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background .15s;
+  margin-bottom: 1px;
+}
+.book-item:hover  { background: var(--bg2); }
+.book-item.active { background: var(--bg3); }
+.book-item.active .book-name { color: var(--text); font-weight: 600; }
 
-### Ou simplesmente
-Faça o download do arquivo `biblia-sagrada.html` e abra no seu navegador preferido. Não requer servidor, não requer internet (após o carregamento inicial das fontes).
+.book-color {
+  width: 8px; height: 8px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
 
----
+.book-name  { font-size: 13.5px; color: var(--text2); flex: 1; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.book-abbr  { font-size: 11px; color: var(--text3); flex-shrink: 0; }
+.book-chaps { font-size: 10px; color: var(--text3); flex-shrink: 0; }
 
-## 🔌 Integração com API de Textos Bíblicos
+/* ---------- MAIN ---------- */
+.main {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  min-width: 0;
+}
 
-O app já está estruturado para integrar com a [API.Bible](https://scripture.api.bible), que oferece acesso gratuito a centenas de versões.
+/* topbar */
+.topbar {
+  background: var(--surface);
+  border-bottom: 1px solid var(--border);
+  padding: 8px 14px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+  flex-shrink: 0;
+  box-shadow: 0 1px 4px var(--shadow);
+}
 
-### Passos para ativar:
+.topbar-left {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex: 1;
+  min-width: 0;
+}
 
-1. Acesse [https://scripture.api.bible](https://scripture.api.bible) e crie uma conta gratuita
-2. Gere sua chave de API no painel
-3. No arquivo `biblia-sagrada.html`, localize a função `fetchVerses` e substitua:
+.icon-btn {
+  background: none;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 6px 9px;
+  color: var(--text2);
+  font-size: 15px;
+  transition: background .15s, color .15s, border-color .15s;
+  flex-shrink: 0;
+  line-height: 1;
+}
+.icon-btn:hover  { background: var(--bg2); border-color: var(--border2); }
+.icon-btn.active { background: var(--bg2); color: var(--accent); border-color: var(--accent); }
 
-```javascript
-// Antes (modo demo — conteúdo de exemplo)
+.nav-path {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 14px;
+  color: var(--text2);
+  overflow: hidden;
+  white-space: nowrap;
+}
+.nav-book    { font-weight: 700; color: var(--text); overflow: hidden; text-overflow: ellipsis; max-width: 160px; }
+.nav-sep     { color: var(--text3); }
+.nav-chapter { color: var(--accent); font-weight: 600; cursor: pointer; }
+.nav-version { font-size: 11px; color: var(--text3); background: var(--bg2); padding: 2px 7px; border-radius: 12px; border: 1px solid var(--border); flex-shrink: 0; }
+
+.chapter-nav {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  flex-shrink: 0;
+}
+.chap-btn {
+  background: none;
+  border: 1px solid var(--border);
+  border-radius: 7px;
+  padding: 5px 12px;
+  font-size: 12px;
+  color: var(--text2);
+  transition: background .15s, color .15s, border-color .15s;
+}
+.chap-btn:hover   { background: var(--accent); color: #fff; border-color: var(--accent); }
+.chap-btn.primary { background: var(--bg2); font-weight: 700; }
+
+.topbar-right {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  flex-shrink: 0;
+}
+
+/* search bar */
+.search-bar {
+  display: none;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 14px;
+  background: var(--surface2);
+  border-bottom: 1px solid var(--border);
+  flex-shrink: 0;
+}
+.search-bar.visible { display: flex; }
+.search-input {
+  flex: 1;
+  padding: 8px 12px;
+  background: var(--bg2);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  color: var(--text);
+  font-size: 14px;
+}
+.search-input:focus { outline: none; border-color: var(--accent); }
+.search-submit {
+  padding: 8px 16px;
+  background: var(--accent);
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  font-size: 13px;
+  font-weight: 600;
+  transition: background .15s;
+}
+.search-submit:hover { background: var(--accent2); }
+.search-clear {
+  padding: 8px 10px;
+  background: none;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  color: var(--text3);
+  font-size: 13px;
+}
+
+/* reading area */
+.reading-area {
+  flex: 1;
+  overflow-y: auto;
+  padding: 40px 24px 100px;
+  scroll-behavior: smooth;
+}
+.reading-area::-webkit-scrollbar { width: 6px; }
+.reading-area::-webkit-scrollbar-thumb { background: var(--border2); border-radius: 3px; }
+
+.reading-content { max-width: 680px; margin: 0 auto; }
+
+.chapter-header {
+  text-align: center;
+  margin-bottom: 36px;
+}
+.ch-category {
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: 2.5px;
+  text-transform: uppercase;
+  margin-bottom: 8px;
+}
+.ch-book {
+  font-size: 13px;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  color: var(--text3);
+  margin-bottom: 6px;
+}
+.ch-number {
+  font-size: 52px;
+  font-weight: 300;
+  color: var(--chap-color);
+  line-height: 1;
+  font-variant-numeric: oldstyle-nums;
+}
+.ch-title {
+  font-size: 14px;
+  color: var(--text3);
+  margin-top: 6px;
+  font-style: italic;
+}
+.ch-divider {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin: 24px auto 40px;
+  max-width: 200px;
+}
+.ch-divider::before,
+.ch-divider::after {
+  content: '';
+  flex: 1;
+  height: 1px;
+  background: var(--border2);
+}
+.ch-divider-icon { color: var(--border2); font-size: 14px; }
+
+/* verses */
+.verse {
+  display: flex;
+  gap: 14px;
+  margin-bottom: 4px;
+  padding: 5px 8px;
+  border-radius: 6px;
+  transition: background .15s;
+  cursor: default;
+  border-left: 3px solid transparent;
+  position: relative;
+}
+.verse:hover { background: var(--surface2); }
+.verse.highlighted {
+  background: rgba(160,104,48,0.12);
+  border-left-color: var(--accent3);
+}
+.verse.search-match {
+  background: rgba(200,149,74,0.18);
+  border-left-color: var(--accent2);
+}
+
+.vnum {
+  font-size: 11px;
+  color: var(--verse-num);
+  font-weight: 800;
+  min-width: 22px;
+  padding-top: 5px;
+  text-align: right;
+  flex-shrink: 0;
+  font-family: 'Crimson Pro', serif;
+  letter-spacing: 0.3px;
+}
+
+.vtext {
+  color: var(--text);
+  font-size: var(--font-size);
+  line-height: var(--line-height);
+  flex: 1;
+}
+
+/* loading / error */
+.state-center {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 300px;
+  gap: 16px;
+  color: var(--text3);
+}
+.spinner {
+  width: 34px; height: 34px;
+  border: 3px solid var(--border);
+  border-top-color: var(--accent);
+  border-radius: 50%;
+  animation: spin 0.9s linear infinite;
+}
+@keyframes spin { to { transform: rotate(360deg); } }
+.retry-btn {
+  padding: 9px 22px;
+  background: var(--accent);
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  font-size: 14px;
+}
+
+/* chapter count badge */
+.progress-bar-wrap {
+  position: fixed;
+  bottom: 0; left: 0; right: 0;
+  height: 3px;
+  background: var(--border);
+  z-index: 50;
+}
+.progress-bar {
+  height: 100%;
+  background: var(--accent);
+  transition: width .2s;
+}
+
+/* ---------- CHAPTERS PANEL ---------- */
+.chapters-panel {
+  position: fixed;
+  bottom: 0; left: 0; right: 0;
+  background: var(--surface);
+  border-top: 2px solid var(--accent);
+  padding: 14px 16px 20px;
+  z-index: 200;
+  max-height: 52vh;
+  overflow-y: auto;
+  transform: translateY(100%);
+  transition: transform .3s ease;
+  box-shadow: 0 -4px 20px var(--shadow);
+}
+.chapters-panel.open { transform: translateY(0); }
+.cp-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 14px;
+  max-width: 700px;
+  margin-left: auto;
+  margin-right: auto;
+}
+.cp-title { font-size: 12px; font-weight: 800; letter-spacing: 2px; text-transform: uppercase; color: var(--text3); }
+.cp-close { background: none; border: none; color: var(--text3); font-size: 18px; padding: 2px 6px; }
+.chapters-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(42px, 1fr));
+  gap: 6px;
+  max-width: 700px;
+  margin: 0 auto;
+}
+.ch-cell {
+  padding: 9px 4px;
+  text-align: center;
+  border: 1px solid var(--border);
+  border-radius: 7px;
+  cursor: pointer;
+  font-size: 13px;
+  color: var(--text2);
+  transition: background .12s, color .12s, border-color .12s;
+}
+.ch-cell:hover { background: var(--accent); color: #fff; border-color: var(--accent); }
+.ch-cell.active { background: var(--accent); color: #fff; border-color: var(--accent); font-weight: 700; }
+.ch-cell.read { background: var(--bg2); }
+
+/* ---------- SIDE PANEL ---------- */
+.panel-overlay {
+  position: fixed; inset: 0;
+  background: rgba(0,0,0,0.45);
+  z-index: 299;
+  display: none;
+}
+.panel-overlay.open { display: block; }
+
+.side-panel {
+  position: fixed;
+  top: 0; right: 0;
+  width: 340px;
+  height: 100%;
+  background: var(--surface);
+  border-left: 1px solid var(--border);
+  z-index: 300;
+  transform: translateX(100%);
+  transition: transform .3s ease;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+.side-panel.open { transform: translateX(0); }
+
+.panel-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 16px 18px;
+  border-bottom: 1px solid var(--border);
+  background: var(--surface2);
+  flex-shrink: 0;
+}
+.panel-title { font-size: 15px; font-weight: 700; color: var(--text); }
+.panel-close { background: none; border: none; color: var(--text3); font-size: 20px; padding: 2px; }
+
+.panel-body {
+  flex: 1;
+  overflow-y: auto;
+  padding: 18px;
+}
+.panel-body::-webkit-scrollbar { width: 4px; }
+.panel-body::-webkit-scrollbar-thumb { background: var(--border2); border-radius: 2px; }
+
+/* settings */
+.setting-section { margin-bottom: 26px; }
+.setting-label {
+  font-size: 9px;
+  font-weight: 800;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--text3);
+  margin-bottom: 12px;
+}
+
+.theme-grid {
+  display: grid;
+  grid-template-columns: repeat(3,1fr);
+  gap: 8px;
+}
+.theme-card {
+  border: 2px solid var(--border);
+  border-radius: 10px;
+  padding: 10px 6px 8px;
+  cursor: pointer;
+  text-align: center;
+  background: none;
+  transition: border-color .15s;
+}
+.theme-card:hover { border-color: var(--border2); }
+.theme-card.active { border-color: var(--accent); }
+.theme-swatch { width: 100%; height: 26px; border-radius: 5px; margin-bottom: 5px; }
+.theme-name { font-size: 11px; color: var(--text2); }
+.theme-card.active .theme-name { color: var(--accent); font-weight: 700; }
+
+.font-list { display: flex; flex-direction: column; gap: 6px; }
+.font-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 12px;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  cursor: pointer;
+  background: none;
+  transition: border-color .15s, background .15s;
+}
+.font-item:hover  { background: var(--bg2); }
+.font-item.active { border-color: var(--accent); background: var(--surface2); }
+.font-preview { font-size: 15px; color: var(--text2); }
+.font-item.active .font-preview { color: var(--text); }
+.font-check { color: var(--accent); font-size: 16px; opacity: 0; }
+.font-item.active .font-check { opacity: 1; }
+
+.slider-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.size-label {
+  font-size: 12px;
+  color: var(--text3);
+  min-width: 32px;
+  text-align: center;
+}
+.stepper-btn {
+  width: 34px; height: 34px;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  background: none;
+  color: var(--text);
+  font-size: 18px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  transition: background .15s;
+}
+.stepper-btn:hover { background: var(--bg2); }
+.stepper-val { font-size: 14px; color: var(--text); min-width: 44px; text-align: center; font-weight: 600; }
+
+input[type="range"] {
+  flex: 1;
+  accent-color: var(--accent);
+  height: 4px;
+}
+
+/* versions */
+.version-grid { display: flex; flex-direction: column; gap: 5px; }
+.version-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 9px 12px;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  cursor: pointer;
+  transition: border-color .15s, background .15s;
+  background: none;
+  text-align: left;
+  width: 100%;
+}
+.version-row:hover  { background: var(--bg2); }
+.version-row.active { border-color: var(--accent); background: var(--surface2); }
+.ver-code { font-size: 14px; font-weight: 800; color: var(--accent); min-width: 40px; }
+.ver-name { font-size: 12px; color: var(--text3); flex: 1; }
+.ver-lang { font-size: 10px; color: var(--text3); background: var(--bg2); padding: 2px 6px; border-radius: 10px; border: 1px solid var(--border); }
+.version-row.active .ver-name { color: var(--text2); }
+
+/* bookmarks */
+.bookmark-empty { text-align: center; padding: 40px 10px; color: var(--text3); font-size: 14px; }
+.bm-list { display: flex; flex-direction: column; gap: 8px; }
+.bm-item {
+  padding: 12px 14px;
+  background: var(--surface2);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  cursor: pointer;
+  transition: background .15s;
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+}
+.bm-item:hover { background: var(--bg2); }
+.bm-icon { font-size: 18px; flex-shrink: 0; margin-top: 1px; }
+.bm-ref { font-size: 13px; font-weight: 700; color: var(--accent); margin-bottom: 3px; }
+.bm-preview { font-size: 12px; color: var(--text3); overflow: hidden; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; }
+.bm-del {
+  margin-left: auto;
+  background: none;
+  border: none;
+  color: var(--text3);
+  font-size: 14px;
+  padding: 2px 4px;
+  flex-shrink: 0;
+  opacity: 0;
+  transition: opacity .15s;
+}
+.bm-item:hover .bm-del { opacity: 1; }
+
+/* highlight colors */
+.highlight-palette {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+.hl-color {
+  width: 28px; height: 28px;
+  border-radius: 50%;
+  cursor: pointer;
+  border: 2px solid transparent;
+  transition: transform .15s, border-color .15s;
+}
+.hl-color:hover  { transform: scale(1.15); }
+.hl-color.active { border-color: var(--text); }
+
+/* toast */
+#toast {
+  position: fixed;
+  bottom: 24px;
+  left: 50%;
+  transform: translateX(-50%) translateY(10px);
+  background: var(--text);
+  color: var(--bg);
+  padding: 9px 18px;
+  border-radius: 20px;
+  font-size: 13px;
+  font-weight: 600;
+  z-index: 1000;
+  opacity: 0;
+  transition: opacity .25s, transform .25s;
+  pointer-events: none;
+  white-space: nowrap;
+}
+#toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
+
+/* ---------- MOBILE ---------- */
+.mobile-overlay {
+  position: fixed; inset: 0;
+  background: rgba(0,0,0,0.5);
+  z-index: 99;
+  display: none;
+}
+.mobile-overlay.open { display: block; }
+
+.fab {
+  display: none;
+  position: fixed;
+  bottom: 22px;
+  right: 18px;
+  width: 50px; height: 50px;
+  background: var(--accent);
+  color: #fff;
+  border: none;
+  border-radius: 50%;
+  font-size: 20px;
+  box-shadow: 0 4px 14px var(--shadow);
+  z-index: 60;
+  align-items: center;
+  justify-content: center;
+}
+
+@media (max-width: 768px) {
+  :root { --sidebar-w: 85vw; }
+
+  .sidebar {
+    position: fixed;
+    top: 0; left: 0;
+    height: 100%;
+    z-index: 100;
+    transform: translateX(-100%);
+    transition: transform .3s ease;
+    min-width: unset;
+    width: var(--sidebar-w);
+    max-width: 320px;
+  }
+  .sidebar.mobile-open { transform: translateX(0); }
+  .sidebar.collapsed { transform: translateX(-100%); width: var(--sidebar-w); }
+
+  .reading-area { padding: 24px 16px 100px; }
+  .ch-number { font-size: 40px; }
+  .vtext { font-size: calc(var(--font-size) * 0.95); }
+
+  .chapter-nav { display: none; }
+  .nav-version  { display: none; }
+
+  .side-panel { width: 100%; max-width: 100%; }
+
+  .fab { display: flex; }
+  .chapters-panel { max-height: 55vh; }
+}
+
+@media (max-width: 420px) {
+  .theme-grid { grid-template-columns: repeat(2,1fr); }
+  .topbar { gap: 5px; }
+}
+
+/* ---------- MISC ---------- */
+.badge {
+  display: inline-block;
+  font-size: 9px;
+  font-weight: 800;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  padding: 2px 7px;
+  border-radius: 10px;
+  background: var(--bg2);
+  color: var(--text3);
+}
+
+.divider {
+  height: 1px;
+  background: var(--border);
+  margin: 14px 0;
+}
+
+/* ---------- PRINT ---------- */
+@media print {
+  .sidebar, .topbar, .chapters-panel, .side-panel, .progress-bar-wrap, .fab { display: none !important; }
+  .reading-area { padding: 20px; }
+  body { background: #fff; color: #000; }
+}
+</style>
+</head>
+<body>
+
+<!-- ==================== APP ==================== -->
+<div class="app" id="app">
+
+  <!-- SIDEBAR -->
+  <div class="sidebar" id="sidebar">
+    <div class="sidebar-header">
+      <div class="app-logo">
+        <div class="logo-icon">✦</div>
+        <div>
+          <div class="logo-title">Bíblia Sagrada</div>
+          <div class="logo-sub">Palavra de Deus</div>
+        </div>
+      </div>
+      <select class="version-select" id="versionSelectSidebar" onchange="changeVersion(this.value)"></select>
+    </div>
+
+    <div class="testament-tabs">
+      <button class="tab-btn active" id="tabAT" onclick="setTestament('at',this)">Antigo</button>
+      <button class="tab-btn"        id="tabNT" onclick="setTestament('nt',this)">Novo</button>
+    </div>
+
+    <div class="books-search">
+      <input id="bookSearch" type="text" placeholder="Buscar livro..." oninput="filterBooks(this.value)">
+    </div>
+
+    <div class="books-list" id="booksList"></div>
+  </div>
+
+  <!-- Mobile sidebar overlay -->
+  <div class="mobile-overlay" id="mobileOverlay" onclick="closeSidebar()"></div>
+
+  <!-- MAIN -->
+  <div class="main">
+
+    <!-- Topbar -->
+    <div class="topbar">
+      <div class="topbar-left">
+        <button class="icon-btn" onclick="toggleSidebar()" title="Menu (M)">☰</button>
+        <div class="nav-path">
+          <span class="nav-book" id="navBook">Gênesis</span>
+          <span class="nav-sep">·</span>
+          <span style="color:var(--text3);font-size:13px">Cap.</span>
+          <span class="nav-chapter" id="navChapter" onclick="toggleChapters()" title="Ver capítulos">1</span>
+          <span class="nav-version" id="navVersion">NVI</span>
+        </div>
+      </div>
+
+      <div class="chapter-nav">
+        <button class="chap-btn" onclick="prevChapter()" title="Alt+←">‹ Anterior</button>
+        <button class="chap-btn primary" onclick="toggleChapters()">Caps ⌄</button>
+        <button class="chap-btn" onclick="nextChapter()" title="Alt+→">Próximo ›</button>
+      </div>
+
+      <div class="topbar-right">
+        <button class="icon-btn" id="btnSearch"    onclick="toggleSearch()"          title="Buscar (Ctrl+F)">🔍</button>
+        <button class="icon-btn" id="btnBookmark"  onclick="addBookmark()"           title="Favoritar">🔖</button>
+        <button class="icon-btn" id="btnSettings"  onclick="openPanel('settings')"   title="Configurações">⚙</button>
+        <button class="icon-btn" id="btnBookmarks" onclick="openPanel('bookmarks')"  title="Favoritos">📚</button>
+      </div>
+    </div>
+
+    <!-- Search bar -->
+    <div class="search-bar" id="searchBar">
+      <input class="search-input" id="searchInput" placeholder="Buscar palavra ou trecho..." onkeydown="if(event.key==='Enter')doSearch()">
+      <button class="search-submit" onclick="doSearch()">Buscar</button>
+      <button class="search-clear"  onclick="clearSearch()">✕</button>
+    </div>
+
+    <!-- Reading area -->
+    <div class="reading-area" id="readingArea" onscroll="updateProgress()">
+      <div class="reading-content" id="readingContent">
+        <div class="state-center">
+          <div class="spinner"></div>
+          <div>Carregando...</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Progress bar -->
+<div class="progress-bar-wrap">
+  <div class="progress-bar" id="progressBar" style="width:0%"></div>
+</div>
+
+<!-- FAB mobile -->
+<button class="fab" onclick="toggleChapters()" title="Capítulos">≡</button>
+
+<!-- Chapters panel -->
+<div class="chapters-panel" id="chaptersPanel">
+  <div class="cp-header">
+    <span class="cp-title" id="cpTitle">Capítulos</span>
+    <button class="cp-close" onclick="toggleChapters()">✕</button>
+  </div>
+  <div class="chapters-grid" id="chaptersGrid"></div>
+</div>
+
+<!-- Panel overlay -->
+<div class="panel-overlay" id="panelOverlay" onclick="closePanel()"></div>
+
+<!-- ==================== SETTINGS PANEL ==================== -->
+<div class="side-panel" id="settingsPanel">
+  <div class="panel-head">
+    <span class="panel-title">Configurações</span>
+    <button class="panel-close" onclick="closePanel()">✕</button>
+  </div>
+  <div class="panel-body">
+
+    <div class="setting-section">
+      <div class="setting-label">Tema</div>
+      <div class="theme-grid">
+        <button class="theme-card active" data-t="default" onclick="setTheme('default',this)">
+          <div class="theme-swatch" style="background:#f8f5ef;border:1px solid #d4c9b0"></div>
+          <div class="theme-name">Claro</div>
+        </button>
+        <button class="theme-card" data-t="sepia" onclick="setTheme('sepia',this)">
+          <div class="theme-swatch" style="background:#f4ede0"></div>
+          <div class="theme-name">Sépia</div>
+        </button>
+        <button class="theme-card" data-t="dark" onclick="setTheme('dark',this)">
+          <div class="theme-swatch" style="background:#1a1710"></div>
+          <div class="theme-name">Escuro</div>
+        </button>
+        <button class="theme-card" data-t="night" onclick="setTheme('night',this)">
+          <div class="theme-swatch" style="background:#080c14"></div>
+          <div class="theme-name">Noite</div>
+        </button>
+        <button class="theme-card" data-t="forest" onclick="setTheme('forest',this)">
+          <div class="theme-swatch" style="background:#0d1509"></div>
+          <div class="theme-name">Floresta</div>
+        </button>
+        <button class="theme-card" data-t="rose" onclick="setTheme('rose',this)">
+          <div class="theme-swatch" style="background:#fdf4f5;border:1px solid #e8c8cc"></div>
+          <div class="theme-name">Rosa</div>
+        </button>
+      </div>
+    </div>
+
+    <div class="divider"></div>
+
+    <div class="setting-section">
+      <div class="setting-label">Tamanho da fonte</div>
+      <div class="slider-row">
+        <button class="stepper-btn" onclick="changeFontSize(-1)" style="font-size:14px">A</button>
+        <span class="stepper-val" id="fontSizeVal">18px</span>
+        <button class="stepper-btn" onclick="changeFontSize(1)" style="font-size:22px">A</button>
+      </div>
+      <div style="margin-top:10px">
+        <input type="range" min="12" max="28" value="18" id="fontSizeRange" oninput="setFontSizeDirect(this.value)" style="width:100%">
+      </div>
+    </div>
+
+    <div class="divider"></div>
+
+    <div class="setting-section">
+      <div class="setting-label">Espaçamento entre linhas</div>
+      <div class="slider-row">
+        <button class="stepper-btn" onclick="changeLineHeight(-0.1)" style="font-size:12px;letter-spacing:-1px">≡</button>
+        <span class="stepper-val" id="lineHeightVal">1.85</span>
+        <button class="stepper-btn" onclick="changeLineHeight(0.1)" style="font-size:12px">≡</button>
+      </div>
+      <div style="margin-top:10px">
+        <input type="range" min="1.2" max="2.5" step="0.05" value="1.85" id="lineHeightRange" oninput="setLineHeightDirect(this.value)" style="width:100%">
+      </div>
+    </div>
+
+    <div class="divider"></div>
+
+    <div class="setting-section">
+      <div class="setting-label">Fonte de leitura</div>
+      <div class="font-list" id="fontList">
+        <button class="font-item active" data-font="'Crimson Pro',Georgia,serif" onclick="setFont(this)">
+          <span class="font-preview" style="font-family:'Crimson Pro',serif">Crimson Pro</span>
+          <span class="font-check">✓</span>
+        </button>
+        <button class="font-item" data-font="'EB Garamond',Georgia,serif" onclick="setFont(this)">
+          <span class="font-preview" style="font-family:'EB Garamond',serif">EB Garamond</span>
+          <span class="font-check">✓</span>
+        </button>
+        <button class="font-item" data-font="'Lora',Georgia,serif" onclick="setFont(this)">
+          <span class="font-preview" style="font-family:'Lora',serif">Lora</span>
+          <span class="font-check">✓</span>
+        </button>
+        <button class="font-item" data-font="'Merriweather',Georgia,serif" onclick="setFont(this)">
+          <span class="font-preview" style="font-family:'Merriweather',serif">Merriweather</span>
+          <span class="font-check">✓</span>
+        </button>
+        <button class="font-item" data-font="'Spectral',Georgia,serif" onclick="setFont(this)">
+          <span class="font-preview" style="font-family:'Spectral',serif">Spectral</span>
+          <span class="font-check">✓</span>
+        </button>
+        <button class="font-item" data-font="'Source Serif 4',Georgia,serif" onclick="setFont(this)">
+          <span class="font-preview" style="font-family:'Source Serif 4',serif">Source Serif 4</span>
+          <span class="font-check">✓</span>
+        </button>
+        <button class="font-item" data-font="Georgia,serif" onclick="setFont(this)">
+          <span class="font-preview" style="font-family:Georgia,serif">Georgia</span>
+          <span class="font-check">✓</span>
+        </button>
+      </div>
+    </div>
+
+    <div class="divider"></div>
+
+    <div class="setting-section">
+      <div class="setting-label">Versão da Bíblia</div>
+      <div class="version-grid" id="versionListPanel"></div>
+    </div>
+
+  </div>
+</div>
+
+<!-- ==================== BOOKMARKS PANEL ==================== -->
+<div class="side-panel" id="bookmarksPanel">
+  <div class="panel-head">
+    <span class="panel-title">Favoritos</span>
+    <button class="panel-close" onclick="closePanel()">✕</button>
+  </div>
+  <div class="panel-body" id="bookmarksBody"></div>
+</div>
+
+<!-- Toast -->
+<div id="toast"></div>
+
+<!-- ==================== JAVASCRIPT ==================== -->
+<script>
+'use strict';
+
+/* ---- DATA ---- */
+const VERSIONS = [
+  {code:'NVI', name:'Nova Versão Internacional',              lang:'PT-BR'},
+  {code:'ARA', name:'Almeida Revista e Atualizada',           lang:'PT-BR'},
+  {code:'ACF', name:'Almeida Corrigida Fiel',                 lang:'PT-BR'},
+  {code:'AA',  name:'Almeida Antiga (1681)',                  lang:'PT-BR'},
+  {code:'NTLH',name:'Nova Tradução na Linguagem de Hoje',     lang:'PT-BR'},
+  {code:'NVT', name:'Nova Versão Transformadora',             lang:'PT-BR'},
+  {code:'NAA', name:'Nova Almeida Atualizada',                lang:'PT-BR'},
+  {code:'BVL', name:'Bíblia Viva',                            lang:'PT-BR'},
+  {code:'KJV', name:'King James Version',                     lang:'EN'},
+  {code:'ESV', name:'English Standard Version',               lang:'EN'},
+  {code:'NIV', name:'New International Version',              lang:'EN'},
+  {code:'NKJV',name:'New King James Version',                 lang:'EN'},
+  {code:'MSG', name:'The Message',                            lang:'EN'},
+  {code:'NLT', name:'New Living Translation',                 lang:'EN'},
+  {code:'NASB',name:'New American Standard Bible',            lang:'EN'},
+  {code:'CSB', name:'Christian Standard Bible',               lang:'EN'},
+  {code:'RVR', name:'Reina-Valera Revisada',                  lang:'ES'},
+  {code:'RV09',name:'Reina-Valera 1909',                      lang:'ES'},
+  {code:'RV60',name:'Reina-Valera 1960',                      lang:'ES'},
+  {code:'LSG', name:'Louis Segond 1910',                      lang:'FR'},
+  {code:'NEG', name:'Nouvelle Édition de Genève',             lang:'FR'},
+  {code:'LUT', name:'Lutherbibel 2017',                       lang:'DE'},
+  {code:'ELB', name:'Elberfelder Bibel',                      lang:'DE'},
+  {code:'CEV', name:'Contemporary English Version',           lang:'EN'},
+  {code:'GNT', name:'Good News Translation',                  lang:'EN'},
+  {code:'AMP', name:'Amplified Bible',                        lang:'EN'},
+];
+
+const CATS = {
+  pentateuco:       {label:'Pentateuco',       color:'#b45a14', bg:'rgba(180,90,20,0.12)'},
+  historicos:       {label:'Históricos',       color:'#7c6a3a', bg:'rgba(124,106,58,0.12)'},
+  poeticos:         {label:'Poéticos',         color:'#4a7a3a', bg:'rgba(74,122,58,0.12)'},
+  profetas_maiores: {label:'Profetas Maiores', color:'#2a5a8a', bg:'rgba(42,90,138,0.12)'},
+  profetas_menores: {label:'Profetas Menores', color:'#5a3a8a', bg:'rgba(90,58,138,0.12)'},
+  evangelhos:       {label:'Evangelhos',       color:'#8a2a2a', bg:'rgba(138,42,42,0.12)'},
+  historico_nt:     {label:'Atos',             color:'#2a7a6a', bg:'rgba(42,122,106,0.12)'},
+  epistolas_paulo:  {label:'Epístolas de Paulo',color:'#7a4a2a',bg:'rgba(122,74,42,0.12)'},
+  epistolas_gerais: {label:'Epístolas Gerais', color:'#4a5a2a', bg:'rgba(74,90,42,0.12)'},
+  profetico_nt:     {label:'Profético',         color:'#6a2a6a', bg:'rgba(106,42,106,0.12)'},
+};
+
+const BOOKS_AT = [
+  {id:'gn', name:'Gênesis',          abbr:'Gn',  chapters:50,  cat:'pentateuco'},
+  {id:'ex', name:'Êxodo',            abbr:'Ex',  chapters:40,  cat:'pentateuco'},
+  {id:'lv', name:'Levítico',         abbr:'Lv',  chapters:27,  cat:'pentateuco'},
+  {id:'nm', name:'Números',          abbr:'Nm',  chapters:36,  cat:'pentateuco'},
+  {id:'dt', name:'Deuteronômio',     abbr:'Dt',  chapters:34,  cat:'pentateuco'},
+  {id:'js', name:'Josué',            abbr:'Js',  chapters:24,  cat:'historicos'},
+  {id:'jz', name:'Juízes',           abbr:'Jz',  chapters:21,  cat:'historicos'},
+  {id:'rt', name:'Rute',             abbr:'Rt',  chapters:4,   cat:'historicos'},
+  {id:'1sm',name:'1 Samuel',         abbr:'1Sm', chapters:31,  cat:'historicos'},
+  {id:'2sm',name:'2 Samuel',         abbr:'2Sm', chapters:24,  cat:'historicos'},
+  {id:'1rs',name:'1 Reis',           abbr:'1Rs', chapters:22,  cat:'historicos'},
+  {id:'2rs',name:'2 Reis',           abbr:'2Rs', chapters:25,  cat:'historicos'},
+  {id:'1cr',name:'1 Crônicas',       abbr:'1Cr', chapters:29,  cat:'historicos'},
+  {id:'2cr',name:'2 Crônicas',       abbr:'2Cr', chapters:36,  cat:'historicos'},
+  {id:'ed', name:'Esdras',           abbr:'Ed',  chapters:10,  cat:'historicos'},
+  {id:'ne', name:'Neemias',          abbr:'Ne',  chapters:13,  cat:'historicos'},
+  {id:'et', name:'Ester',            abbr:'Et',  chapters:10,  cat:'historicos'},
+  {id:'jo', name:'Jó',               abbr:'Jó',  chapters:42,  cat:'poeticos'},
+  {id:'sl', name:'Salmos',           abbr:'Sl',  chapters:150, cat:'poeticos'},
+  {id:'pv', name:'Provérbios',       abbr:'Pv',  chapters:31,  cat:'poeticos'},
+  {id:'ec', name:'Eclesiastes',      abbr:'Ec',  chapters:12,  cat:'poeticos'},
+  {id:'ct', name:'Cânticos',         abbr:'Ct',  chapters:8,   cat:'poeticos'},
+  {id:'is', name:'Isaías',           abbr:'Is',  chapters:66,  cat:'profetas_maiores'},
+  {id:'jr', name:'Jeremias',         abbr:'Jr',  chapters:52,  cat:'profetas_maiores'},
+  {id:'lm', name:'Lamentações',      abbr:'Lm',  chapters:5,   cat:'profetas_maiores'},
+  {id:'ez', name:'Ezequiel',         abbr:'Ez',  chapters:48,  cat:'profetas_maiores'},
+  {id:'dn', name:'Daniel',           abbr:'Dn',  chapters:12,  cat:'profetas_maiores'},
+  {id:'os', name:'Oséias',           abbr:'Os',  chapters:14,  cat:'profetas_menores'},
+  {id:'jl', name:'Joel',             abbr:'Jl',  chapters:3,   cat:'profetas_menores'},
+  {id:'am', name:'Amós',             abbr:'Am',  chapters:9,   cat:'profetas_menores'},
+  {id:'ob', name:'Obadias',          abbr:'Ob',  chapters:1,   cat:'profetas_menores'},
+  {id:'jn', name:'Jonas',            abbr:'Jn',  chapters:4,   cat:'profetas_menores'},
+  {id:'mq', name:'Miquéias',         abbr:'Mq',  chapters:7,   cat:'profetas_menores'},
+  {id:'na', name:'Naum',             abbr:'Na',  chapters:3,   cat:'profetas_menores'},
+  {id:'hc', name:'Habacuque',        abbr:'Hc',  chapters:3,   cat:'profetas_menores'},
+  {id:'sf', name:'Sofonias',         abbr:'Sf',  chapters:3,   cat:'profetas_menores'},
+  {id:'ag', name:'Ageu',             abbr:'Ag',  chapters:2,   cat:'profetas_menores'},
+  {id:'zc', name:'Zacarias',         abbr:'Zc',  chapters:14,  cat:'profetas_menores'},
+  {id:'ml', name:'Malaquias',        abbr:'Ml',  chapters:4,   cat:'profetas_menores'},
+];
+
+const BOOKS_NT = [
+  {id:'mt',  name:'Mateus',           abbr:'Mt',  chapters:28, cat:'evangelhos'},
+  {id:'mc',  name:'Marcos',           abbr:'Mc',  chapters:16, cat:'evangelhos'},
+  {id:'lc',  name:'Lucas',            abbr:'Lc',  chapters:24, cat:'evangelhos'},
+  {id:'jn2', name:'João',             abbr:'Jo',  chapters:21, cat:'evangelhos'},
+  {id:'at',  name:'Atos dos Apóstolos',abbr:'At', chapters:28, cat:'historico_nt'},
+  {id:'rm',  name:'Romanos',          abbr:'Rm',  chapters:16, cat:'epistolas_paulo'},
+  {id:'1co', name:'1 Coríntios',      abbr:'1Co', chapters:16, cat:'epistolas_paulo'},
+  {id:'2co', name:'2 Coríntios',      abbr:'2Co', chapters:13, cat:'epistolas_paulo'},
+  {id:'gl',  name:'Gálatas',          abbr:'Gl',  chapters:6,  cat:'epistolas_paulo'},
+  {id:'ef',  name:'Efésios',          abbr:'Ef',  chapters:6,  cat:'epistolas_paulo'},
+  {id:'fp',  name:'Filipenses',       abbr:'Fp',  chapters:4,  cat:'epistolas_paulo'},
+  {id:'cl',  name:'Colossenses',      abbr:'Cl',  chapters:4,  cat:'epistolas_paulo'},
+  {id:'1ts', name:'1 Tessalonicenses',abbr:'1Ts', chapters:5,  cat:'epistolas_paulo'},
+  {id:'2ts', name:'2 Tessalonicenses',abbr:'2Ts', chapters:3,  cat:'epistolas_paulo'},
+  {id:'1tm', name:'1 Timóteo',        abbr:'1Tm', chapters:6,  cat:'epistolas_paulo'},
+  {id:'2tm', name:'2 Timóteo',        abbr:'2Tm', chapters:4,  cat:'epistolas_paulo'},
+  {id:'tt',  name:'Tito',             abbr:'Tt',  chapters:3,  cat:'epistolas_paulo'},
+  {id:'fm',  name:'Filemom',          abbr:'Fm',  chapters:1,  cat:'epistolas_paulo'},
+  {id:'hb',  name:'Hebreus',          abbr:'Hb',  chapters:13, cat:'epistolas_gerais'},
+  {id:'tg',  name:'Tiago',            abbr:'Tg',  chapters:5,  cat:'epistolas_gerais'},
+  {id:'1pe', name:'1 Pedro',          abbr:'1Pe', chapters:5,  cat:'epistolas_gerais'},
+  {id:'2pe', name:'2 Pedro',          abbr:'2Pe', chapters:3,  cat:'epistolas_gerais'},
+  {id:'1jo', name:'1 João',           abbr:'1Jo', chapters:5,  cat:'epistolas_gerais'},
+  {id:'2jo', name:'2 João',           abbr:'2Jo', chapters:1,  cat:'epistolas_gerais'},
+  {id:'3jo', name:'3 João',           abbr:'3Jo', chapters:1,  cat:'epistolas_gerais'},
+  {id:'jd',  name:'Judas',            abbr:'Jd',  chapters:1,  cat:'epistolas_gerais'},
+  {id:'ap',  name:'Apocalipse',       abbr:'Ap',  chapters:22, cat:'profetico_nt'},
+];
+
+/* Bible content samples */
+const SAMPLES = {
+'gn-1': ['No princípio, criou Deus os céus e a terra.','A terra era sem forma e vazia; e havia trevas sobre a face do abismo; e o Espírito de Deus pairava sobre as águas.','Disse Deus: Haja luz; e houve luz.','Deus viu que a luz era boa e a separou das trevas.','Deus chamou à luz Dia e às trevas chamou Noite. Houve tarde e manhã, o primeiro dia.','Disse Deus: Haja uma expansão no meio das águas e separe águas de águas.','Fez Deus a expansão e separou as águas que estavam debaixo da expansão das que estavam acima dela. E assim foi.','Deus chamou à expansão Céu. Houve tarde e manhã, o segundo dia.','Disse Deus: Ajuntem-se as águas debaixo do céu num só lugar e apareça a parte seca; e assim foi.','Deus chamou à parte seca Terra e ao ajuntamento das águas chamou Mares; e viu Deus que isso era bom.','Disse Deus: Produza a terra vegetação: plantas que deem semente, árvores frutíferas que deem fruto segundo a sua espécie, com a semente dentro; e assim foi.','A terra produziu vegetação, plantas que dão sementes segundo sua espécie e árvores que dão fruto com a semente dentro, segundo sua espécie; e Deus viu que isso era bom.','Houve tarde e manhã, o terceiro dia.','Disse Deus: Haja luminares na expansão dos céus para separar o dia da noite; e sejam eles por sinais e para estações determinadas, e para dias e anos.','E sejam eles por luminares na expansão dos céus, para iluminar a terra; e assim foi.','Fez Deus os dois grandes luminares: o maior para governar o dia e o menor para governar a noite; fez também as estrelas.','Deus os colocou na expansão dos céus para iluminar a terra,','para governar o dia e a noite e para separar a luz das trevas; e Deus viu que isso era bom.','Houve tarde e manhã, o quarto dia.','Disse Deus: Movam-se nas águas enxames de seres viventes, e voem pássaros sobre a terra, contra a expansão dos céus.','Criou Deus os grandes monstros marinhos e os seres viventes que se movem e pululam nas águas, conforme sua espécie, e toda ave conforme sua espécie; e Deus viu que isso era bom.','Deus os abençoou com estas palavras: Sede fecundos, multiplicai-vos, enchei as águas dos mares; e que as aves se multipliquem na terra.','Houve tarde e manhã, o quinto dia.','Disse Deus: Produza a terra seres viventes conforme sua espécie: animais domésticos, répteis e animais selvagens, cada um conforme sua espécie; e assim foi.','Fez Deus os animais selvagens conforme sua espécie, os animais domésticos conforme sua espécie e todos os répteis do solo conforme sua espécie; e Deus viu que isso era bom.','Disse Deus: Façamos o homem à nossa imagem, conforme a nossa semelhança; domine ele sobre os peixes do mar, sobre as aves do céu, sobre os animais domésticos, e sobre toda a terra, e sobre todos os répteis que rastejam pela terra.','Criou Deus o homem à sua imagem, à imagem de Deus o criou; homem e mulher os criou.','Deus os abençoou e lhes disse: Sede fecundos, multiplicai-vos, enchei e dominai a terra; sujeitai os peixes do mar, as aves do céu e todos os animais que rastejam pela terra.','Disse Deus: Vejam, eu lhes dou toda planta que dá semente à face de toda a terra, e toda árvore que tem fruto que dá semente; isso será o alimento de vocês.','E a todos os animais da terra, a todas as aves do céu e a todos os seres que se movem pela terra e têm vida, dou toda erva verde para alimento; e assim foi.','Deus viu tudo o que havia feito, e era muito bom. Houve tarde e manhã, o sexto dia.'],
+'sl-23': ['O Senhor é o meu pastor; nada me faltará.','Ele me faz descansar em pastos verdejantes. Leva-me para junto das águas tranquilas.','Refrigera a minha alma; guia-me pelas veredas da justiça por amor do seu nome.','Ainda que eu andasse pelo vale da sombra da morte, não temeria mal algum, porque tu estás comigo; o teu cajado e o teu bordão me consolam.','Preparas uma mesa para mim na presença dos meus inimigos; unges a minha cabeça com óleo; o meu cálice transborda.','Bondade e misericórdia certamente me seguirão todos os dias de minha vida; e habitarei na casa do Senhor por longos dias.'],
+'sl-119': ['Bem-aventurados os que são íntegros no seu caminho, os que andam na lei do Senhor.','Bem-aventurados os que guardam os seus testemunhos, os que o buscam com todo o coração.','E não praticam nenhuma iniquidade; andam nos seus caminhos.','Ordenaste os teus preceitos para que os guardemos cuidadosamente.','Oxalá fossem firmados os meus caminhos para guardar os teus estatutos.','Então não me envergonharia, quando tivesse respeito a todos os teus mandamentos.','Louvar-te-ei com retidão de coração quando tiver aprendido os teus justos juízos.','Guardarei os teus estatutos; não me abandones de todo.','Como limpará o jovem o seu caminho? Observando-o segundo a tua palavra.','Com todo o meu coração te busquei; não me deixes desviar dos teus mandamentos.','Escondi no meu coração as tuas palavras, para não pecar contra ti.'],
+'jn2-3': ['Havia entre os fariseus um homem chamado Nicodemos, um dos líderes judeus.','Ele foi ter com Jesus à noite e disse: Rabi, sabemos que és um mestre vindo da parte de Deus, porque ninguém poderia fazer os sinais que tu fazes se Deus não estivesse com ele.','Jesus respondeu: Em verdade, em verdade te digo: quem não nascer de novo não pode ver o reino de Deus.','Como pode um homem nascer sendo velho? Perguntou Nicodemos. Certamente não pode entrar pela segunda vez no ventre de sua mãe para nascer!','Jesus respondeu: Em verdade, em verdade te digo: quem não nascer de água e do Espírito não pode entrar no reino de Deus.','O que nasceu da carne é carne, e o que nasceu do Espírito é espírito.','Não te admires de eu ter dito que precisas nascer de novo.','O vento sopra onde quer; ouves a sua voz, mas não sabes de onde vem nem para onde vai. Assim acontece com todo aquele que nasceu do Espírito.','Como pode ser isso? Perguntou Nicodemos.','Você é mestre em Israel e não entende essas coisas? Respondeu Jesus.','Em verdade, em verdade te digo: falamos do que sabemos e testemunhamos do que vimos, mas vocês não aceitam o nosso testemunho.','Se falei a vocês de coisas terrenas e vocês não acreditam, como acreditarão se eu falar de coisas celestiais?','Ninguém subiu ao céu, exceto o que desceu do céu, o Filho do Homem.','Como Moisés levantou a serpente no deserto, assim também o Filho do Homem deve ser levantado,','para que todo aquele que nele crê tenha a vida eterna.','Porque Deus amou o mundo de tal maneira que deu o seu Filho unigênito, para que todo aquele que nele crê não pereça, mas tenha a vida eterna.','Deus não enviou o seu Filho ao mundo para condenar o mundo, mas para que o mundo fosse salvo por meio dele.','Quem nele crê não é condenado; mas quem não crê já está condenado, porque não creu no nome do Filho unigênito de Deus.'],
+'is-53': ['Quem creu em nossa mensagem e a quem foi revelado o braço do Senhor?','Ele cresceu como renovo diante de nós, como raiz em terra seca. Não tinha aparência nem formosura que nos atraísse; nem beleza para nos cativar.','Era desprezado e rejeitado pelos homens; homem de dores, familiarizado com o sofrimento. Como alguém diante de quem se esconde o rosto, era desprezado, e não o estimamos.','Certamente ele tomou sobre si as nossas enfermidades e carregou os nossos sofrimentos. Contudo, o consideramos punido por Deus, atingido por ele e humilhado.','Mas ele foi ferido por causa das nossas transgressões; foi esmagado por causa das nossas iniquidades. O castigo que nos trouxe a paz estava sobre ele, e pelas suas feridas fomos curados.','Todos nós nos desviamos como ovelhas; cada um de nós se voltou para o seu próprio caminho; mas o Senhor pôs sobre ele a iniquidade de todos nós.','Ele foi oprimido e humilhado, mas não disse uma palavra. Foi levado como ovelha para o matadouro; como cordeiro que se cala diante dos tosquiadores, não disse uma palavra.','Ele foi preso e julgado injustamente; e quem da sua geração se importou? Pois foi cortado da terra dos viventes, ferido por causa das transgressões de meu povo.','Designaram-lhe sepultura com os perversos; e, na sua morte, ele estava com o rico; embora não tivesse cometido violência, e nenhuma falsidade houvesse em sua boca.'],
+'mt-5': ['Quando Jesus viu as multidões, subiu ao monte. Sentou-se, e os seus discípulos aproximaram-se dele.','Então ele começou a ensiná-los, dizendo:','Bem-aventurados os pobres em espírito, porque deles é o reino dos céus.','Bem-aventurados os que choram, porque serão consolados.','Bem-aventurados os mansos, porque herdarão a terra.','Bem-aventurados os que têm fome e sede de justiça, porque serão saciados.','Bem-aventurados os misericordiosos, porque alcançarão misericórdia.','Bem-aventurados os puros de coração, porque verão a Deus.','Bem-aventurados os que promovem a paz, porque serão chamados filhos de Deus.','Bem-aventurados os perseguidos por causa da justiça, porque deles é o reino dos céus.','Bem-aventurados vocês quando os insultarem, perseguirem e levantarem todo tipo de calúnia contra vocês por minha causa.','Alegrem-se e exultem, porque grande é a sua recompensa no céu; pois da mesma forma perseguiram os profetas que viveram antes de vocês.','Vocês são o sal da terra. Mas se o sal perder o seu sabor, como recuperará sua salinidade? Não serve mais para nada, exceto para ser jogado fora e pisado pelos homens.','Vocês são a luz do mundo. Uma cidade edificada sobre um monte não pode esconder-se.','Também não se acende uma vela e a coloca debaixo de uma vasilha, mas no velador, e assim ilumina todos os que estão na casa.','Assim também brilhe a luz de vocês diante dos homens, para que vejam as suas boas obras e glorifiquem o seu Pai que está nos céus.'],
+'rm-8': ['Portanto, agora já não há condenação alguma para os que estão em Cristo Jesus.','porque por meio de Cristo Jesus a lei do Espírito que dá vida me libertou da lei do pecado e da morte.','O que era impossível para a lei, pois esta era fraca por causa da carne, Deus o fez: enviando o seu próprio Filho em semelhança de carne de pecado, e por causa do pecado, condenou o pecado na carne,','para que as exigências justas da lei fossem cumpridas em nós, que não vivemos segundo a carne, mas segundo o Espírito.','Os que vivem segundo a carne têm a mente voltada para o que a carne deseja; mas os que vivem de acordo com o Espírito, para o que o Espírito deseja.','A mentalidade da carne é morte; a mentalidade do Espírito é vida e paz.','A mentalidade da carne é inimiga de Deus, pois não se submete à lei de Deus, nem é capaz de fazê-lo.','Os que estão na carne não podem agradar a Deus.','Vocês, no entanto, não estão na carne, mas no Espírito, se o Espírito de Deus habita em vocês. Mas se alguém não tem o Espírito de Cristo, não pertence a Cristo.','Se Cristo está em vocês, o corpo está morto por causa do pecado, mas o Espírito é vida por causa da justiça.','E se o Espírito daquele que ressuscitou Jesus dentre os mortos habita em vocês, aquele que ressuscitou Cristo Jesus dentre os mortos também dará vida aos seus corpos mortais por meio do seu Espírito, que habita em vocês.'],
+'ap-1': ['Esta é a revelação de Jesus Cristo, que Deus lhe deu para mostrar aos seus servos as coisas que em breve devem acontecer. Jesus a tornou conhecida enviando-a por meio do seu anjo ao seu servo João,','que testemunhou tudo o que viu: a palavra de Deus e o testemunho de Jesus Cristo.','Bem-aventurado o que lê e os que ouvem as palavras desta profecia e guardam as coisas nela escritas! Porque o tempo está próximo.','João, às sete igrejas que estão na Ásia: Graça e paz a vocês, da parte daquele que é, que era e que há de vir, e dos sete espíritos que estão diante do seu trono,','e da parte de Jesus Cristo, que é a testemunha fiel, o primogênito dos mortos e o soberano dos reis da terra. Para ele que nos amou e nos libertou dos nossos pecados com o seu sangue,','e nos constituiu reino, sacerdotes para o seu Deus e Pai, seja a glória e o domínio pelos séculos dos séculos. Amém.','Eis que ele vem com as nuvens, e todo olho o verá, até mesmo os que o traspassaram; e todos os povos da terra prantearão por causa dele. Assim será! Amém.','Eu sou o Alfa e o Ômega, diz o Senhor Deus, aquele que é, que era e que há de vir, o Todo-Poderoso.'],
+};
+
+/* ---- STATE ---- */
+const S = {
+  testament: 'at',
+  book:      BOOKS_AT[0],
+  chapter:   1,
+  version:   'NVI',
+  verses:    [],
+  loading:   false,
+  fontSize:  18,
+  lineHeight:1.85,
+  bookmarks: [],
+  highlighted: new Set(),
+  searchActive: false,
+  chaptersOpen: false,
+  activePanel: null,
+  readChapters: new Set(),
+};
+
+/* ---- INIT ---- */
+function init() {
+  loadPrefs();
+  populateVersionSelects();
+  renderBooksList();
+  renderVersionPanel();
+  loadVerses();
+  setupKeyboard();
+}
+
+function populateVersionSelects() {
+  const sel = document.getElementById('versionSelectSidebar');
+  sel.innerHTML = VERSIONS.map(v =>
+    `<option value="${v.code}">${v.code} — ${v.name.slice(0,30)}</option>`
+  ).join('');
+  sel.value = S.version;
+}
+
+/* ---- TESTAMENT / BOOKS ---- */
+function setTestament(t, btn) {
+  S.testament = t;
+  document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  renderBooksList();
+  document.getElementById('bookSearch').value = '';
+}
+
+function filterBooks(q) {
+  renderBooksList(q.toLowerCase());
+}
+
+function renderBooksList(filter = '') {
+  const books = S.testament === 'at' ? BOOKS_AT : BOOKS_NT;
+  const grouped = {};
+  books.forEach(b => {
+    if (filter && !b.name.toLowerCase().includes(filter) && !b.abbr.toLowerCase().includes(filter)) return;
+    if (!grouped[b.cat]) grouped[b.cat] = [];
+    grouped[b.cat].push(b);
+  });
+
+  let html = '';
+  for (const [cat, list] of Object.entries(grouped)) {
+    const ci = CATS[cat];
+    html += `<div class="category-header" style="color:${ci.color}">${ci.label}</div>`;
+    list.forEach(b => {
+      const active = b.id === S.book.id ? 'active' : '';
+      html += `
+        <div class="book-item ${active}" onclick="selectBook('${b.id}')">
+          <div class="book-color" style="background:${ci.color}"></div>
+          <span class="book-name">${b.name}</span>
+          <span class="book-abbr">${b.abbr}</span>
+          <span class="book-chaps">${b.chapters}</span>
+        </div>`;
+    });
+  }
+
+  if (!html) html = `<div style="padding:24px;text-align:center;color:var(--text3);font-size:14px">Nenhum livro encontrado</div>`;
+  document.getElementById('booksList').innerHTML = html;
+}
+
+function selectBook(id) {
+  const all = allBooks();
+  const book = all.find(b => b.id === id);
+  if (!book) return;
+  S.book = book;
+  S.chapter = 1;
+  renderBooksList();
+  closeSidebar();
+  loadVerses();
+}
+
+function allBooks() { return [...BOOKS_AT, ...BOOKS_NT]; }
+
+/* ---- NAVIGATION ---- */
+function prevChapter() {
+  if (S.chapter > 1) {
+    S.chapter--;
+    loadVerses();
+  } else {
+    const all = S.testament === 'at' ? BOOKS_AT : BOOKS_NT;
+    const idx = all.findIndex(b => b.id === S.book.id);
+    if (idx > 0) {
+      S.book = all[idx - 1];
+      S.chapter = S.book.chapters;
+      renderBooksList();
+      loadVerses();
+    }
+  }
+}
+
+function nextChapter() {
+  if (S.chapter < S.book.chapters) {
+    S.chapter++;
+    loadVerses();
+  } else {
+    const all = S.testament === 'at' ? BOOKS_AT : BOOKS_NT;
+    const idx = all.findIndex(b => b.id === S.book.id);
+    if (idx < all.length - 1) {
+      S.book = all[idx + 1];
+      S.chapter = 1;
+      renderBooksList();
+      loadVerses();
+    }
+  }
+}
+
+/* ---- CHAPTERS GRID ---- */
+function toggleChapters() {
+  const p = document.getElementById('chaptersPanel');
+  const open = p.classList.toggle('open');
+  S.chaptersOpen = open;
+  if (open) buildChaptersGrid();
+}
+
+function buildChaptersGrid() {
+  document.getElementById('cpTitle').textContent = S.book.name + ' — Capítulos';
+  const n = S.book.chapters;
+  let html = '';
+  for (let i = 1; i <= n; i++) {
+    const active = i === S.chapter ? 'active' : '';
+    const read   = S.readChapters.has(`${S.book.id}-${i}`) ? 'read' : '';
+    html += `<div class="ch-cell ${active} ${read}" onclick="goChapter(${i})">${i}</div>`;
+  }
+  document.getElementById('chaptersGrid').innerHTML = html;
+}
+
+function goChapter(n) {
+  S.chapter = n;
+  loadVerses();
+  document.getElementById('chaptersPanel').classList.remove('open');
+  S.chaptersOpen = false;
+}
+
+/* ---- VERSES ---- */
+async function loadVerses() {
+  S.loading = true;
+  updateNav();
+  showLoading();
+
+  const key = `${S.book.id}-${S.chapter}`;
+  try {
+    const verses = await fetchVerses(key);
+    S.verses = verses;
+    S.readChapters.add(key);
+    renderVerses();
+    savePrefs();
+  } catch (e) {
+    showError(e.message);
+  }
+  S.loading = false;
+}
+
 async function fetchVerses(key) {
   if (SAMPLES[key]) return SAMPLES[key];
   return generateFallback(key);
 }
 
-// Depois (com API real)
-async function fetchVerses(key) {
-  if (SAMPLES[key]) return SAMPLES[key];
-
-  const API_KEY = 'SUA_CHAVE_AQUI';
-
-  // Mapa de IDs internos para IDs da API.Bible
-  const BOOK_MAP = {
-    'gn':'GEN', 'ex':'EXO', 'lv':'LEV', 'nm':'NUM', 'dt':'DEU',
-    'js':'JOS', 'jz':'JDG', 'rt':'RUT', '1sm':'1SA', '2sm':'2SA',
-    // ... complete o mapeamento conforme necessário
-  };
-
-  const parts   = key.split('-');
-  const bookId  = parts.slice(0, -1).join('-');
-  const chapter = parts[parts.length - 1];
-  const osisId  = BOOK_MAP[bookId] || 'GEN';
-
-  // Bible ID para NVI em português
-  const bibleId = '592420522e16049f-01';
-
-  const url = `https://api.scripture.api.bible/v1/bibles/${bibleId}/chapters/${osisId}.${chapter}/verses?content-type=text`;
-  const res = await fetch(url, { headers: { 'api-key': API_KEY } });
-
-  if (!res.ok) throw new Error(`HTTP ${res.status}`);
-
-  const data = await res.json();
-  return data.data.map(v => v.text || '').filter(Boolean);
+function generateFallback(key) {
+  /* Deterministic placeholder so the same chapter always shows same content */
+  const POOL = [
+    'Porque Deus amou o mundo de tal maneira que deu o seu Filho unigênito, para que todo aquele que nele crê não pereça, mas tenha a vida eterna.',
+    'O Senhor é o meu pastor; nada me faltará.',
+    'Bem-aventurado o homem que não anda no conselho dos ímpios, nem se detém no caminho dos pecadores, nem se assenta na roda dos escarnecedores.',
+    'Confie no Senhor com todo o seu coração e não se apoie em seu próprio entendimento.',
+    'Em todos os seus caminhos, reconheça-o, e ele endireitará as suas veredas.',
+    'O início da sabedoria é o temor do Senhor; bom entendimento têm os que praticam os seus mandamentos.',
+    'A sua misericórdia dura para sempre; de geração em geração vai a sua fidelidade.',
+    'Porque eu bem sei os planos que tenho para vocês, diz o Senhor, planos de bem e não de mal, para dar-lhes um futuro e uma esperança.',
+    'Alegrem-se sempre no Senhor. Novamente digo: Alegrem-se!',
+    'E a paz de Deus, que excede todo o entendimento, guardará o coração e os pensamentos de vocês em Cristo Jesus.',
+    'Tudo posso naquele que me fortalece.',
+    'O meu Deus, segundo as suas gloriosas riquezas, suprirá todas as necessidades de vocês em Cristo Jesus.',
+    'Busquem, pois, em primeiro lugar o reino de Deus e a sua justiça, e todas essas coisas serão acrescentadas a vocês.',
+    'Portanto, não se preocupem com o amanhã, que trará as suas próprias preocupações. Basta o suficiente para cada dia o seu mal.',
+    'Não ajuntem para vocês tesouros na terra, onde a traça e a ferrugem os destroem, e onde ladrões arrombam e furtam.',
+    'Mas ajuntem para vocês tesouros no céu, onde nem a traça nem a ferrugem os destroem, e onde ladrões não arrombam nem furtam.',
+    'Porque onde está o teu tesouro, aí também estará o teu coração.',
+    'Ninguém pode servir a dois senhores; pois ou há de odiar a um e amar ao outro, ou se dedicará a um e desprezará o outro.',
+    'Por isso vos digo que não sede ansiosos pela vossa vida, quanto ao que haveis de comer ou de beber; nem pelo vosso corpo, quanto ao que haveis de vestir.',
+    'Não é a vida mais do que o alimento, e o corpo mais do que o vestuário?',
+  ];
+  const parts = key.split('-');
+  const bid   = parts.slice(0, -1).join('-');
+  const ch    = parseInt(parts[parts.length - 1]);
+  const seed  = bid.charCodeAt(0) + ch;
+  const count = 10 + (seed % 16);
+  return Array.from({length: count}, (_, i) => POOL[(seed + i) % POOL.length]);
 }
-```
 
-> **Nota:** A API.Bible possui plano gratuito com limite generoso de requisições. Consulte a documentação para os IDs corretos de cada versão.
+function updateNav() {
+  document.getElementById('navBook').textContent    = S.book.name;
+  document.getElementById('navChapter').textContent = S.chapter;
+  document.getElementById('navVersion').textContent = S.version;
+}
 
----
+function showLoading() {
+  document.getElementById('readingContent').innerHTML = `
+    <div class="state-center">
+      <div class="spinner"></div>
+      <div style="font-size:14px">${S.book.name} — Capítulo ${S.chapter}</div>
+    </div>`;
+}
 
-## 🗂️ Estrutura do Projeto
+function showError(msg) {
+  document.getElementById('readingContent').innerHTML = `
+    <div class="state-center">
+      <div style="font-size:28px">⚠</div>
+      <div>Erro ao carregar</div>
+      <div style="font-size:13px;color:var(--text3)">${msg}</div>
+      <button class="retry-btn" onclick="loadVerses()">Tentar novamente</button>
+    </div>`;
+}
 
-```
-biblia-sagrada/
-│
-├── biblia-sagrada.html     # Aplicativo completo (single-file)
-├── README.md               # Este arquivo
-└── LICENSE                 # Licença do projeto
-```
+function renderVerses(searchQuery = '') {
+  const ci = CATS[S.book.cat];
+  const q  = searchQuery.toLowerCase();
 
-O projeto é intencionalmente um **single-file app** — toda a lógica, estilos e dados estão em um único arquivo HTML para máxima portabilidade.
+  let html = `
+    <div class="chapter-header">
+      <div class="ch-category" style="color:${ci.color}">${ci.label}</div>
+      <div class="ch-book">${S.book.name.toUpperCase()}</div>
+      <div class="ch-number" style="color:${ci.color}">${S.chapter}</div>
+    </div>
+    <div class="ch-divider">
+      <span class="ch-divider-icon">✦</span>
+    </div>`;
 
----
+  S.verses.forEach((v, i) => {
+    const n   = i + 1;
+    const key = `${S.book.id}-${S.chapter}-${n}`;
+    const hl  = S.highlighted.has(key) ? 'highlighted' : '';
+    const sm  = q && v.toLowerCase().includes(q) ? 'search-match' : '';
 
-## 🛠️ Tecnologias
+    const text = q && sm
+      ? v.replace(new RegExp(`(${q.replace(/[.*+?^${}()|[\]\\]/g,'\\$&')})`, 'gi'),
+          '<mark style="background:rgba(200,149,74,0.35);border-radius:2px">$1</mark>')
+      : v;
 
-- **HTML5** — estrutura semântica e acessível
-- **CSS3** — variáveis CSS, Grid, Flexbox, media queries, transições
-- **JavaScript ES6+** — vanilla JS, async/await, localStorage
-- **Google Fonts** — Crimson Pro, EB Garamond, Lora, Merriweather, Spectral, Source Serif 4
-- **Sem frameworks** — zero dependências externas além das fontes
+    html += `
+      <div class="verse ${hl} ${sm}" id="v${n}" ondblclick="toggleHL(${n})">
+        <span class="vnum">${n}</span>
+        <span class="vtext">${text}</span>
+      </div>`;
+  });
 
----
+  document.getElementById('readingContent').innerHTML = html;
+  document.getElementById('readingArea').scrollTop = 0;
+  updateProgress();
+}
 
-## 📱 Compatibilidade
+/* ---- HIGHLIGHT ---- */
+function toggleHL(n) {
+  const key = `${S.book.id}-${S.chapter}-${n}`;
+  if (S.highlighted.has(key)) S.highlighted.delete(key);
+  else S.highlighted.add(key);
+  renderVerses(document.getElementById('searchInput').value.trim());
+  savePrefs();
+  showToast(S.highlighted.has(key) ? 'Versículo destacado' : 'Destaque removido');
+}
 
-| Plataforma | Suporte |
-|------------|---------|
-| Chrome 80+ | ✅ Completo |
-| Firefox 75+ | ✅ Completo |
-| Safari 13+ | ✅ Completo |
-| Edge 80+ | ✅ Completo |
-| Chrome Android | ✅ Completo |
-| Safari iOS | ✅ Completo |
-| Samsung Internet | ✅ Completo |
+/* ---- BOOKMARKS ---- */
+function addBookmark() {
+  const ref = `${S.book.abbr} ${S.chapter}`;
+  if (S.bookmarks.find(b => b.ref === ref)) {
+    showToast('Já está nos seus favoritos');
+    return;
+  }
+  S.bookmarks.unshift({
+    ref,
+    bookId:   S.book.id,
+    chapter:  S.chapter,
+    bookName: S.book.name,
+    preview:  S.verses[0] ? S.verses[0].slice(0, 80) + '…' : '',
+  });
+  savePrefs();
+  showToast('✦ Adicionado aos favoritos!');
+}
 
----
+function renderBookmarks() {
+  const el = document.getElementById('bookmarksBody');
+  if (!S.bookmarks.length) {
+    el.innerHTML = `<div class="bookmark-empty">📖<br><br>Nenhum favorito ainda.<br>Pressione 🔖 para salvar um capítulo.</div>`;
+    return;
+  }
+  el.innerHTML = `<div class="bm-list">` + S.bookmarks.map((b, i) => `
+    <div class="bm-item" onclick="gotoBookmark(${i})">
+      <div class="bm-icon">📌</div>
+      <div style="flex:1;min-width:0">
+        <div class="bm-ref">${b.ref}</div>
+        <div class="bm-preview">${b.preview}</div>
+      </div>
+      <button class="bm-del" onclick="delBookmark(event,${i})">✕</button>
+    </div>`).join('') + `</div>`;
+}
 
-## 🔮 Roadmap / Melhorias Futuras
+function gotoBookmark(i) {
+  const bm   = S.bookmarks[i];
+  const book = allBooks().find(b => b.id === bm.bookId);
+  if (book) {
+    S.book    = book;
+    S.chapter = bm.chapter;
+    /* Switch testament tab if needed */
+    const isNT = BOOKS_NT.some(b => b.id === book.id);
+    S.testament = isNT ? 'nt' : 'at';
+    document.getElementById('tabAT').classList.toggle('active', !isNT);
+    document.getElementById('tabNT').classList.toggle('active',  isNT);
+    renderBooksList();
+    loadVerses();
+  }
+  closePanel();
+}
 
-- [ ] Integração completa com API.Bible para todos os livros e versões
-- [ ] Modo PWA (Progressive Web App) para instalação no celular
-- [ ] Plano de leitura anual da Bíblia
-- [ ] Comparação de versões lado a lado
-- [ ] Sistema de anotações por versículo
-- [ ] Exportação de versículos (imagem, texto, PDF)
-- [ ] Histórico de leitura
-- [ ] Busca global entre capítulos
-- [ ] Concordância bíblica
-- [ ] Mapas bíblicos interativos
-- [ ] Player de áudio (bíblia falada)
-- [ ] Modo leitura sequencial (devocional diário)
+function delBookmark(e, i) {
+  e.stopPropagation();
+  S.bookmarks.splice(i, 1);
+  savePrefs();
+  renderBookmarks();
+}
 
----
+/* ---- SEARCH ---- */
+function toggleSearch() {
+  S.searchActive = !S.searchActive;
+  document.getElementById('searchBar').classList.toggle('visible', S.searchActive);
+  document.getElementById('btnSearch').classList.toggle('active', S.searchActive);
+  if (S.searchActive) document.getElementById('searchInput').focus();
+  else clearSearch();
+}
 
-## 🤝 Contribuindo
+function doSearch() {
+  const q = document.getElementById('searchInput').value.trim();
+  if (!q) return;
+  const matches = S.verses.filter(v => v.toLowerCase().includes(q.toLowerCase()));
+  renderVerses(q);
+  if (matches.length) {
+    showToast(`${matches.length} resultado(s) encontrado(s)`);
+    /* Scroll to first match */
+    setTimeout(() => {
+      const first = document.querySelector('.search-match');
+      if (first) first.scrollIntoView({behavior:'smooth', block:'center'});
+    }, 50);
+  } else {
+    showToast('Nenhum resultado encontrado');
+  }
+}
 
-Contribuições são bem-vindas! Para contribuir:
+function clearSearch() {
+  document.getElementById('searchInput').value = '';
+  renderVerses();
+  document.getElementById('searchBar').classList.remove('visible');
+  document.getElementById('btnSearch').classList.remove('active');
+  S.searchActive = false;
+}
 
-1. Faça um **fork** do repositório
-2. Crie uma branch para sua feature: `git checkout -b feature/minha-feature`
-3. Faça commit das suas mudanças: `git commit -m 'feat: adiciona minha feature'`
-4. Faça push para a branch: `git push origin feature/minha-feature`
-5. Abra um **Pull Request**
+/* ---- PROGRESS ---- */
+function updateProgress() {
+  const el = document.getElementById('readingArea');
+  const pct = el.scrollHeight > el.clientHeight
+    ? Math.round(el.scrollTop / (el.scrollHeight - el.clientHeight) * 100)
+    : 100;
+  document.getElementById('progressBar').style.width = pct + '%';
+}
 
-### Convenção de commits
-```
-feat:     nova funcionalidade
-fix:      correção de bug
-style:    ajustes de estilo/UI
-refactor: refatoração de código
-docs:     atualização de documentação
-```
+/* ---- PANELS ---- */
+function openPanel(name) {
+  closePanel();
+  const p  = document.getElementById(name + 'Panel');
+  const ov = document.getElementById('panelOverlay');
+  if (p) {
+    p.classList.add('open');
+    ov.classList.add('open');
+    S.activePanel = name;
+    if (name === 'bookmarks') renderBookmarks();
+  }
+}
 
----
+function closePanel() {
+  document.querySelectorAll('.side-panel').forEach(p => p.classList.remove('open'));
+  document.getElementById('panelOverlay').classList.remove('open');
+  S.activePanel = null;
+}
 
-## 📄 Licença
+/* ---- SIDEBAR ---- */
+function toggleSidebar() {
+  const s  = document.getElementById('sidebar');
+  const ov = document.getElementById('mobileOverlay');
+  if (window.innerWidth <= 768) {
+    s.classList.toggle('mobile-open');
+    ov.classList.toggle('open');
+  } else {
+    s.classList.toggle('collapsed');
+  }
+}
 
-Este projeto está sob a licença MIT. Veja o arquivo [LICENSE](LICENSE) para mais detalhes.
+function closeSidebar() {
+  document.getElementById('sidebar').classList.remove('mobile-open');
+  document.getElementById('mobileOverlay').classList.remove('open');
+}
 
----
+/* ---- SETTINGS ---- */
+function changeVersion(v) {
+  S.version = v;
+  document.getElementById('versionSelectSidebar').value = v;
+  document.getElementById('navVersion').textContent = v;
+  renderVersionPanel();
+  loadVerses();
+  savePrefs();
+}
 
-## 🙏 Créditos
+function renderVersionPanel() {
+  const groups = {};
+  VERSIONS.forEach(v => {
+    if (!groups[v.lang]) groups[v.lang] = [];
+    groups[v.lang].push(v);
+  });
+  let html = '';
+  for (const [lang, list] of Object.entries(groups)) {
+    html += `<div style="font-size:9px;font-weight:800;letter-spacing:2px;text-transform:uppercase;color:var(--text3);padding:8px 0 4px">${lang}</div>`;
+    list.forEach(v => {
+      html += `
+        <button class="version-row ${v.code === S.version ? 'active' : ''}"
+                onclick="changeVersion('${v.code}');closePanel()">
+          <span class="ver-code">${v.code}</span>
+          <span class="ver-name">${v.name}</span>
+        </button>`;
+    });
+  }
+  document.getElementById('versionListPanel').innerHTML = html;
+}
 
-- Tipografia: [Google Fonts](https://fonts.google.com)
-- Textos bíblicos de demonstração: domínio público (Almeida, KJV)
-- Inspiração visual: aplicativos modernos de leitura bíblica
+function setTheme(t, btn) {
+  document.documentElement.setAttribute('data-theme', t === 'default' ? '' : t);
+  document.querySelectorAll('.theme-card').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  savePrefs();
+}
 
----
+function changeFontSize(delta) {
+  S.fontSize = Math.max(12, Math.min(28, S.fontSize + delta));
+  applyFontSize();
+}
 
-<p align="center">
-  Feito com ❤️ para a glória de Deus
-</p>
+function setFontSizeDirect(val) {
+  S.fontSize = parseInt(val);
+  applyFontSize();
+}
 
-<p align="center">
-  <i>"A tua palavra é lâmpada que ilumina os meus passos e luz que clareia o meu caminho." — Salmos 119:105</i>
-</p>
+function applyFontSize() {
+  document.documentElement.style.setProperty('--font-size', S.fontSize + 'px');
+  document.getElementById('fontSizeVal').textContent  = S.fontSize + 'px';
+  document.getElementById('fontSizeRange').value = S.fontSize;
+  savePrefs();
+}
+
+function changeLineHeight(delta) {
+  S.lineHeight = Math.max(1.2, Math.min(2.5, parseFloat((S.lineHeight + delta).toFixed(2))));
+  applyLineHeight();
+}
+
+function setLineHeightDirect(val) {
+  S.lineHeight = parseFloat(parseFloat(val).toFixed(2));
+  applyLineHeight();
+}
+
+function applyLineHeight() {
+  document.documentElement.style.setProperty('--line-height', S.lineHeight);
+  document.getElementById('lineHeightVal').textContent   = S.lineHeight.toFixed(2);
+  document.getElementById('lineHeightRange').value = S.lineHeight;
+  savePrefs();
+}
+
+function setFont(btn) {
+  const font = btn.dataset.font;
+  document.documentElement.style.setProperty('--font-body', font);
+  document.querySelectorAll('.font-item').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  savePrefs();
+}
+
+/* ---- PERSIST ---- */
+function savePrefs() {
+  try {
+    localStorage.setItem('bs_prefs', JSON.stringify({
+      version:    S.version,
+      fontSize:   S.fontSize,
+      lineHeight: S.lineHeight,
+      bookmarks:  S.bookmarks,
+      highlighted: [...S.highlighted],
+      readChapters:[...S.readChapters],
+    }));
+  } catch (_) {}
+}
+
+function loadPrefs() {
+  try {
+    const p = JSON.parse(localStorage.getItem('bs_prefs') || '{}');
+    if (p.version)      { S.version    = p.version; }
+    if (p.fontSize)     { S.fontSize   = p.fontSize;   document.documentElement.style.setProperty('--font-size', p.fontSize+'px'); document.getElementById('fontSizeVal').textContent=p.fontSize+'px'; document.getElementById('fontSizeRange').value=p.fontSize; }
+    if (p.lineHeight)   { S.lineHeight = p.lineHeight; document.documentElement.style.setProperty('--line-height', p.lineHeight); document.getElementById('lineHeightVal').textContent=parseFloat(p.lineHeight).toFixed(2); document.getElementById('lineHeightRange').value=p.lineHeight; }
+    if (p.bookmarks)    { S.bookmarks  = p.bookmarks; }
+    if (p.highlighted)  { S.highlighted  = new Set(p.highlighted); }
+    if (p.readChapters) { S.readChapters = new Set(p.readChapters); }
+  } catch (_) {}
+}
+
+/* ---- TOAST ---- */
+let toastTimer;
+function showToast(msg) {
+  const t = document.getElementById('toast');
+  t.textContent = msg;
+  t.classList.add('show');
+  clearTimeout(toastTimer);
+  toastTimer = setTimeout(() => t.classList.remove('show'), 2800);
+}
+
+/* ---- KEYBOARD ---- */
+function setupKeyboard() {
+  document.addEventListener('keydown', e => {
+    if (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA') return;
+    if (e.altKey && e.key === 'ArrowRight') { nextChapter(); return; }
+    if (e.altKey && e.key === 'ArrowLeft')  { prevChapter(); return; }
+    if ((e.ctrlKey || e.metaKey) && e.key === 'f') { e.preventDefault(); toggleSearch(); return; }
+    if (e.key === 'Escape') {
+      if (S.activePanel)   closePanel();
+      if (S.chaptersOpen)  toggleChapters();
+      if (S.searchActive)  clearSearch();
+      return;
+    }
+    if (e.key === 'm' || e.key === 'M') toggleSidebar();
+  });
+}
+
+/* ---- BOOT ---- */
+init();
+</script>
+</body>
+</html>
