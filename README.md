@@ -1,286 +1,74 @@
-# ✦ Bíblia Sagrada — Web App
+# ✦ Bíblia Sagrada — PWA
 
-> Aplicativo completo da Bíblia Sagrada para web e mobile, com múltiplas versões, temas personalizáveis e experiência de leitura refinada.
+Aplicativo completo da Bíblia Sagrada como Progressive Web App (PWA), disponível gratuitamente para todos.
 
-![HTML5](https://img.shields.io/badge/HTML5-E34F26?style=flat&logo=html5&logoColor=white)
-![CSS3](https://img.shields.io/badge/CSS3-1572B6?style=flat&logo=css3&logoColor=white)
-![JavaScript](https://img.shields.io/badge/JavaScript-F7DF1E?style=flat&logo=javascript&logoColor=black)
-![Zero Dependencies](https://img.shields.io/badge/dependências-zero-brightgreen?style=flat)
-![Mobile Ready](https://img.shields.io/badge/mobile-ready-blue?style=flat)
-![Offline](https://img.shields.io/badge/offline-capable-orange?style=flat)
+## 🌐 Acesse agora
 
----
+**[https://SEU-USUARIO.github.io/biblia-sagrada](https://SEU-USUARIO.github.io/biblia-sagrada)**
 
-## 📸 Visão Geral
+> Substitua `SEU-USUARIO` pelo seu usuário do GitHub após publicar.
 
-Aplicativo de leitura bíblica desenvolvido com HTML, CSS e JavaScript puro — sem frameworks, sem dependências, zero configuração. Basta abrir o arquivo no navegador e começar a ler.
+## 📱 Como instalar no celular
 
----
+### Android (Chrome)
+1. Acesse o link acima no Chrome
+2. Toque no banner **"Instalar"** que aparece automaticamente
+3. Ou toque nos 3 pontinhos → **"Adicionar à tela inicial"**
+
+### iPhone (Safari)
+1. Acesse o link no Safari
+2. Toque no botão **Compartilhar** (quadrado com seta ↑)
+3. Toque em **"Adicionar à Tela de Início"**
+4. Toque em **"Adicionar"**
 
 ## ✨ Funcionalidades
 
-### 📖 Bíblia
-- **66 livros** completos — 39 do Antigo Testamento e 27 do Novo Testamento
-- **26 versões** em 5 idiomas (Português, Inglês, Espanhol, Francês e Alemão)
-- Navegação por livro, capítulo e versículo
-- Separação visual por categorias bíblicas com cores distintas
+- 📖 **66 livros** completos — Antigo e Novo Testamento
+- 🌍 **10 versões** em 7 idiomas (NVI, ACF, AA, KJV, RVR, LSG, SCH, e mais)
+- 🎨 **6 temas** visuais — Claro, Sépia, Escuro, Noite, Floresta, Rosa
+- 🖍️ **Destaque de versículos** em 5 cores com seleção múltipla
+- 🔊 **Narração em áudio** com seleção de voz e velocidade
+- 📌 **Favoritos** — salve capítulos para ler depois
+- ✨ **Palavra do Dia** — versículo diferente a cada dia
+- 🔖 **Última leitura** — continua de onde parou
+- 🔍 **Busca** no capítulo
+- 📵 **Funciona offline** após primeira visita
 
-### 🎨 Personalização
-- **6 temas visuais** — Claro, Sépia, Escuro, Noite, Floresta e Rosa
-- **6 fontes tipográficas** — Crimson Pro, EB Garamond, Lora, Merriweather, Spectral e Source Serif 4
-- Tamanho de fonte ajustável de 12px a 28px (slider + botões)
-- Espaçamento entre linhas ajustável (1.2 a 2.5)
-- Preferências salvas automaticamente no navegador (localStorage)
-
-### 🔍 Navegação e Leitura
-- Busca de palavras e trechos dentro do capítulo (com destaque visual)
-- Destaque de versículos com duplo clique
-- Barra de progresso de leitura do capítulo
-- Capítulos já lidos marcados na grade de capítulos
-- Sistema de favoritos (salvar capítulos)
-
-### ⌨️ Atalhos de Teclado
-| Atalho | Ação |
-|--------|------|
-| `Alt + →` | Próximo capítulo |
-| `Alt + ←` | Capítulo anterior |
-| `Ctrl + F` | Abrir busca |
-| `M` | Abrir/fechar menu lateral |
-| `Esc` | Fechar painel/busca abertos |
-
-### 📱 Mobile
-- Layout totalmente responsivo
-- Menu lateral deslizante (drawer)
-- Botão flutuante (FAB) para acesso rápido aos capítulos
-- Touch-friendly em todos os controles
-- Experiência otimizada para telas pequenas
-
----
-
-## 📚 Versões Disponíveis
-
-### 🇧🇷 Português (Brasil)
-| Código | Nome |
-|--------|------|
-| NVI | Nova Versão Internacional |
-| ARA | Almeida Revista e Atualizada |
-| ACF | Almeida Corrigida Fiel |
-| AA | Almeida Antiga (1681) |
-| NTLH | Nova Tradução na Linguagem de Hoje |
-| NVT | Nova Versão Transformadora |
-| NAA | Nova Almeida Atualizada |
-| BVL | Bíblia Viva |
-
-### 🇺🇸 Inglês
-| Código | Nome |
-|--------|------|
-| KJV | King James Version |
-| ESV | English Standard Version |
-| NIV | New International Version |
-| NKJV | New King James Version |
-| MSG | The Message |
-| NLT | New Living Translation |
-| NASB | New American Standard Bible |
-| CSB | Christian Standard Bible |
-| CEV | Contemporary English Version |
-| GNT | Good News Translation |
-| AMP | Amplified Bible |
-
-### 🌍 Outros idiomas
-| Código | Nome | Idioma |
-|--------|------|--------|
-| RVR | Reina-Valera Revisada | Espanhol |
-| RV09 | Reina-Valera 1909 | Espanhol |
-| RV60 | Reina-Valera 1960 | Espanhol |
-| LSG | Louis Segond 1910 | Francês |
-| NEG | Nouvelle Édition de Genève | Francês |
-| LUT | Lutherbibel 2017 | Alemão |
-| ELB | Elberfelder Bibel | Alemão |
-
----
-
-## 🎨 Categorias e Cores dos Livros
-
-| Categoria | Cor | Livros |
-|-----------|-----|--------|
-| Pentateuco | 🟠 Laranja | Gênesis, Êxodo, Levítico, Números, Deuteronômio |
-| Históricos | 🟫 Marrom Dourado | Josué → Ester |
-| Poéticos | 🟢 Verde | Jó, Salmos, Provérbios, Eclesiastes, Cânticos |
-| Profetas Maiores | 🔵 Azul | Isaías, Jeremias, Lamentações, Ezequiel, Daniel |
-| Profetas Menores | 🟣 Roxo | Oséias → Malaquias |
-| Evangelhos | 🔴 Vermelho | Mateus, Marcos, Lucas, João |
-| Atos | 🩵 Teal | Atos dos Apóstolos |
-| Epístolas de Paulo | 🟤 Terra | Romanos → Filemom |
-| Epístolas Gerais | 🫒 Oliva | Hebreus → Judas |
-| Profético NT | 🟪 Púrpura | Apocalipse |
-
----
-
-## 🚀 Como Usar
-
-### Uso imediato (sem instalação)
-```bash
-# Clone o repositório
-git clone https://github.com/seu-usuario/biblia-sagrada.git
-
-# Abra o arquivo no navegador
-cd biblia-sagrada
-open biblia-sagrada.html        # macOS
-start biblia-sagrada.html       # Windows
-xdg-open biblia-sagrada.html   # Linux
-```
-
-### Ou simplesmente
-Faça o download do arquivo `biblia-sagrada.html` e abra no seu navegador preferido. Não requer servidor, não requer internet (após o carregamento inicial das fontes).
-
----
-
-## 🔌 Integração com API de Textos Bíblicos
-
-O app já está estruturado para integrar com a [API.Bible](https://scripture.api.bible), que oferece acesso gratuito a centenas de versões.
-
-### Passos para ativar:
-
-1. Acesse [https://scripture.api.bible](https://scripture.api.bible) e crie uma conta gratuita
-2. Gere sua chave de API no painel
-3. No arquivo `biblia-sagrada.html`, localize a função `fetchVerses` e substitua:
-
-```javascript
-// Antes (modo demo — conteúdo de exemplo)
-async function fetchVerses(key) {
-  if (SAMPLES[key]) return SAMPLES[key];
-  return generateFallback(key);
-}
-
-// Depois (com API real)
-async function fetchVerses(key) {
-  if (SAMPLES[key]) return SAMPLES[key];
-
-  const API_KEY = 'SUA_CHAVE_AQUI';
-
-  // Mapa de IDs internos para IDs da API.Bible
-  const BOOK_MAP = {
-    'gn':'GEN', 'ex':'EXO', 'lv':'LEV', 'nm':'NUM', 'dt':'DEU',
-    'js':'JOS', 'jz':'JDG', 'rt':'RUT', '1sm':'1SA', '2sm':'2SA',
-    // ... complete o mapeamento conforme necessário
-  };
-
-  const parts   = key.split('-');
-  const bookId  = parts.slice(0, -1).join('-');
-  const chapter = parts[parts.length - 1];
-  const osisId  = BOOK_MAP[bookId] || 'GEN';
-
-  // Bible ID para NVI em português
-  const bibleId = '592420522e16049f-01';
-
-  const url = `https://api.scripture.api.bible/v1/bibles/${bibleId}/chapters/${osisId}.${chapter}/verses?content-type=text`;
-  const res = await fetch(url, { headers: { 'api-key': API_KEY } });
-
-  if (!res.ok) throw new Error(`HTTP ${res.status}`);
-
-  const data = await res.json();
-  return data.data.map(v => v.text || '').filter(Boolean);
-}
-```
-
-> **Nota:** A API.Bible possui plano gratuito com limite generoso de requisições. Consulte a documentação para os IDs corretos de cada versão.
-
----
-
-## 🗂️ Estrutura do Projeto
+## 🗂️ Estrutura do projeto
 
 ```
-biblia-sagrada/
-│
-├── biblia-sagrada.html     # Aplicativo completo (single-file)
-├── README.md               # Este arquivo
-└── LICENSE                 # Licença do projeto
+biblia-sagrada.html   ← Aplicativo principal
+manifest.json         ← Configuração PWA
+sw.js                 ← Service Worker (offline)
+icons/                ← Ícones do app
+  icon-72.png
+  icon-96.png
+  icon-128.png
+  icon-144.png
+  icon-152.png
+  icon-192.png
+  icon-384.png
+  icon-512.png
+README.md
+.nojekyll
 ```
 
-O projeto é intencionalmente um **single-file app** — toda a lógica, estilos e dados estão em um único arquivo HTML para máxima portabilidade.
+## 🚀 Como publicar no GitHub Pages
 
----
+1. Crie um repositório no GitHub (ex: `biblia-sagrada`)
+2. Faça upload de **todos os arquivos** desta pasta
+3. Vá em **Settings → Pages**
+4. Em **Source**, selecione `main` branch e pasta `/root`
+5. Clique em **Save**
+6. Aguarde ~2 minutos e acesse `https://SEU-USUARIO.github.io/biblia-sagrada`
 
-## 🛠️ Tecnologias
+## 🙏 Propósito
 
-- **HTML5** — estrutura semântica e acessível
-- **CSS3** — variáveis CSS, Grid, Flexbox, media queries, transições
-- **JavaScript ES6+** — vanilla JS, async/await, localStorage
-- **Google Fonts** — Crimson Pro, EB Garamond, Lora, Merriweather, Spectral, Source Serif 4
-- **Sem frameworks** — zero dependências externas além das fontes
+Este aplicativo foi desenvolvido com o propósito de abençoar pessoas e incentivar a leitura da Bíblia. Distribuído gratuitamente, sem fins lucrativos.
 
----
-
-## 📱 Compatibilidade
-
-| Plataforma | Suporte |
-|------------|---------|
-| Chrome 80+ | ✅ Completo |
-| Firefox 75+ | ✅ Completo |
-| Safari 13+ | ✅ Completo |
-| Edge 80+ | ✅ Completo |
-| Chrome Android | ✅ Completo |
-| Safari iOS | ✅ Completo |
-| Samsung Internet | ✅ Completo |
-
----
-
-## 🔮 Roadmap / Melhorias Futuras
-
-- [ ] Integração completa com API.Bible para todos os livros e versões
-- [ ] Modo PWA (Progressive Web App) para instalação no celular
-- [ ] Plano de leitura anual da Bíblia
-- [ ] Comparação de versões lado a lado
-- [ ] Sistema de anotações por versículo
-- [ ] Exportação de versículos (imagem, texto, PDF)
-- [ ] Histórico de leitura
-- [ ] Busca global entre capítulos
-- [ ] Concordância bíblica
-- [ ] Mapas bíblicos interativos
-- [ ] Player de áudio (bíblia falada)
-- [ ] Modo leitura sequencial (devocional diário)
-
----
-
-## 🤝 Contribuindo
-
-Contribuições são bem-vindas! Para contribuir:
-
-1. Faça um **fork** do repositório
-2. Crie uma branch para sua feature: `git checkout -b feature/minha-feature`
-3. Faça commit das suas mudanças: `git commit -m 'feat: adiciona minha feature'`
-4. Faça push para a branch: `git push origin feature/minha-feature`
-5. Abra um **Pull Request**
-
-### Convenção de commits
-```
-feat:     nova funcionalidade
-fix:      correção de bug
-style:    ajustes de estilo/UI
-refactor: refatoração de código
-docs:     atualização de documentação
-```
-
----
+> *"A tua palavra é lâmpada que ilumina os meus passos e luz que clareia o meu caminho."*
+> — Salmos 119:105
 
 ## 📄 Licença
 
-Este projeto está sob a licença MIT. Veja o arquivo [LICENSE](LICENSE) para mais detalhes.
-
----
-
-## 🙏 Créditos
-
-- Tipografia: [Google Fonts](https://fonts.google.com)
-- Textos bíblicos de demonstração: domínio público (Almeida, KJV)
-- Inspiração visual: aplicativos modernos de leitura bíblica
-
----
-
-<p align="center">
-  Feito com ❤️ para a glória de Deus
-</p>
-
-<p align="center">
-  <i>"A tua palavra é lâmpada que ilumina os meus passos e luz que clareia o meu caminho." — Salmos 119:105</i>
-</p>
+MIT — livre para usar, modificar e distribuir.
