@@ -83,13 +83,14 @@ button,select,input{font-family:inherit;cursor:pointer}
   background:var(--sf);border:1px solid var(--br);border-radius:16px;
   padding:20px;margin-bottom:16px;
   box-shadow:0 2px 12px var(--sh);
-  cursor:pointer;transition:transform .15s,box-shadow .15s;
+  cursor:pointer;transition:background .15s,box-shadow .15s;
   display:flex;align-items:center;gap:16px;
-  text-decoration:none;font-family:inherit;
-  -webkit-tap-highlight-color:rgba(0,0,0,0);
+  text-decoration:none;color:inherit;font-family:inherit;
+  -webkit-tap-highlight-color:transparent;
   touch-action:manipulation;
+  user-select:none;-webkit-user-select:none;
 }
-.home-card:hover,.home-card:active{transform:translateY(-2px);box-shadow:0 6px 20px var(--sh)}
+.home-card:hover,.home-card:active{background:var(--bg2);box-shadow:0 6px 20px var(--sh)}
 .home-card-icon{
   width:52px;height:52px;border-radius:14px;
   display:flex;align-items:center;justify-content:center;
@@ -417,7 +418,7 @@ button,select,input{font-family:inherit;cursor:pointer}
      SCREEN 1: HOME
 ══════════════════════════════════════ -->
 <div class="screen active" id="homeScreen">
-  <div class="home screen active" style="height:100vh">
+  <div class="home-content" style="height:100vh;overflow-y:auto">
     <!-- Hero -->
     <div class="home-hero">
       <div class="bible-icon-wrap">
@@ -448,14 +449,14 @@ button,select,input{font-family:inherit;cursor:pointer}
     <!-- Body -->
     <div class="home-body">
       <!-- Continue lendo (aparece se tiver última leitura) -->
-      <div class="continue-card" id="continueCard" style="display:none" onclick="continueReading()">
+      <a class="continue-card" id="continueCard" href="javascript:void(0)" onclick="continueReading();return false;" style="display:none">
         <div class="continue-icon">📖</div>
         <div class="continue-text">
           <h4>Continuar lendo</h4>
           <p id="continueRef">—</p>
         </div>
         <div class="continue-arrow">›</div>
-      </div>
+      </a>
 
       <!-- Palavra do Dia -->
       <div class="word-day-card">
@@ -471,7 +472,7 @@ button,select,input{font-family:inherit;cursor:pointer}
       </div>
 
       <!-- Bíblia -->
-      <button class="home-card" onclick="goToSelector()" style="width:100%;text-align:left;border:1px solid var(--br);cursor:pointer;">
+      <a class="home-card" href="javascript:void(0)" onclick="goToSelector();return false;">
         <div class="home-card-icon bible-bg">
           <svg width="26" height="26" viewBox="0 0 24 24" fill="none">
             <rect x="3" y="2" width="14" height="20" rx="2" fill="rgba(255,255,255,.25)" stroke="white" stroke-width="1.5"/>
@@ -485,10 +486,10 @@ button,select,input{font-family:inherit;cursor:pointer}
           <p>Escolha o livro, capítulo e versículo</p>
         </div>
         <div class="home-card-arrow">›</div>
-      </button>
+      </a>
 
       <!-- Favoritos -->
-      <button class="home-card" onclick="openBookmarks()" style="width:100%;text-align:left;border:1px solid var(--br);cursor:pointer;">
+      <a class="home-card" href="javascript:void(0)" onclick="openBookmarks();return false;">
         <div class="home-card-icon" style="background:linear-gradient(135deg,#5a6aac,#7a8acc)">
           <span style="font-size:22px;color:#fff">🔖</span>
         </div>
@@ -497,10 +498,10 @@ button,select,input{font-family:inherit;cursor:pointer}
           <p>Versículos e capítulos marcados</p>
         </div>
         <div class="home-card-arrow">›</div>
-      </button>
+      </a>
 
       <!-- Destaques -->
-      <button class="home-card" onclick="openHighlights()" style="width:100%;text-align:left;border:1px solid var(--br);cursor:pointer;">
+      <a class="home-card" href="javascript:void(0)" onclick="openHighlights();return false;">
         <div class="home-card-icon" style="background:linear-gradient(135deg,#a06030,#c08050)">
           <span style="font-size:22px;color:#fff">🖍️</span>
         </div>
@@ -509,7 +510,7 @@ button,select,input{font-family:inherit;cursor:pointer}
           <p>Versículos marcados com cores</p>
         </div>
         <div class="home-card-arrow">›</div>
-      </button>
+      </a>
     </div>
   </div>
 </div>
@@ -921,7 +922,10 @@ let hlLongPressTimer = null;
 ══════════════════════════════════════════ */
 function showScreen(id) {
   document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
-  document.getElementById(id).classList.add('active');
+  const target = document.getElementById(id);
+  if (target) {
+    target.classList.add('active');
+  }
   closePanel();
 }
 function showHome()     { stopAudio(); showScreen('homeScreen');    updateHomeUI(); }
@@ -946,14 +950,18 @@ function goToBookFromReading() {
    HOME UI
 ══════════════════════════════════════════ */
 function updateHomeUI() {
-  /* Daily verse — seed by date */
-  const today = new Date();
-  const dayOfYear = Math.floor((today - new Date(today.getFullYear(),0,0)) / 86400000);
-  const dv = DAILY_VERSES[dayOfYear % DAILY_VERSES.length];
-  document.getElementById('wordDayText').textContent = dv.text;
-  document.getElementById('wordDayRef').textContent  = dv.ref;
-  const opts = {weekday:'long',year:'numeric',month:'long',day:'numeric'};
-  document.getElementById('wordDayDate').textContent = today.toLocaleDateString('pt-BR', opts);
+  try {
+    /* Daily verse — seed by date */
+    const today = new Date();
+    const dayOfYear = Math.floor((today - new Date(today.getFullYear(),0,0)) / 86400000);
+    const dv = DAILY_VERSES[dayOfYear % DAILY_VERSES.length];
+    const txtEl  = document.getElementById('wordDayText');
+    const refEl  = document.getElementById('wordDayRef');
+    const dateEl = document.getElementById('wordDayDate');
+    if (txtEl)  txtEl.textContent  = dv.text;
+    if (refEl)  refEl.textContent  = dv.ref;
+    const opts = {weekday:'long',year:'numeric',month:'long',day:'numeric'};
+    if (dateEl) dateEl.textContent = today.toLocaleDateString('pt-BR', opts);
 
   /* Continue reading */
   if (S.lastRead) {
@@ -1902,33 +1910,37 @@ function setupKeys() {
 
 /* ══ INIT ══ */
 function init() {
-  loadPrefs();
-  populateVsel();
-  document.getElementById('vsel').value = S.ver;
-  const nvs = document.getElementById('navVerSel');
-  if (nvs) nvs.value = S.ver;
-  renderSelector();
-  setupKeys();
+  try {
+    loadPrefs();
+    populateVsel();
 
-  /* Aguarda DOM completo antes de atualizar a home */
-  requestAnimationFrame(() => {
+    const vselEl = document.getElementById('vsel');
+    if (vselEl) vselEl.value = S.ver;
+    const nvsEl = document.getElementById('navVerSel');
+    if (nvsEl) nvsEl.value = S.ver;
+
+    renderSelector();
     updateHomeUI();
-    /* Pré-carrega a versão padrão em background */
-    loadBible(S.ver).catch(() => {});
-  });
+    setupKeys();
 
-  if (S.lastRead) {
-    document.getElementById('continueRef').textContent = S.lastRead.name;
-    /* Pequeno delay para modal não aparecer antes da home renderizar */
-    setTimeout(() => checkLastRead(), 400);
+    /* Pre-load bible in background */
+    loadBible(S.ver).catch(() => {});
+
+    if (S.lastRead) {
+      const refEl = document.getElementById('continueRef');
+      if (refEl) refEl.textContent = S.lastRead.name;
+      setTimeout(() => checkLastRead(), 500);
+    }
+  } catch(e) {
+    console.error('Init error:', e);
   }
 }
 
-/* Garante que init rode após o DOM estar totalmente pronto */
+/* Run after DOM is ready */
 if (document.readyState === 'loading') {
   document.addEventListener('DOMContentLoaded', init);
 } else {
-  init();
+  setTimeout(init, 0);
 }
 </script>
 
