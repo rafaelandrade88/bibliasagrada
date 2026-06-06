@@ -4,7 +4,7 @@ Aplicativo completo da Bíblia Sagrada como Progressive Web App (PWA), disponív
 
 ## 🌐 Acesse agora
 
-**[https://SEU-USUARIO.github.io/biblia-sagrada](https://SEU-USUARIO.github.io/biblia-sagrada)**
+**[https://rafaelandrade88.github.io/biblia-sagrada](https://SEU-USUARIO.github.io/biblia-sagrada)**
 
 > Substitua `SEU-USUARIO` pelo seu usuário do GitHub após publicar.
 
