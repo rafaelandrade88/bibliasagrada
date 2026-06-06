@@ -45,7 +45,7 @@ button,select,input{font-family:inherit;cursor:pointer}
 /* ═══════════════════════════════
    SCREENS
 ═══════════════════════════════ */
-.screen{display:none;height:100vh;overflow:hidden;flex-direction:column}
+.screen{display:none;height:100vh;overflow:hidden;flex-direction:column;position:relative}
 .screen.active{display:flex}
 
 /* ═══════════════════════════════
@@ -418,7 +418,7 @@ button,select,input{font-family:inherit;cursor:pointer}
      SCREEN 1: HOME
 ══════════════════════════════════════ -->
 <div class="screen active" id="homeScreen">
-  <div class="home-content" style="height:100vh;overflow-y:auto">
+  <div class="home" style="height:100vh;overflow-y:auto">
     <!-- Hero -->
     <div class="home-hero">
       <div class="bible-icon-wrap">
@@ -449,7 +449,7 @@ button,select,input{font-family:inherit;cursor:pointer}
     <!-- Body -->
     <div class="home-body">
       <!-- Continue lendo (aparece se tiver última leitura) -->
-      <a class="continue-card" id="continueCard" href="javascript:void(0)" onclick="continueReading();return false;" style="display:none">
+      <a class="continue-card" id="continueCard" href="#" onclick="event.preventDefault();continueReading();" style="display:none">
         <div class="continue-icon">📖</div>
         <div class="continue-text">
           <h4>Continuar lendo</h4>
@@ -472,7 +472,7 @@ button,select,input{font-family:inherit;cursor:pointer}
       </div>
 
       <!-- Bíblia -->
-      <a class="home-card" href="javascript:void(0)" onclick="goToSelector();return false;">
+      <a class="home-card" href="#" onclick="event.preventDefault();goToSelector();">
         <div class="home-card-icon bible-bg">
           <svg width="26" height="26" viewBox="0 0 24 24" fill="none">
             <rect x="3" y="2" width="14" height="20" rx="2" fill="rgba(255,255,255,.25)" stroke="white" stroke-width="1.5"/>
@@ -489,7 +489,7 @@ button,select,input{font-family:inherit;cursor:pointer}
       </a>
 
       <!-- Favoritos -->
-      <a class="home-card" href="javascript:void(0)" onclick="openBookmarks();return false;">
+      <a class="home-card" href="#" onclick="event.preventDefault();openBookmarks();">
         <div class="home-card-icon" style="background:linear-gradient(135deg,#5a6aac,#7a8acc)">
           <span style="font-size:22px;color:#fff">🔖</span>
         </div>
@@ -501,7 +501,7 @@ button,select,input{font-family:inherit;cursor:pointer}
       </a>
 
       <!-- Destaques -->
-      <a class="home-card" href="javascript:void(0)" onclick="openHighlights();return false;">
+      <a class="home-card" href="#" onclick="event.preventDefault();openHighlights();">
         <div class="home-card-icon" style="background:linear-gradient(135deg,#a06030,#c08050)">
           <span style="font-size:22px;color:#fff">🖍️</span>
         </div>
@@ -923,19 +923,17 @@ let hlLongPressTimer = null;
 function showScreen(id) {
   document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
   const target = document.getElementById(id);
-  if (target) {
-    target.classList.add('active');
-  }
-  closePanel();
+  if (target) target.classList.add('active');
 }
-function showHome()     { stopAudio(); showScreen('homeScreen');    updateHomeUI(); }
+function showHome()     { stopAudio(); closePanel(); showScreen('homeScreen'); updateHomeUI(); }
 function showSelector() { showScreen('selectorScreen'); }
-function goToSelector() { renderSelector(); showScreen('selectorScreen'); }
+function goToSelector() { closePanel(); renderSelector(); showScreen('selectorScreen'); }
 function showChapVer()  { showScreen('chapverScreen'); renderChapVerAsync(); }
 function showReading()  { showScreen('readingScreen'); }
 
 /* Troca de livro direto da tela de leitura */
 function goToBookFromReading() {
+  closePanel();
   renderSelector();
   showScreen('selectorScreen');
   /* Garante que o testamento correto está selecionado */
@@ -974,8 +972,6 @@ function updateHomeUI() {
 
 function openBookmarks() {
   renderBookmarksBody();
-  openPanel('bookmarks');
-  showScreen('homeScreen'); /* stay on home but open panel */
   document.getElementById('ov').classList.add('open');
   document.getElementById('bookmarksPanel').classList.add('open');
 }
