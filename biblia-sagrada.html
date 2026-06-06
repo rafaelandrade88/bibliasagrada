@@ -5,6 +5,16 @@
 <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=5">
 <title>Bíblia Sagrada</title>
 <meta name="theme-color" content="#7c4f1e">
+<link rel="manifest" href="manifest.json">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="Bíblia Sagrada">
+<link rel="apple-touch-icon" href="icons/icon-192.png">
+<link rel="apple-touch-icon" sizes="152x152" href="icons/icon-152.png">
+<link rel="apple-touch-icon" sizes="144x144" href="icons/icon-144.png">
+<link rel="apple-touch-icon" sizes="192x192" href="icons/icon-192.png">
+<link rel="apple-touch-icon" sizes="512x512" href="icons/icon-512.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Crimson+Pro:ital,wght@0,300;0,400;0,600;1,400&family=EB+Garamond:ital,wght@0,400;0,500;1,400&family=Lora:ital,wght@0,400;0,500;1,400&family=Merriweather:ital,wght@0,300;0,400;0,700;1,400&family=Spectral:ital,wght@0,300;0,400;0,600;1,400&family=Playfair+Display:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
 <style>
@@ -1906,6 +1916,143 @@ function init() {
 }
 
 init();
+</script>
+
+<script>
+/* ══════════════════════════════════════════
+   PWA — Service Worker + Install Prompt
+══════════════════════════════════════════ */
+
+/* Register Service Worker */
+if ('serviceWorker' in navigator) {
+  window.addEventListener('load', () => {
+    navigator.serviceWorker.register('./sw.js')
+      .then(reg => {
+        console.log('[PWA] Service Worker registrado:', reg.scope);
+
+        /* Detecta nova versão disponível */
+        reg.addEventListener('updatefound', () => {
+          const newWorker = reg.installing;
+          newWorker.addEventListener('statechange', () => {
+            if (newWorker.state === 'installed' && navigator.serviceWorker.controller) {
+              showUpdateBanner();
+            }
+          });
+        });
+      })
+      .catch(err => console.warn('[PWA] SW registration failed:', err));
+  });
+}
+
+/* Pré-cacheia versão da Bíblia quando o usuário seleciona uma */
+function precacheBibleVersion(url) {
+  if ('serviceWorker' in navigator && navigator.serviceWorker.controller) {
+    navigator.serviceWorker.controller.postMessage({
+      type: 'PRECACHE_BIBLE',
+      url: url,
+    });
+  }
+}
+
+/* ── Banner de atualização disponível ── */
+function showUpdateBanner() {
+  const banner = document.createElement('div');
+  banner.style.cssText = `
+    position:fixed;bottom:80px;left:50%;transform:translateX(-50%);
+    background:var(--ac);color:#fff;padding:10px 18px;border-radius:20px;
+    font-size:13px;font-weight:600;z-index:2000;display:flex;
+    align-items:center;gap:10px;box-shadow:0 4px 16px rgba(0,0,0,.3);
+    white-space:nowrap;
+  `;
+  banner.innerHTML = `
+    ✨ Nova versão disponível!
+    <button onclick="reloadApp()" style="padding:4px 12px;background:rgba(255,255,255,.25);
+      border:1px solid rgba(255,255,255,.5);border-radius:10px;color:#fff;
+      font-size:12px;cursor:pointer;">Atualizar</button>
+  `;
+  document.body.appendChild(banner);
+  setTimeout(() => banner.remove(), 12000);
+}
+
+function reloadApp() {
+  if (navigator.serviceWorker.controller) {
+    navigator.serviceWorker.controller.postMessage('SKIP_WAITING');
+  }
+  window.location.reload();
+}
+
+/* ── Banner de instalação (Add to Home Screen) ── */
+let deferredInstallPrompt = null;
+
+window.addEventListener('beforeinstallprompt', e => {
+  e.preventDefault();
+  deferredInstallPrompt = e;
+  /* Mostra banner de instalação após 3 segundos */
+  setTimeout(showInstallBanner, 3000);
+});
+
+function showInstallBanner() {
+  /* Não mostra se já está instalado */
+  if (window.matchMedia('(display-mode: standalone)').matches) return;
+  /* Não mostra se já foi dispensado antes */
+  if (localStorage.getItem('pwa_install_dismissed')) return;
+
+  const banner = document.createElement('div');
+  banner.id = 'installBanner';
+  banner.style.cssText = `
+    position:fixed;bottom:0;left:0;right:0;z-index:2000;
+    background:var(--sf);border-top:2px solid var(--ac);
+    padding:14px 16px 20px;box-shadow:0 -4px 20px rgba(0,0,0,.15);
+    display:flex;align-items:center;gap:12px;
+  `;
+  banner.innerHTML = `
+    <img src="icons/icon-96.png" style="width:44px;height:44px;border-radius:10px;flex-shrink:0">
+    <div style="flex:1;min-width:0">
+      <div style="font-size:14px;font-weight:700;color:var(--tx)">Instalar Bíblia Sagrada</div>
+      <div style="font-size:12px;color:var(--tx3)">Adicione à tela inicial — funciona offline!</div>
+    </div>
+    <div style="display:flex;flex-direction:column;gap:6px;flex-shrink:0">
+      <button onclick="installPWA()" style="padding:8px 16px;background:var(--ac);color:#fff;
+        border:none;border-radius:10px;font-size:13px;font-weight:700;cursor:pointer;">
+        Instalar
+      </button>
+      <button onclick="dismissInstall()" style="padding:4px;background:none;border:none;
+        color:var(--tx3);font-size:12px;cursor:pointer;">Agora não</button>
+    </div>
+  `;
+  document.body.appendChild(banner);
+}
+
+async function installPWA() {
+  if (!deferredInstallPrompt) return;
+  deferredInstallPrompt.prompt();
+  const result = await deferredInstallPrompt.userChoice;
+  deferredInstallPrompt = null;
+  document.getElementById('installBanner')?.remove();
+  if (result.outcome === 'accepted') {
+    showToast('🙏 Bíblia Sagrada instalada com sucesso!');
+  }
+}
+
+function dismissInstall() {
+  document.getElementById('installBanner')?.remove();
+  localStorage.setItem('pwa_install_dismissed', '1');
+}
+
+/* Detecta se foi aberto via shortcut (continue ou daily) */
+window.addEventListener('DOMContentLoaded', () => {
+  const params = new URLSearchParams(window.location.search);
+  const action = params.get('action');
+  if (action === 'continue' && S.lastRead) {
+    setTimeout(() => continueReading(), 500);
+  } else if (action === 'daily') {
+    /* Vai para home e rola até a palavra do dia */
+    setTimeout(() => {
+      showHome();
+      document.querySelector('.word-day-card')?.scrollIntoView({ behavior:'smooth' });
+    }, 500);
+  }
+});
 </script>
 </body>
 </html>
