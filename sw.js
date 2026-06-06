@@ -9,10 +9,10 @@ const DATA_CACHE    = 'biblia-sagrada-data-v1';
 
 /* Assets que ficam em cache permanentemente */
 const STATIC_ASSETS = [
-  './biblia-sagrada.html',
-  './manifest.json',
-  './icons/icon-192.png',
-  './icons/icon-512.png',
+  '/bibliasagrada/biblia-sagrada.html',
+  '/bibliasagrada/manifest.json',
+  '/bibliasagrada/icons/icon-192.png',
+  '/bibliasagrada/icons/icon-512.png',
   'https://fonts.googleapis.com/css2?family=Crimson+Pro:ital,wght@0,300;0,400;0,600;1,400&family=EB+Garamond:ital,wght@0,400;0,500;1,400&family=Lora:ital,wght@0,400;0,500;1,400&family=Merriweather:ital,wght@0,300;0,400;0,700;1,400&family=Spectral:ital,wght@0,300;0,400;0,600;1,400&family=Playfair+Display:ital,wght@0,400;0,700;1,400&display=swap',
 ];
 
