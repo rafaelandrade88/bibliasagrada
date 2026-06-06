@@ -5,16 +5,16 @@
 <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=5">
 <title>Bíblia Sagrada</title>
 <meta name="theme-color" content="#7c4f1e">
-<link rel="manifest" href="manifest.json">
+<link rel="manifest" href="/bibliasagrada/manifest.json">
 <meta name="mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <meta name="apple-mobile-web-app-title" content="Bíblia Sagrada">
-<link rel="apple-touch-icon" href="icons/icon-192.png">
-<link rel="apple-touch-icon" sizes="152x152" href="icons/icon-152.png">
-<link rel="apple-touch-icon" sizes="144x144" href="icons/icon-144.png">
-<link rel="apple-touch-icon" sizes="192x192" href="icons/icon-192.png">
-<link rel="apple-touch-icon" sizes="512x512" href="icons/icon-512.png">
+<link rel="apple-touch-icon" href="/bibliasagrada/icons/icon-192.png">
+<link rel="apple-touch-icon" sizes="152x152" href="/bibliasagrada/icons/icon-152.png">
+<link rel="apple-touch-icon" sizes="144x144" href="/bibliasagrada/icons/icon-144.png">
+<link rel="apple-touch-icon" sizes="192x192" href="/bibliasagrada/icons/icon-192.png">
+<link rel="apple-touch-icon" sizes="512x512" href="/bibliasagrada/icons/icon-512.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Crimson+Pro:ital,wght@0,300;0,400;0,600;1,400&family=EB+Garamond:ital,wght@0,400;0,500;1,400&family=Lora:ital,wght@0,400;0,500;1,400&family=Merriweather:ital,wght@0,300;0,400;0,700;1,400&family=Spectral:ital,wght@0,300;0,400;0,600;1,400&family=Playfair+Display:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
 <style>
@@ -85,9 +85,11 @@ button,select,input{font-family:inherit;cursor:pointer}
   box-shadow:0 2px 12px var(--sh);
   cursor:pointer;transition:transform .15s,box-shadow .15s;
   display:flex;align-items:center;gap:16px;
-  text-decoration:none;
+  text-decoration:none;font-family:inherit;
+  -webkit-tap-highlight-color:rgba(0,0,0,0);
+  touch-action:manipulation;
 }
-.home-card:hover{transform:translateY(-2px);box-shadow:0 6px 20px var(--sh)}
+.home-card:hover,.home-card:active{transform:translateY(-2px);box-shadow:0 6px 20px var(--sh)}
 .home-card-icon{
   width:52px;height:52px;border-radius:14px;
   display:flex;align-items:center;justify-content:center;
@@ -469,7 +471,7 @@ button,select,input{font-family:inherit;cursor:pointer}
       </div>
 
       <!-- Bíblia -->
-      <div class="home-card" onclick="goToSelector()">
+      <button class="home-card" onclick="goToSelector()" style="width:100%;text-align:left;border:1px solid var(--br);cursor:pointer;">
         <div class="home-card-icon bible-bg">
           <svg width="26" height="26" viewBox="0 0 24 24" fill="none">
             <rect x="3" y="2" width="14" height="20" rx="2" fill="rgba(255,255,255,.25)" stroke="white" stroke-width="1.5"/>
@@ -483,10 +485,10 @@ button,select,input{font-family:inherit;cursor:pointer}
           <p>Escolha o livro, capítulo e versículo</p>
         </div>
         <div class="home-card-arrow">›</div>
-      </div>
+      </button>
 
       <!-- Favoritos -->
-      <div class="home-card" onclick="openBookmarks()">
+      <button class="home-card" onclick="openBookmarks()" style="width:100%;text-align:left;border:1px solid var(--br);cursor:pointer;">
         <div class="home-card-icon" style="background:linear-gradient(135deg,#5a6aac,#7a8acc)">
           <span style="font-size:22px;color:#fff">🔖</span>
         </div>
@@ -495,10 +497,10 @@ button,select,input{font-family:inherit;cursor:pointer}
           <p>Versículos e capítulos marcados</p>
         </div>
         <div class="home-card-arrow">›</div>
-      </div>
+      </button>
 
       <!-- Destaques -->
-      <div class="home-card" onclick="openHighlights()">
+      <button class="home-card" onclick="openHighlights()" style="width:100%;text-align:left;border:1px solid var(--br);cursor:pointer;">
         <div class="home-card-icon" style="background:linear-gradient(135deg,#a06030,#c08050)">
           <span style="font-size:22px;color:#fff">🖍️</span>
         </div>
@@ -507,7 +509,7 @@ button,select,input{font-family:inherit;cursor:pointer}
           <p>Versículos marcados com cores</p>
         </div>
         <div class="home-card-arrow">›</div>
-      </div>
+      </button>
     </div>
   </div>
 </div>
@@ -1906,16 +1908,28 @@ function init() {
   const nvs = document.getElementById('navVerSel');
   if (nvs) nvs.value = S.ver;
   renderSelector();
-  updateHomeUI();
   setupKeys();
-  loadBible(S.ver).then(()=>renderChapVer()).catch(()=>{});
+
+  /* Aguarda DOM completo antes de atualizar a home */
+  requestAnimationFrame(() => {
+    updateHomeUI();
+    /* Pré-carrega a versão padrão em background */
+    loadBible(S.ver).catch(() => {});
+  });
+
   if (S.lastRead) {
     document.getElementById('continueRef').textContent = S.lastRead.name;
-    checkLastRead();
+    /* Pequeno delay para modal não aparecer antes da home renderizar */
+    setTimeout(() => checkLastRead(), 400);
   }
 }
 
-init();
+/* Garante que init rode após o DOM estar totalmente pronto */
+if (document.readyState === 'loading') {
+  document.addEventListener('DOMContentLoaded', init);
+} else {
+  init();
+}
 </script>
 
 <script>
@@ -1926,7 +1940,7 @@ init();
 /* Register Service Worker */
 if ('serviceWorker' in navigator) {
   window.addEventListener('load', () => {
-    navigator.serviceWorker.register('./sw.js')
+    navigator.serviceWorker.register('/bibliasagrada/sw.js')
       .then(reg => {
         console.log('[PWA] Service Worker registrado:', reg.scope);
 
