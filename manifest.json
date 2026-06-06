@@ -2,8 +2,8 @@
   "name": "Bíblia Sagrada — Palavra de Deus",
   "short_name": "Bíblia Sagrada",
   "description": "Aplicativo completo da Bíblia Sagrada com múltiplas versões, áudio, destaques e muito mais.",
-  "start_url": "/biblia-sagrada.html",
-  "scope": "/",
+  "start_url": "/bibliasagrada/biblia-sagrada.html",
+  "scope": "/bibliasagrada/",
   "display": "standalone",
   "orientation": "portrait-primary",
   "background_color": "#7c4f1e",
@@ -12,49 +12,49 @@
   "categories": ["education", "lifestyle", "religion"],
   "icons": [
     {
-      "src": "icons/icon-72.png",
+      "src": "/bibliasagrada/icons/icon-72.png",
       "sizes": "72x72",
       "type": "image/png",
       "purpose": "any"
     },
     {
-      "src": "icons/icon-96.png",
+      "src": "/bibliasagrada/icons/icon-96.png",
       "sizes": "96x96",
       "type": "image/png",
       "purpose": "any"
     },
     {
-      "src": "icons/icon-128.png",
+      "src": "/bibliasagrada/icons/icon-128.png",
       "sizes": "128x128",
       "type": "image/png",
       "purpose": "any"
     },
     {
-      "src": "icons/icon-144.png",
+      "src": "/bibliasagrada/icons/icon-144.png",
       "sizes": "144x144",
       "type": "image/png",
       "purpose": "any"
     },
     {
-      "src": "icons/icon-152.png",
+      "src": "/bibliasagrada/icons/icon-152.png",
       "sizes": "152x152",
       "type": "image/png",
       "purpose": "any"
     },
     {
-      "src": "icons/icon-192.png",
+      "src": "/bibliasagrada/icons/icon-192.png",
       "sizes": "192x192",
       "type": "image/png",
       "purpose": "any maskable"
     },
     {
-      "src": "icons/icon-384.png",
+      "src": "/bibliasagrada/icons/icon-384.png",
       "sizes": "384x384",
       "type": "image/png",
       "purpose": "any"
     },
     {
-      "src": "icons/icon-512.png",
+      "src": "/bibliasagrada/icons/icon-512.png",
       "sizes": "512x512",
       "type": "image/png",
       "purpose": "any maskable"
@@ -65,15 +65,15 @@
       "name": "Continuar leitura",
       "short_name": "Continuar",
       "description": "Continuar de onde parou",
-      "url": "/biblia-sagrada.html?action=continue",
-      "icons": [{ "src": "icons/icon-96.png", "sizes": "96x96" }]
+      "url": "/bibliasagrada/biblia-sagrada.html?action=continue",
+      "icons": [{ "src": "/bibliasagrada/icons/icon-96.png", "sizes": "96x96" }]
     },
     {
       "name": "Palavra do Dia",
       "short_name": "Palavra",
       "description": "Ver o versículo do dia",
-      "url": "/biblia-sagrada.html?action=daily",
-      "icons": [{ "src": "icons/icon-96.png", "sizes": "96x96" }]
+      "url": "/bibliasagrada/biblia-sagrada.html?action=daily",
+      "icons": [{ "src": "/bibliasagrada/icons/icon-96.png", "sizes": "96x96" }]
     }
   ],
   "screenshots": [],
