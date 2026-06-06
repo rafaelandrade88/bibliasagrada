@@ -240,6 +240,8 @@ button,select,input{font-family:inherit;cursor:pointer}
 .verse[data-hl="blue"]  {background:rgba(80,140,255,.18);border-left-color:#4080e0}
 .verse[data-hl="pink"]  {background:rgba(255,100,150,.18);border-left-color:#e04080}
 .verse[data-hl="purple"]{background:rgba(160,80,255,.18);border-left-color:#8040c0}
+/* Multi-select state */
+.verse.sel-verse{outline:2px solid var(--ac);outline-offset:-1px;background:rgba(124,79,30,.10)!important;border-left-color:var(--ac)!important}
 
 /* Highlight menu */
 .hl-menu{
@@ -383,7 +385,6 @@ button,select,input{font-family:inherit;cursor:pointer}
 /* Mobile responsive */
 @media(max-width:768px){
   .cnav{display:none}
-  .nav-ver-badge{display:none}
   .sp{width:100%;max-width:100%}
   .read-area{padding:20px 14px 200px}
 }
@@ -537,27 +538,34 @@ button,select,input{font-family:inherit;cursor:pointer}
 <div class="screen" id="readingScreen">
   <!-- Top bar -->
   <div class="read-topbar">
-    <div class="rtl">
-      <button class="ibtn" onclick="showHome()" title="Início">⌂</button>
-      <div class="nav-info" onclick="toggleCpp()">
-        <span class="nav-book" id="navBook">—</span>
-        <span class="nav-sep">·</span>
-        <span style="color:var(--tx3);font-size:12px">Cap.</span>
-        <span class="nav-ch" id="navCh">1</span>
-        <span class="nav-ver-badge" id="navVer">NVI</span>
-      </div>
-    </div>
-    <div class="cnav">
-      <button class="cnb" onclick="prevCh()">‹ Ant.</button>
-      <button class="cnb" style="background:var(--bg2);font-weight:700" onclick="toggleCpp()">Caps</button>
-      <button class="cnb" onclick="nextCh()">Próx. ›</button>
-    </div>
-    <div class="rtr">
+    <!-- Linha 1: navegação principal -->
+    <div class="rtl" style="width:100%">
+      <!-- Botão livro (volta ao seletor) -->
+      <button class="ibtn" onclick="goToBookFromReading()" title="Trocar livro" style="display:flex;align-items:center;gap:4px;padding:6px 8px">
+        <span style="font-size:14px">📚</span>
+        <span class="nav-book" id="navBook" style="font-size:13px;font-weight:700;color:var(--tx);max-width:90px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">—</span>
+      </button>
+      <!-- Cap -->
+      <span class="nav-sep">·</span>
+      <span style="color:var(--tx3);font-size:11px">Cap.</span>
+      <span class="nav-ch" id="navCh" onclick="toggleCpp()" style="color:var(--ac);font-weight:700;cursor:pointer;font-size:13px;text-decoration:underline dotted">1</span>
+      <!-- Versão — select SEMPRE visível, nunca some -->
+      <select id="navVerSel" onchange="changeVer(this.value)"
+        style="margin-left:4px;padding:4px 20px 4px 7px;background:var(--bg2);border:1px solid var(--br);border-radius:8px;color:var(--ac);font-size:11px;font-weight:700;max-width:90px;appearance:none;background-image:url('data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%228%22 height=%225%22%3E%3Cpath d=%22M0 0l4 5 4-5z%22 fill=%22%23888%22/%3E%3C/svg%3E');background-repeat:no-repeat;background-position:right 6px center;cursor:pointer">
+      </select>
+      <div style="flex:1"></div>
+      <!-- Ações rápidas -->
       <button class="ibtn" id="btnSearch" onclick="toggleSearch()" title="Buscar">🔍</button>
       <button class="ibtn" id="btnAudio"  onclick="toggleAudio()"  title="Áudio">🔊</button>
       <button class="ibtn"               onclick="addBm()"          title="Favoritar">🔖</button>
-      <button class="ibtn"               onclick="openPanel('versions')" title="Versão">📖</button>
       <button class="ibtn"               onclick="openPanel('bookmarks')" title="Favoritos">📚</button>
+    </div>
+    <!-- Linha 2: navegação de capítulos (compacta) -->
+    <div style="display:flex;align-items:center;gap:5px;width:100%;margin-top:5px">
+      <button class="cnb" onclick="prevCh()" style="flex:1">‹ Anterior</button>
+      <button class="cnb" style="background:var(--bg2);font-weight:700;flex:0 0 auto;padding:5px 14px" onclick="toggleCpp()">Caps ⌄</button>
+      <button class="cnb" onclick="nextCh()" style="flex:1">Próximo ›</button>
+      <button class="ibtn" onclick="showHome()" title="Início" style="flex-shrink:0">⌂</button>
     </div>
   </div>
 
@@ -670,8 +678,25 @@ button,select,input{font-family:inherit;cursor:pointer}
 </div>
 
 <!-- Highlight menu -->
+<!-- Barra de multi-seleção (aparece quando há versículos selecionados) -->
+<div id="multiSelBar" style="display:none;position:fixed;bottom:0;left:0;right:0;z-index:400;background:var(--sf);border-top:2px solid var(--ac);padding:10px 14px 16px;box-shadow:0 -4px 16px var(--sh)">
+  <div style="display:flex;align-items:center;gap:8px;margin-bottom:10px">
+    <span style="font-size:12px;font-weight:700;color:var(--tx);flex:1" id="multiSelCount">0 versículos selecionados</span>
+    <button onclick="clearMultiSel()" style="font-size:12px;color:var(--tx3);background:none;border:1px solid var(--br);border-radius:6px;padding:4px 10px">Cancelar</button>
+  </div>
+  <div style="display:flex;align-items:center;gap:10px;flex-wrap:wrap">
+    <span style="font-size:11px;color:var(--tx3)">Cor:</span>
+    <div class="hl-dot" data-c="yellow" onclick="applyHLMulti('yellow')" title="Amarelo" style="width:32px;height:32px"></div>
+    <div class="hl-dot" data-c="green"  onclick="applyHLMulti('green')"  title="Verde"   style="width:32px;height:32px"></div>
+    <div class="hl-dot" data-c="blue"   onclick="applyHLMulti('blue')"   title="Azul"    style="width:32px;height:32px"></div>
+    <div class="hl-dot" data-c="pink"   onclick="applyHLMulti('pink')"   title="Rosa"    style="width:32px;height:32px"></div>
+    <div class="hl-dot" data-c="purple" onclick="applyHLMulti('purple')" title="Roxo"    style="width:32px;height:32px"></div>
+    <button onclick="applyHLMulti(null)" style="padding:6px 12px;border:1px solid var(--br);border-radius:8px;background:none;color:var(--tx3);font-size:12px;margin-left:4px">🗑 Remover</button>
+  </div>
+</div>
+
 <div class="hl-menu" id="hlMenu">
-  <div class="hl-menu-title">Destacar versículo</div>
+  <div class="hl-menu-title" id="hlMenuTitle">Destacar versículo</div>
   <div class="hl-colors">
     <div class="hl-dot" data-c="yellow" onclick="applyHL('yellow')" title="Amarelo"></div>
     <div class="hl-dot" data-c="green"  onclick="applyHL('green')"  title="Verde"></div>
@@ -680,6 +705,9 @@ button,select,input{font-family:inherit;cursor:pointer}
     <div class="hl-dot" data-c="purple" onclick="applyHL('purple')" title="Roxo"></div>
   </div>
   <button class="hl-remove" onclick="applyHL(null)">Remover destaque</button>
+  <div style="border-top:1px solid var(--br);padding-top:8px;font-size:11px;color:var(--tx3)">
+    💡 Toque para selecionar um. Toque e segure para selecionar múltiplos.
+  </div>
 </div>
 
 <!-- Overlay + panels -->
@@ -872,7 +900,9 @@ const S = {
   utterance:null,
 };
 
-let hlTargetVerse = null; /* which verse the hl-menu is targeting */
+let hlTargetVerse  = null;
+let multiSelVerses = new Set(); /* versículos selecionados para destacar em grupo */
+let hlLongPressTimer = null;
 
 /* ══════════════════════════════════════════
    SCREEN NAVIGATION
@@ -887,6 +917,18 @@ function showSelector() { showScreen('selectorScreen'); }
 function goToSelector() { renderSelector(); showScreen('selectorScreen'); }
 function showChapVer()  { showScreen('chapverScreen'); renderChapVerAsync(); }
 function showReading()  { showScreen('readingScreen'); }
+
+/* Troca de livro direto da tela de leitura */
+function goToBookFromReading() {
+  renderSelector();
+  showScreen('selectorScreen');
+  /* Garante que o testamento correto está selecionado */
+  const isNT = NT.some(b => b.id === S.book.id);
+  S.test = isNT ? 'nt' : 'at';
+  document.getElementById('selTabAT').classList.toggle('active', !isNT);
+  document.getElementById('selTabNT').classList.toggle('active',  isNT);
+  renderSelector();
+}
 
 /* ══════════════════════════════════════════
    HOME UI
@@ -1166,7 +1208,8 @@ async function loadVerses() {
 function updateNavBar() {
   document.getElementById('navBook').textContent = S.book.name;
   document.getElementById('navCh').textContent   = S.ch;
-  document.getElementById('navVer').textContent  = S.ver;
+  const nvs = document.getElementById('navVerSel');
+  if (nvs) nvs.value = S.ver;
 }
 
 function showLoadingState() {
@@ -1228,38 +1271,103 @@ function esc(s) {
 ══════════════════════════════════════════ */
 let hlLongPressTimer = null;
 
+/* ── Toque simples: toggle seleção do versículo ──
+   Se já há versículos selecionados → adiciona/remove da seleção
+   Se nenhum selecionado → abre menu de cor direto (comportamento antigo) */
 function onVerseClick(e, n) {
-  /* On mobile, single tap = show HL menu.
-     On desktop, single click also shows menu for convenience */
   e.preventDefault();
-  showHlMenu(e, n);
+  if (multiSelVerses.size > 0) {
+    /* Modo multi-seleção ativo: toggle este versículo */
+    toggleVerseSelection(n);
+  } else {
+    /* Nenhum selecionado: seleciona este e mostra barra */
+    toggleVerseSelection(n);
+  }
 }
 
 function onVerseRClick(e, n) {
   e.preventDefault();
+  /* Clique direito / toque longo: sempre abre o menu flutuante */
   showHlMenu(e, n);
 }
 
+function toggleVerseSelection(n) {
+  const el = document.getElementById('v' + n);
+  if (!el) return;
+  if (multiSelVerses.has(n)) {
+    multiSelVerses.delete(n);
+    el.classList.remove('sel-verse');
+  } else {
+    multiSelVerses.add(n);
+    el.classList.add('sel-verse');
+  }
+  updateMultiSelBar();
+}
+
+function updateMultiSelBar() {
+  const bar   = document.getElementById('multiSelBar');
+  const count = multiSelVerses.size;
+  if (count === 0) {
+    bar.style.display = 'none';
+    /* Restore reading controls */
+    document.getElementById('readControls').style.display = '';
+  } else {
+    bar.style.display = 'block';
+    /* Hide reading controls to avoid overlap */
+    document.getElementById('readControls').style.display = 'none';
+    document.getElementById('multiSelCount').textContent =
+      count === 1 ? '1 versículo selecionado' : `${count} versículos selecionados`;
+  }
+}
+
+function clearMultiSel() {
+  multiSelVerses.forEach(n => {
+    const el = document.getElementById('v' + n);
+    if (el) el.classList.remove('sel-verse');
+  });
+  multiSelVerses.clear();
+  updateMultiSelBar();
+}
+
+/* Aplica cor a TODOS os versículos selecionados */
+function applyHLMulti(color) {
+  if (!multiSelVerses.size) return;
+  multiSelVerses.forEach(n => {
+    const key = `${S.book.id}|${S.ch}|${n}`;
+    if (color) S.highlights[key] = color;
+    else        delete S.highlights[key];
+  });
+  const count = multiSelVerses.size;
+  clearMultiSel();
+  renderVerses(document.getElementById('si').value.trim());
+  savePrefs();
+  showToast(color
+    ? `✦ ${count} versículo(s) destacado(s)!`
+    : `🗑 Destaque removido de ${count} versículo(s)`
+  );
+}
+
+/* Menu flutuante para seleção individual (clique direito / toque longo) */
 function showHlMenu(e, n) {
   hlTargetVerse = n;
   const menu = document.getElementById('hlMenu');
   const key  = `${S.book.id}|${S.ch}|${n}`;
   const cur  = S.highlights[key];
 
-  /* Mark active dot */
-  document.querySelectorAll('.hl-dot').forEach(d => {
+  document.getElementById('hlMenuTitle').textContent =
+    `Versículo ${n}`;
+
+  document.querySelectorAll('#hlMenu .hl-dot').forEach(d => {
     d.classList.toggle('active', d.dataset.c === cur);
   });
 
   menu.classList.add('show');
 
-  /* Position near click but keep inside viewport */
-  const x = Math.min(e.clientX, window.innerWidth  - 220);
-  const y = Math.min(e.clientY, window.innerHeight - 160);
-  menu.style.left = x + 'px';
-  menu.style.top  = y + 'px';
+  const x = Math.min(e.clientX || window.innerWidth/2,  window.innerWidth  - 230);
+  const y = Math.min(e.clientY || window.innerHeight/2, window.innerHeight - 180);
+  menu.style.left = Math.max(8, x) + 'px';
+  menu.style.top  = Math.max(8, y) + 'px';
 
-  /* Close on outside click */
   setTimeout(() => {
     document.addEventListener('click', closeHlMenu, {once:true});
   }, 10);
@@ -1269,14 +1377,12 @@ function closeHlMenu() {
   document.getElementById('hlMenu').classList.remove('show');
 }
 
+/* Aplica cor a versículo individual (via menu flutuante) */
 function applyHL(color) {
   if (hlTargetVerse === null) return;
   const key = `${S.book.id}|${S.ch}|${hlTargetVerse}`;
-  if (color) {
-    S.highlights[key] = color;
-  } else {
-    delete S.highlights[key];
-  }
+  if (color) S.highlights[key] = color;
+  else        delete S.highlights[key];
   closeHlMenu();
   renderVerses(document.getElementById('si').value.trim());
   savePrefs();
@@ -1538,14 +1644,19 @@ function populateVsel() {
     list.forEach(v => { h += `<option value="${v.code}">${v.code} — ${v.name}</option>`; });
     h += '</optgroup>';
   }
-  document.getElementById('vsel').innerHTML = h;
-  document.getElementById('vsel').value = S.ver;
+  /* Populate both selects */
+  ['vsel','navVerSel'].forEach(id => {
+    const el = document.getElementById(id);
+    if (el) { el.innerHTML = h; el.value = S.ver; }
+  });
 }
 
 function changeVer(code) {
   S.ver = code;
-  document.getElementById('vsel').value = code;
-  document.getElementById('navVer').textContent = code;
+  ['vsel','navVerSel'].forEach(id => {
+    const el = document.getElementById(id);
+    if (el) el.value = code;
+  });
   renderVersionsBody();
   savePrefs();
   stopAudio();
@@ -1782,6 +1893,8 @@ function init() {
   loadPrefs();
   populateVsel();
   document.getElementById('vsel').value = S.ver;
+  const nvs = document.getElementById('navVerSel');
+  if (nvs) nvs.value = S.ver;
   renderSelector();
   updateHomeUI();
   setupKeys();
