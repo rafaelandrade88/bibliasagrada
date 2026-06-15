@@ -1,0 +1,18 @@
+{
+  "version": "1.0.0",
+  "date": "15/06/2025",
+  "notes": "Versão inicial com planos de leitura, anotações, destaques, áudio e muito mais",
+  "features": [
+    "📖 66 livros — Antigo e Novo Testamento",
+    "🌍 10 versões em 7 idiomas",
+    "📅 5 Planos de Leitura",
+    "🖍️ Destaque de versículos em 5 cores",
+    "📝 Anotações por versículo",
+    "📤 Compartilhar versículo como imagem",
+    "⚖️ Comparar versões lado a lado",
+    "🔊 Narração em áudio",
+    "📜 Histórico de leitura",
+    "🌅 Devocional diário",
+    "🔔 Notificações diárias"
+  ]
+}
