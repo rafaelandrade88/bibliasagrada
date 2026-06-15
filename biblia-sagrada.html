@@ -308,6 +308,49 @@ input[type=range]{flex:1;accent-color:var(--ac);height:3px;cursor:pointer}
 #toast.on{opacity:1;transform:translateX(-50%) translateY(0)}
 
 @media(min-width:600px){.read-scroll{padding:28px 10% 200px}.home-body{max-width:500px}}
+
+/* ── HAMBURGER MENU ── */
+.hbg-btn{position:absolute;top:14px;right:14px;background:rgba(255,255,255,.15);border:1px solid rgba(255,255,255,.3);border-radius:10px;padding:8px 10px;cursor:pointer;touch-action:manipulation;display:flex;flex-direction:column;gap:4px;z-index:10}
+.hbg-line{width:20px;height:2px;background:#fff;border-radius:2px;display:block}
+.hmenu-bg{display:none;position:fixed;inset:0;background:rgba(0,0,0,.5);z-index:400}
+.hmenu-bg.on{display:block}
+.hmenu{position:fixed;top:0;right:0;bottom:0;width:80vw;max-width:320px;background:var(--sf);z-index:401;display:flex;flex-direction:column;transform:translateX(100%);transition:transform .28s ease;box-shadow:-4px 0 20px rgba(0,0,0,.2)}
+.hmenu.on{transform:translateX(0)}
+.hmenu-hd{background:linear-gradient(135deg,var(--ac),var(--ac2));padding:32px 20px 20px;flex-shrink:0}
+.hmenu-logo{display:flex;align-items:center;gap:12px;margin-bottom:12px}
+.hmenu-logo-icon{width:44px;height:44px;background:rgba(255,255,255,.2);border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:22px}
+.hmenu-logo-title{font-family:'Playfair Display',serif;font-size:20px;color:#fff;font-weight:700}
+.hmenu-logo-sub{font-size:10px;color:rgba(255,255,255,.7);letter-spacing:1.5px;text-transform:uppercase}
+.hmenu-ver-badge{display:inline-flex;align-items:center;gap:6px;background:rgba(255,255,255,.15);border:1px solid rgba(255,255,255,.3);border-radius:20px;padding:5px 12px}
+.hmenu-ver-txt{font-size:12px;color:#fff;font-weight:600}
+.hmenu-ver-dot{width:7px;height:7px;border-radius:50%;background:#4caf50}
+.hmenu-body{flex:1;overflow-y:auto;-webkit-overflow-scrolling:touch;padding:8px 0}
+.hmenu-section{padding:6px 16px 2px;font-size:9px;font-weight:800;letter-spacing:2px;text-transform:uppercase;color:var(--tx3);margin-top:8px}
+.hmenu-item{display:flex;align-items:center;gap:12px;padding:13px 20px;cursor:pointer;touch-action:manipulation;border-bottom:1px solid var(--br)}
+.hmenu-item:active{background:var(--bg2)}
+.hmenu-item-icon{font-size:20px;width:28px;text-align:center;flex-shrink:0}
+.hmenu-item-text{flex:1}
+.hmenu-item-title{font-size:14px;font-weight:600;color:var(--tx);margin-bottom:1px}
+.hmenu-item-sub{font-size:11px;color:var(--tx3)}
+.hmenu-item-arr{color:var(--tx3);font-size:16px}
+.hmenu-ver-sel-wrap{padding:12px 16px;border-bottom:1px solid var(--br)}
+.hmenu-ver-label{font-size:10px;font-weight:800;letter-spacing:1.5px;text-transform:uppercase;color:var(--tx3);margin-bottom:6px}
+.hmenu-ver-sel{width:100%;padding:9px 28px 9px 12px;background:var(--bg2);border:1px solid var(--br);border-radius:8px;color:var(--tx);font-size:13px;font-weight:600;appearance:none;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='8' height='5'%3E%3Cpath d='M0 0l4 5 4-5z' fill='%23888'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 10px center;cursor:pointer;touch-action:manipulation}
+.hmenu-ver-sel:focus{outline:none;border-color:var(--ac)}
+.hmenu-cur-ver{display:flex;align-items:center;justify-content:space-between;padding:8px 0 0}
+.hmenu-cur-ver-name{font-size:12px;color:var(--tx3)}
+.hmenu-cur-ver-code{font-size:13px;font-weight:800;color:var(--ac)}
+.hmenu-footer{padding:14px 16px;border-top:1px solid var(--br);flex-shrink:0}
+.hmenu-footer-ver{font-size:11px;color:var(--tx3);text-align:center;margin-bottom:4px}
+.hmenu-footer-update{font-size:11px;color:var(--ac);font-weight:700;text-align:center;cursor:pointer;touch-action:manipulation}
+
+/* ── UPDATE BANNER ── */
+.update-banner{display:none;position:fixed;top:0;left:0;right:0;z-index:2000;background:linear-gradient(135deg,var(--ac),var(--ac2));padding:12px 16px;box-shadow:0 2px 12px rgba(0,0,0,.3)}
+.update-banner.on{display:flex;align-items:center;gap:10px}
+.update-banner-text{flex:1;color:#fff;font-size:13px;font-weight:600}
+.update-banner-sub{font-size:11px;color:rgba(255,255,255,.8);display:block;margin-top:1px}
+.update-reload{padding:7px 14px;background:rgba(255,255,255,.2);border:1px solid rgba(255,255,255,.4);border-radius:8px;color:#fff;font-size:12px;font-weight:700;cursor:pointer;touch-action:manipulation;flex-shrink:0}
+.update-close{background:none;border:none;color:rgba(255,255,255,.7);font-size:18px;cursor:pointer;touch-action:manipulation;flex-shrink:0;padding:2px 4px}
 @media print{.ctrl-bar,.read-topbar,.prog-bar,#toast{display:none!important}.read-scroll{padding:20px;overflow:visible}html,body{overflow:visible;height:auto}}
 </style>
 </head>
@@ -316,7 +359,24 @@ input[type=range]{flex:1;accent-color:var(--ac);height:3px;cursor:pointer}
 <!-- ════ HOME ════ -->
 <div class="page on" id="pgHome">
   <div class="scroll-body">
-    <div class="hero">
+    <!-- Update banner -->
+    <div class="update-banner" id="updateBanner">
+      <div style="font-size:20px;flex-shrink:0">🎉</div>
+      <div class="update-banner-text">
+        Nova versão disponível!
+        <span class="update-banner-sub" id="updateBannerSub">Toque para atualizar</span>
+      </div>
+      <button class="update-reload" onclick="reloadApp()">Atualizar</button>
+      <button class="update-close" onclick="dismissUpdate()">✕</button>
+    </div>
+
+    <div class="hero" style="position:relative">
+      <!-- Hamburger button -->
+      <button class="hbg-btn" onclick="openHMenu()" aria-label="Menu">
+        <span class="hbg-line"></span>
+        <span class="hbg-line"></span>
+        <span class="hbg-line"></span>
+      </button>
       <div class="hero-icon">
         <svg width="56" height="56" viewBox="0 0 56 56" fill="none">
           <rect x="7" y="4" width="36" height="48" rx="3" fill="rgba(255,255,255,.18)" stroke="rgba(255,255,255,.8)" stroke-width="1.5"/>
@@ -556,6 +616,117 @@ input[type=range]{flex:1;accent-color:var(--ac);height:3px;cursor:pointer}
 <!-- panel bg -->
 <div class="panel-bg" id="panelBg" onclick="closePanel()"></div>
 
+<!-- ════ HAMBURGER MENU ════ -->
+<div class="hmenu-bg" id="hmenuBg" onclick="closeHMenu()"></div>
+<div class="hmenu" id="hmenu">
+  <div class="hmenu-hd">
+    <div class="hmenu-logo">
+      <div class="hmenu-logo-icon">✦</div>
+      <div>
+        <div class="hmenu-logo-title">Bíblia Sagrada</div>
+        <div class="hmenu-logo-sub">Palavra de Deus</div>
+      </div>
+    </div>
+    <div class="hmenu-ver-badge">
+      <div class="hmenu-ver-dot"></div>
+      <span class="hmenu-ver-txt" id="hmenuVerTxt">v1.0.0 • Atualizado</span>
+    </div>
+  </div>
+
+  <div class="hmenu-body">
+    <!-- Versão da Bíblia — sempre visível -->
+    <div class="hmenu-ver-sel-wrap">
+      <div class="hmenu-ver-label">Tradução atual</div>
+      <select class="hmenu-ver-sel" id="hmenuVerSel" onchange="changeVerFromMenu(this.value)"></select>
+      <div class="hmenu-cur-ver">
+        <span class="hmenu-cur-ver-name" id="hmenuVerName">Nova Versão Internacional</span>
+        <span class="hmenu-cur-ver-code" id="hmenuVerCode">NVI</span>
+      </div>
+    </div>
+
+    <!-- Navegação -->
+    <div class="hmenu-section">Navegação</div>
+    <div class="hmenu-item" onclick="closeHMenu();goPage('pgHome')">
+      <span class="hmenu-item-icon">🏠</span>
+      <div class="hmenu-item-text"><div class="hmenu-item-title">Início</div><div class="hmenu-item-sub">Devocional e destaques do dia</div></div>
+      <span class="hmenu-item-arr">›</span>
+    </div>
+    <div class="hmenu-item" onclick="closeHMenu();goPage('pgSelector')">
+      <span class="hmenu-item-icon">📖</span>
+      <div class="hmenu-item-text"><div class="hmenu-item-title">Bíblia</div><div class="hmenu-item-sub">Escolher livro e capítulo</div></div>
+      <span class="hmenu-item-arr">›</span>
+    </div>
+    <div class="hmenu-item" onclick="closeHMenu();goPage('pgPlans')">
+      <span class="hmenu-item-icon">📅</span>
+      <div class="hmenu-item-text"><div class="hmenu-item-title">Planos de Leitura</div><div class="hmenu-item-sub">Leia com um plano diário</div></div>
+      <span class="hmenu-item-arr">›</span>
+    </div>
+
+    <!-- Conteúdo salvo -->
+    <div class="hmenu-section">Meu Conteúdo</div>
+    <div class="hmenu-item" onclick="closeHMenu();openPanel('bm')">
+      <span class="hmenu-item-icon">🔖</span>
+      <div class="hmenu-item-text"><div class="hmenu-item-title">Favoritos</div><div class="hmenu-item-sub" id="hmenuBmCount">0 capítulos salvos</div></div>
+      <span class="hmenu-item-arr">›</span>
+    </div>
+    <div class="hmenu-item" onclick="closeHMenu();openPanel('hl')">
+      <span class="hmenu-item-icon">🖍️</span>
+      <div class="hmenu-item-text"><div class="hmenu-item-title">Destaques</div><div class="hmenu-item-sub" id="hmenuHlCount">0 versículos destacados</div></div>
+      <span class="hmenu-item-arr">›</span>
+    </div>
+    <div class="hmenu-item" onclick="closeHMenu();openPanel('notes')">
+      <span class="hmenu-item-icon">📝</span>
+      <div class="hmenu-item-text"><div class="hmenu-item-title">Anotações</div><div class="hmenu-item-sub" id="hmenuNotesCount">0 anotações</div></div>
+      <span class="hmenu-item-arr">›</span>
+    </div>
+    <div class="hmenu-item" onclick="closeHMenu();openPanel('hist')">
+      <span class="hmenu-item-icon">📜</span>
+      <div class="hmenu-item-text"><div class="hmenu-item-title">Histórico</div><div class="hmenu-item-sub" id="hmenuHistCount">0 capítulos lidos</div></div>
+      <span class="hmenu-item-arr">›</span>
+    </div>
+
+    <!-- Aparência -->
+    <div class="hmenu-section">Aparência</div>
+    <div class="hmenu-item" onclick="closeHMenu();">
+      <span class="hmenu-item-icon">🎨</span>
+      <div class="hmenu-item-text">
+        <div class="hmenu-item-title">Tema</div>
+        <div style="display:flex;gap:6px;margin-top:6px">
+          <div style="width:24px;height:24px;border-radius:6px;background:#f8f5ef;border:2px solid #d4c9b0;cursor:pointer;touch-action:manipulation" onclick="event.stopPropagation();setThemeById('default')" title="Claro"></div>
+          <div style="width:24px;height:24px;border-radius:6px;background:#f4ede0;border:2px solid transparent;cursor:pointer;touch-action:manipulation" onclick="event.stopPropagation();setThemeById('sepia')" title="Sépia"></div>
+          <div style="width:24px;height:24px;border-radius:6px;background:#1a1710;border:2px solid transparent;cursor:pointer;touch-action:manipulation" onclick="event.stopPropagation();setThemeById('dark')" title="Escuro"></div>
+          <div style="width:24px;height:24px;border-radius:6px;background:#080c14;border:2px solid transparent;cursor:pointer;touch-action:manipulation" onclick="event.stopPropagation();setThemeById('night')" title="Noite"></div>
+          <div style="width:24px;height:24px;border-radius:6px;background:#0d1509;border:2px solid transparent;cursor:pointer;touch-action:manipulation" onclick="event.stopPropagation();setThemeById('forest')" title="Floresta"></div>
+          <div style="width:24px;height:24px;border-radius:6px;background:#fdf4f5;border:2px solid #e8c8cc;cursor:pointer;touch-action:manipulation" onclick="event.stopPropagation();setThemeById('rose')" title="Rosa"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Sobre -->
+    <div class="hmenu-section">Sobre o App</div>
+    <div class="hmenu-item" onclick="showAbout()">
+      <span class="hmenu-item-icon">ℹ️</span>
+      <div class="hmenu-item-text"><div class="hmenu-item-title">Sobre</div><div class="hmenu-item-sub" id="hmenuAboutSub">Versão 1.0.0</div></div>
+      <span class="hmenu-item-arr">›</span>
+    </div>
+    <div class="hmenu-item" onclick="checkForUpdates()">
+      <span class="hmenu-item-icon">🔄</span>
+      <div class="hmenu-item-text"><div class="hmenu-item-title">Verificar atualizações</div><div class="hmenu-item-sub" id="hmenuUpdateSub">Toque para verificar</div></div>
+      <span class="hmenu-item-arr">›</span>
+    </div>
+    <div class="hmenu-item" onclick="requestNotifPermission();closeHMenu()">
+      <span class="hmenu-item-icon">🔔</span>
+      <div class="hmenu-item-text"><div class="hmenu-item-title">Notificações</div><div class="hmenu-item-sub" id="hmenuNotifSub">Ativar devocional diário</div></div>
+      <span class="hmenu-item-arr">›</span>
+    </div>
+  </div>
+
+  <div class="hmenu-footer">
+    <div class="hmenu-footer-ver" id="hmenuFooterVer">Bíblia Sagrada v1.0.0</div>
+    <div class="hmenu-footer-update" id="hmenuFooterDate">Atualizado em 15/06/2025</div>
+  </div>
+</div>
+
 <!-- Versions panel -->
 <div class="panel" id="panelVer">
   <div class="panel-hd"><span class="panel-title">Versão</span><button class="panel-close" onclick="closePanel()">✕</button></div>
@@ -626,6 +797,10 @@ input[type=range]{flex:1;accent-color:var(--ac);height:3px;cursor:pointer}
 'use strict';
 
 /* ══ VERSIONS ══ */
+/* ══ APP VERSION ══ */
+const APP_VERSION = '1.0.0';
+const APP_VERSION_DATE = '2025-06-15';
+
 const VERSIONS=[
   {code:'NVI',name:'Nova Versão Internacional',     lang:'PT-BR',url:'https://raw.githubusercontent.com/thiagobodruk/biblia/master/json/nvi.json'},
   {code:'ACF',name:'Almeida Corrigida e Fiel',      lang:'PT-BR',url:'https://raw.githubusercontent.com/thiagobodruk/biblia/master/json/acf.json'},
@@ -1429,6 +1604,143 @@ function scheduleNotif(){
   }
 }
 
+/* ══ HAMBURGER MENU ══ */
+function openHMenu(){
+  /* Update counts */
+  document.getElementById('hmenuBmCount').textContent=S.bookmarks.length+' capítulo(s) salvo(s)';
+  document.getElementById('hmenuHlCount').textContent=Object.keys(S.highlights).length+' versículo(s) destacado(s)';
+  document.getElementById('hmenuNotesCount').textContent=Object.keys(S.notes).length+' anotação(ões)';
+  document.getElementById('hmenuHistCount').textContent=S.history.length+' capítulo(s) lido(s)';
+
+  /* Current version info */
+  const ver=VERSIONS.find(v=>v.code===S.ver);
+  document.getElementById('hmenuVerCode').textContent=S.ver;
+  document.getElementById('hmenuVerName').textContent=ver?ver.name:'';
+  document.getElementById('hmenuAboutSub').textContent='Versão '+APP_VERSION;
+  document.getElementById('hmenuFooterVer').textContent='Bíblia Sagrada v'+APP_VERSION;
+
+  /* Check notif status */
+  const notifStatus='Notification' in window?
+    (Notification.permission==='granted'?'✓ Ativadas':
+     Notification.permission==='denied'?'Bloqueadas — ajuste nas configurações do celular':
+     'Toque para ativar devocional diário'):'Não suportado neste dispositivo';
+  document.getElementById('hmenuNotifSub').textContent=notifStatus;
+
+  /* Populate version select */
+  populateHMenuVerSel();
+
+  document.getElementById('hmenuBg').classList.add('on');
+  document.getElementById('hmenu').classList.add('on');
+}
+
+function closeHMenu(){
+  document.getElementById('hmenuBg').classList.remove('on');
+  document.getElementById('hmenu').classList.remove('on');
+}
+
+function populateHMenuVerSel(){
+  const grp={};VERSIONS.forEach(v=>(grp[v.lang]=grp[v.lang]||[]).push(v));
+  let h='';
+  for(const[lang,list]of Object.entries(grp)){
+    h+=`<optgroup label="${lang}">`;
+    list.forEach(v=>{h+=`<option value="${v.code}" ${v.code===S.ver?'selected':''}>${v.code} — ${v.name}</option>`;});
+    h+=`</optgroup>`;
+  }
+  document.getElementById('hmenuVerSel').innerHTML=h;
+}
+
+function changeVerFromMenu(code){
+  changeVer(code);
+  const ver=VERSIONS.find(v=>v.code===code);
+  document.getElementById('hmenuVerCode').textContent=code;
+  document.getElementById('hmenuVerName').textContent=ver?ver.name:'';
+  showToast('✓ Versão alterada para '+code);
+}
+
+function setThemeById(t){
+  document.documentElement.setAttribute('data-theme',t==='default'?'':t);
+  document.querySelectorAll('.th-dot').forEach(d=>d.classList.toggle('on',d.dataset.t===t));
+  savePrefs();
+  showToast('🎨 Tema alterado!');
+}
+
+function showAbout(){
+  const totalRead=Object.values(S.readChapters).reduce((a,s)=>a+s.size,0);
+  const msg=`Bíblia Sagrada\nVersão ${APP_VERSION}\n\n`+
+    `📖 ${totalRead} capítulo(s) lido(s)\n`+
+    `🔖 ${S.bookmarks.length} favorito(s)\n`+
+    `🖍️ ${Object.keys(S.highlights).length} destaque(s)\n`+
+    `📝 ${Object.keys(S.notes).length} anotação(ões)\n\n`+
+    `Desenvolvido com ♥ para abençoar pessoas e incentivar a leitura da Bíblia.`;
+  alert(msg);
+}
+
+/* ══ UPDATE SYSTEM ══ */
+/* Version manifest — em produção, criar um arquivo version.json no GitHub */
+const VERSION_CHECK_URL='https://raw.githubusercontent.com/rafaelandrade88/bibliasagrada/main/version.json';
+
+async function checkForUpdates(){
+  document.getElementById('hmenuUpdateSub').textContent='Verificando...';
+  try{
+    let data;
+    try{
+      const res=await fetch(VERSION_CHECK_URL+'?t='+Date.now());
+      if(res.ok)data=await res.json();
+    }catch(e){/* sem conexão */}
+
+    if(!data){
+      document.getElementById('hmenuUpdateSub').textContent='Sem conexão para verificar';
+      showToast('Sem conexão com a internet');
+      return;
+    }
+
+    const latest=data.version||APP_VERSION;
+    const notes=data.notes||'Melhorias e correções';
+    const date=data.date||'';
+
+    if(latest!==APP_VERSION){
+      document.getElementById('hmenuUpdateSub').textContent=`Nova versão ${latest} disponível!`;
+      showUpdateBanner(latest,notes,date);
+    } else {
+      document.getElementById('hmenuUpdateSub').textContent=`✓ App atualizado (v${APP_VERSION})`;
+      document.getElementById('hmenuVerTxt').textContent=`v${APP_VERSION} • Atualizado`;
+      showToast('✓ Você já tem a versão mais recente!');
+    }
+  }catch(e){
+    document.getElementById('hmenuUpdateSub').textContent='Erro ao verificar';
+  }
+}
+
+function showUpdateBanner(version,notes,date){
+  const banner=document.getElementById('updateBanner');
+  document.getElementById('updateBannerSub').textContent=`v${version} disponível: ${notes}`;
+  banner.classList.add('on');
+  closeHMenu();
+}
+
+function dismissUpdate(){
+  document.getElementById('updateBanner').classList.remove('on');
+}
+
+function reloadApp(){
+  if(navigator.serviceWorker&&navigator.serviceWorker.controller){
+    navigator.serviceWorker.controller.postMessage('SKIP_WAITING');
+  }
+  setTimeout(()=>window.location.reload(),300);
+}
+
+/* Check updates on app open (silently) */
+async function silentUpdateCheck(){
+  try{
+    const res=await fetch(VERSION_CHECK_URL+'?t='+Date.now());
+    if(!res.ok)return;
+    const data=await res.json();
+    if(data.version&&data.version!==APP_VERSION){
+      showUpdateBanner(data.version,data.notes||'Nova versão disponível',data.date||'');
+    }
+  }catch(e){/* silently fail */}
+}
+
 /* ══ SERVICE WORKER ══ */
 if('serviceWorker' in navigator){
   window.addEventListener('load',()=>{
@@ -1446,6 +1758,8 @@ renderBooks();
 renderPlans();
 initHome();
 loadBible(S.ver).catch(()=>{});
+/* Check for updates silently after 5s */
+setTimeout(silentUpdateCheck, 5000);
 </script>
 </body>
 </html>
