@@ -1,8 +1,10 @@
 {
   "version": "1.1.0",
   "date": "15/06/2025",
-  "notes": "Novo menu para facilitar a navegação e acesso às funcionalidades.",
+  "notes": "Menu hamburguer, notificações de atualização e correções",
   "features": [
+    "🍔 Menu hamburguer com seletor de versão",
+    "🔔 Sistema de notificação de atualizações",
     "📖 66 livros — Antigo e Novo Testamento",
     "🌍 10 versões em 7 idiomas",
     "📅 5 Planos de Leitura",
@@ -12,8 +14,6 @@
     "⚖️ Comparar versões lado a lado",
     "🔊 Narração em áudio",
     "📜 Histórico de leitura",
-    "🌅 Devocional diário",
-    "🔔 Notificações diárias",
-    "🍔 Menu hamburguer"
+    "🌅 Devocional diário"
   ]
 }

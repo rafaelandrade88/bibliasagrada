@@ -4,8 +4,8 @@
    Network First para JSONs da Bíblia (dados bíblicos)
    ===================================================== */
 
-const CACHE_NAME    = 'biblia-sagrada-v1';
-const DATA_CACHE    = 'biblia-sagrada-data-v1';
+const CACHE_NAME    = 'biblia-sagrada-v2';
+const DATA_CACHE    = 'biblia-sagrada-data-v2';
 
 /* Assets que ficam em cache permanentemente */
 const STATIC_ASSETS = [
