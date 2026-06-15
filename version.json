@@ -1,7 +1,7 @@
 {
-  "version": "1.0.0",
+  "version": "1.1.0",
   "date": "15/06/2025",
-  "notes": "Versão inicial com planos de leitura, anotações, destaques, áudio e muito mais",
+  "notes": "Novo menu para facilitar a navegação e acesso às funcionalidades.",
   "features": [
     "📖 66 livros — Antigo e Novo Testamento",
     "🌍 10 versões em 7 idiomas",
@@ -13,6 +13,7 @@
     "🔊 Narração em áudio",
     "📜 Histórico de leitura",
     "🌅 Devocional diário",
-    "🔔 Notificações diárias"
+    "🔔 Notificações diárias",
+    "🍔 Menu hamburguer"
   ]
 }

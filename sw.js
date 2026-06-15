@@ -57,6 +57,12 @@ self.addEventListener('activate', event => {
 self.addEventListener('fetch', event => {
   const url = event.request.url;
 
+  /* version.json: NUNCA cachear — sempre buscar do servidor */
+  if (url.includes('version.json')) {
+    event.respondWith(fetch(event.request, {cache: 'no-store'}));
+    return;
+  }
+
   /* Dados bíblicos: Cache First com fallback para rede
      → Após primeira visita, a Bíblia fica disponível offline */
   if (BIBLE_DATA_URLS.some(u => url.includes(u) || url.includes('thiagobodruk'))) {
