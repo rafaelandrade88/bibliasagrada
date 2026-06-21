@@ -1130,7 +1130,6 @@
       border-left: 3px solid transparent;
       margin-bottom: 2px;
       cursor: pointer;
-      touch-action: pan-y;
       user-select: none;
       -webkit-user-select: none
     }
@@ -3084,7 +3083,7 @@
 
     /* ══ VERSIONS ══ */
     /* ══ APP VERSION ══ */
-    const APP_VERSION = '1.2.0';
+    const APP_VERSION = '1.2.1';
     const APP_VERSION_DATE = '21/06/2025';
 
     const VERSIONS = [
@@ -3549,7 +3548,11 @@
         const sm = ql && v.toLowerCase().includes(ql) ? 'sm' : '';
         const sel = S.selVerses.has(n) ? 'sel-v' : '';
         const txt = ql && sm ? esc(v).replace(new RegExp(`(${ql.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')})`, 'gi'), '<mark style="background:rgba(200,149,74,.35);border-radius:2px">$1</mark>') : esc(v);
-        h += `<div class="verse ${sel} ${sm}" id="v${n}" ${hl ? `data-hl="${hl}"` : ''}  onclick="onVerse(${n})">
+        /* Nota: sem onclick aqui de propósito — o tap é detectado via
+           touchstart/touchend com checagem de distância (ver attachVerseTapHandler).
+           Isso garante que arrastar para rolar NUNCA é interpretado como toque,
+           independente do navegador/dispositivo. */
+        h += `<div class="verse ${sel} ${sm}" id="v${n}" data-vn="${n}" ${hl ? `data-hl="${hl}"` : ''}>
       <span class="vnum">${n}</span><div style="flex:1"><span class="vtxt">${txt}</span>${note}</div>
     </div>`;
       });
@@ -3620,6 +3623,69 @@
       if (el) el.classList.toggle('sel-v', S.selVerses.has(n));
       updateMselBar();
     }
+
+    /* ── TAP-VS-DRAG DETECTION (delegado em #readContent) ──
+       Em vez de usar onclick + touch-action:pan-y (que pode falhar em
+       certas combinações de iOS/WebKit), detectamos manualmente se o
+       toque foi um TAP real ou um ARRASTO (intenção de rolar a tela).
+       Isso garante 100% de compatibilidade: nunca chamamos
+       preventDefault(), então o scroll nativo do navegador NUNCA é
+       bloqueado — apenas decidimos, depois do fato, se o gesto foi
+       curto o suficiente (em tempo e distância) para contar como toque. */
+    (function attachVerseTapHandler() {
+      const TAP_MAX_MOVE = 10;   // px de tolerância de movimento para ainda contar como tap
+      const TAP_MAX_TIME = 500;  // ms — toques mais longos que isso não contam como tap simples
+      const container = document.getElementById('readContent');
+      if (!container) return;
+
+      let tStartX = 0, tStartY = 0, tStartTime = 0, tTarget = null, tMoved = false;
+
+      container.addEventListener('touchstart', e => {
+        if (e.touches.length !== 1) { tTarget = null; return; }
+        const verseEl = e.target.closest('.verse');
+        tTarget = verseEl;
+        tMoved = false;
+        tStartX = e.touches[0].clientX;
+        tStartY = e.touches[0].clientY;
+        tStartTime = Date.now();
+      }, { passive: true });
+
+      container.addEventListener('touchmove', e => {
+        if (!tTarget || tMoved) return;
+        const dx = Math.abs(e.touches[0].clientX - tStartX);
+        const dy = Math.abs(e.touches[0].clientY - tStartY);
+        if (dx > TAP_MAX_MOVE || dy > TAP_MAX_MOVE) tMoved = true;
+        /* Nunca chamamos preventDefault aqui — o navegador continua
+           livre para rolar a página normalmente. */
+      }, { passive: true });
+
+      container.addEventListener('touchend', e => {
+        if (!tTarget) return;
+        const elapsed = Date.now() - tStartTime;
+        const verseEl = tTarget;
+        tTarget = null;
+        /* Só conta como toque/seleção se NÃO houve arrasto significativo
+           e o toque foi razoavelmente rápido (não foi um "segurar parado") */
+        if (!tMoved && elapsed < TAP_MAX_TIME) {
+          const n = parseInt(verseEl.dataset.vn, 10);
+          if (!isNaN(n)) onVerse(n);
+        }
+      }, { passive: true });
+
+      /* Fallback para desktop/mouse: clique normal continua funcionando */
+      container.addEventListener('click', e => {
+        /* Em dispositivos touch, 'click' é disparado depois do touchend
+           e já tratamos a seleção ali — então ignoramos clicks que vieram
+           de touch para não selecionar/deselecionar duas vezes. */
+        if (e.pointerType === 'touch') return;
+        if (window.matchMedia && window.matchMedia('(hover: none)').matches) return;
+        const verseEl = e.target.closest('.verse');
+        if (!verseEl) return;
+        const n = parseInt(verseEl.dataset.vn, 10);
+        if (!isNaN(n)) onVerse(n);
+      });
+    })();
+
     function updateMselBar() {
       const bar = document.getElementById('mselBar');
       const ctrl = document.getElementById('ctrlBar');

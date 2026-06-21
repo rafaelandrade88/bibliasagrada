@@ -1,10 +1,10 @@
 {
-  "version": "1.2.0",
+  "version": "1.2.1",
   "date": "21/06/2025",
-  "notes": "Correção de rolagem na leitura e devocional leva direto ao versículo",
+  "notes": "Correção definitiva do scroll travado na leitura dos versículos",
   "features": [
-    "🐛 Corrigido travamento de scroll ao ler versículos",
-    "📍 Devocional do dia agora leva direto ao versículo citado",
+    "🐛 Scroll de versículos corrigido definitivamente (detecção de toque vs arrasto)",
+    "📍 Devocional do dia leva direto ao versículo citado",
     "🔄 Service Worker corrigido — atualizações chegam automaticamente",
     "👆 Gestos de swipe e pull-to-refresh mais precisos",
     "🍔 Menu hamburguer com seletor de versão",
