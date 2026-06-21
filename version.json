@@ -1,8 +1,12 @@
 {
-  "version": "1.1.0",
-  "date": "15/06/2025",
-  "notes": "Menu hamburguer, notificações de atualização e correções",
+  "version": "1.2.0",
+  "date": "21/06/2025",
+  "notes": "Correção de rolagem na leitura e devocional leva direto ao versículo",
   "features": [
+    "🐛 Corrigido travamento de scroll ao ler versículos",
+    "📍 Devocional do dia agora leva direto ao versículo citado",
+    "🔄 Service Worker corrigido — atualizações chegam automaticamente",
+    "👆 Gestos de swipe e pull-to-refresh mais precisos",
     "🍔 Menu hamburguer com seletor de versão",
     "🔔 Sistema de notificação de atualizações",
     "📖 66 livros — Antigo e Novo Testamento",

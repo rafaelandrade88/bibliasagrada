@@ -1,13 +1,20 @@
 /* =====================================================
    SERVICE WORKER — Bíblia Sagrada PWA
-   Estratégia: Cache First para assets estáticos,
-   Network First para JSONs da Bíblia (dados bíblicos)
+   Estratégia:
+     - App shell (HTML/manifest/ícones): NETWORK FIRST
+       → sempre tenta buscar a versão mais nova do servidor;
+         só usa cache se estiver offline. Isso é o que faz
+         as atualizações chegarem nos dispositivos já instalados.
+     - Dados bíblicos (JSONs grandes): CACHE FIRST
+       → não mudam com frequência, ficam disponíveis offline
+         após a primeira leitura.
+     - version.json: SEMPRE rede, nunca cache.
    ===================================================== */
 
-const CACHE_NAME    = 'biblia-sagrada-v2';
-const DATA_CACHE    = 'biblia-sagrada-data-v2';
+const CACHE_NAME = 'biblia-sagrada-v3';
+const DATA_CACHE = 'biblia-sagrada-data-v3';
 
-/* Assets que ficam em cache permanentemente */
+/* Assets do app shell — verificados a cada carregamento (network first) */
 const STATIC_ASSETS = [
   '/bibliasagrada/biblia-sagrada.html',
   '/bibliasagrada/manifest.json',
@@ -16,7 +23,7 @@ const STATIC_ASSETS = [
   'https://fonts.googleapis.com/css2?family=Crimson+Pro:ital,wght@0,300;0,400;0,600;1,400&family=EB+Garamond:ital,wght@0,400;0,500;1,400&family=Lora:ital,wght@0,400;0,500;1,400&family=Merriweather:ital,wght@0,300;0,400;0,700;1,400&family=Spectral:ital,wght@0,300;0,400;0,600;1,400&family=Playfair+Display:ital,wght@0,400;0,700;1,400&display=swap',
 ];
 
-/* URLs dos dados bíblicos (JSONs do GitHub) */
+/* URLs dos dados bíblicos (JSONs do GitHub) — cache first, raramente mudam */
 const BIBLE_DATA_URLS = [
   'https://raw.githubusercontent.com/thiagobodruk/biblia/master/json/nvi.json',
   'https://raw.githubusercontent.com/thiagobodruk/biblia/master/json/acf.json',
@@ -30,17 +37,17 @@ const BIBLE_DATA_URLS = [
   'https://raw.githubusercontent.com/thiagobodruk/bible/master/json/ru_synodal.json',
 ];
 
-/* ── INSTALL: cacheia assets estáticos ── */
+/* ── INSTALL ── */
 self.addEventListener('install', event => {
   event.waitUntil(
     caches.open(CACHE_NAME)
       .then(cache => cache.addAll(STATIC_ASSETS))
-      .then(() => self.skipWaiting())
+      .then(() => self.skipWaiting())   // ativa o novo SW imediatamente
       .catch(err => console.warn('[SW] Install cache error:', err))
   );
 });
 
-/* ── ACTIVATE: limpa caches antigos ── */
+/* ── ACTIVATE: limpa caches de versões antigas (v1, v2, etc.) ── */
 self.addEventListener('activate', event => {
   event.waitUntil(
     caches.keys().then(keys =>
@@ -49,7 +56,7 @@ self.addEventListener('activate', event => {
           .filter(k => k !== CACHE_NAME && k !== DATA_CACHE)
           .map(k => caches.delete(k))
       )
-    ).then(() => self.clients.claim())
+    ).then(() => self.clients.claim())   // assume controle das abas abertas
   );
 });
 
@@ -59,13 +66,12 @@ self.addEventListener('fetch', event => {
 
   /* version.json: NUNCA cachear — sempre buscar do servidor */
   if (url.includes('version.json')) {
-    event.respondWith(fetch(event.request, {cache: 'no-store'}));
+    event.respondWith(fetch(event.request, { cache: 'no-store' }));
     return;
   }
 
-  /* Dados bíblicos: Cache First com fallback para rede
-     → Após primeira visita, a Bíblia fica disponível offline */
-  if (BIBLE_DATA_URLS.some(u => url.includes(u) || url.includes('thiagobodruk'))) {
+  /* Dados bíblicos: Cache First — não mudam, ficam offline */
+  if (BIBLE_DATA_URLS.some(u => url.includes(u)) || url.includes('thiagobodruk')) {
     event.respondWith(cacheFirstWithNetwork(event.request, DATA_CACHE));
     return;
   }
@@ -76,9 +82,17 @@ self.addEventListener('fetch', event => {
     return;
   }
 
-  /* App shell (HTML, manifest, ícones): Cache First */
-  if (url.includes('biblia-sagrada.html') || url.includes('manifest.json') || url.includes('/icons/')) {
-    event.respondWith(cacheFirstWithNetwork(event.request, CACHE_NAME));
+  /* App shell (HTML, manifest, ícones): NETWORK FIRST
+     → CRÍTICO para atualizações chegarem aos dispositivos instalados.
+       Sempre tenta buscar a versão nova do servidor primeiro;
+       só usa o cache local se a rede falhar (modo offline). */
+  if (
+    url.includes('biblia-sagrada.html') ||
+    url.includes('manifest.json') ||
+    url.includes('/icons/') ||
+    event.request.mode === 'navigate'
+  ) {
+    event.respondWith(networkFirstWithCache(event.request, CACHE_NAME));
     return;
   }
 
@@ -105,10 +119,11 @@ async function cacheFirstWithNetwork(request, cacheName) {
   }
 }
 
-/* Network First: tenta rede → se falhar, usa cache */
+/* Network First: tenta rede (sempre busca versão mais nova) →
+   se falhar (offline), usa o que estiver no cache */
 async function networkFirstWithCache(request, cacheName) {
   try {
-    const response = await fetch(request);
+    const response = await fetch(request, { cache: 'no-store' });
     if (response.ok) {
       const cache = await caches.open(cacheName);
       cache.put(request, response.clone());
@@ -122,7 +137,7 @@ async function networkFirstWithCache(request, cacheName) {
 
 /* ── MENSAGENS do app principal ── */
 self.addEventListener('message', event => {
-  /* Força atualização do SW quando app pede */
+  /* Força ativação do novo SW assim que o usuário toca em "Atualizar" */
   if (event.data === 'SKIP_WAITING') {
     self.skipWaiting();
   }
@@ -131,7 +146,7 @@ self.addEventListener('message', event => {
     caches.open(DATA_CACHE).then(cache =>
       fetch(event.data.url)
         .then(r => { if (r.ok) cache.put(event.data.url, r); })
-        .catch(() => {})
+        .catch(() => { })
     );
   }
 });

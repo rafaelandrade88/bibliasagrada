@@ -1022,6 +1022,8 @@
       flex: 1;
       overflow-y: auto;
       -webkit-overflow-scrolling: touch;
+      overscroll-behavior-y: contain;
+      touch-action: pan-y;
       padding: 20px 16px 200px
     }
 
@@ -1128,7 +1130,7 @@
       border-left: 3px solid transparent;
       margin-bottom: 2px;
       cursor: pointer;
-      touch-action: manipulation;
+      touch-action: pan-y;
       user-select: none;
       -webkit-user-select: none
     }
@@ -3082,8 +3084,8 @@
 
     /* ══ VERSIONS ══ */
     /* ══ APP VERSION ══ */
-    const APP_VERSION = '1.1.0';
-    const APP_VERSION_DATE = '15/06/2025';
+    const APP_VERSION = '1.2.0';
+    const APP_VERSION_DATE = '21/06/2025';
 
     const VERSIONS = [
       { code: 'NVI', name: 'Nova Versão Internacional', lang: 'PT-BR', url: 'https://raw.githubusercontent.com/thiagobodruk/biblia/master/json/nvi.json' },
@@ -3149,26 +3151,26 @@
 
     /* ══ DEVOCIONAIS ══ */
     const DEVOCIONAIS = [
-      { title: 'A Fé que Move Montanhas', body: 'A fé genuína não é apenas crer que Deus existe, mas confiar completamente em Seu propósito para a nossa vida, mesmo quando não entendemos o caminho.', ref: 'Mateus 17:20', bookId: 'mt', ch: 17 },
-      { title: 'O Poder do Amor Incondicional', body: 'O amor de Deus por nós não depende de nosso desempenho. Ele nos amou enquanto ainda éramos pecadores — essa é a essência da graça.', ref: 'Romanos 5:8', bookId: 'rm', ch: 5 },
-      { title: 'Renovação Diária', body: 'Cada amanhecer é uma nova oportunidade de recomeçar. As misericórdias de Deus se renovam cada manhã, e Sua fidelidade é grande.', ref: 'Lamentações 3:22-23', bookId: 'lm', ch: 3 },
-      { title: 'A Paz que Transcende', body: 'No mundo agitado em que vivemos, a paz de Deus age como uma sentinela guarda nosso coração e mente, mesmo em meio às tempestades.', ref: 'Filipenses 4:7', bookId: 'fp', ch: 4 },
-      { title: 'Confiança no Caminho', body: 'Quando entregamos nossos planos a Deus, Ele não apenas guia nossos passos, mas também prepara o terreno pela frente. Confie no processo.', ref: 'Provérbios 3:5-6', bookId: 'pv', ch: 3 },
-      { title: 'Força nos Momentos Difíceis', body: 'Os momentos de fraqueza são justamente onde a força de Deus se manifesta com mais clareza. Quando somos fracos, Ele é forte em nós.', ref: '2 Coríntios 12:9', bookId: '2co', ch: 12 },
-      { title: 'A Beleza do Perdão', body: 'Perdoar não é esquecer, é libertar. Quando perdoamos, quebramos as correntes que nos prendem ao passado e abrimos espaço para o novo.', ref: 'Efésios 4:32', bookId: 'ef', ch: 4 },
-      { title: 'Buscando Primeiro o Reino', body: 'Quando nossa prioridade é o Reino de Deus, as outras coisas se ordenam naturalmente. O foco correto transforma toda a nossa perspectiva.', ref: 'Mateus 6:33', bookId: 'mt', ch: 6 },
-      { title: 'A Presença de Deus', body: 'Nunca estamos sozinhos. Em cada momento — de alegria ou tristeza, de dúvida ou certeza — a presença de Deus nos acompanha e sustenta.', ref: 'Salmos 23:4', bookId: 'sl', ch: 23 },
-      { title: 'Gratidão como Estilo de Vida', body: 'A gratidão não é apenas um sentimento, é uma postura diante da vida. Quando agradecemos em tudo, nossa perspectiva se transforma.', ref: '1 Tessalonicenses 5:18', bookId: '1ts', ch: 5 },
-      { title: 'Esperança Viva', body: 'A esperança cristã não é um desejo vago — é uma certeza fundamentada na ressurreição de Cristo. Essa esperança não envergonha.', ref: 'Romanos 5:5', bookId: 'rm', ch: 5 },
-      { title: 'Servindo com Alegria', body: 'O serviço ao próximo é a expressão mais prática do amor. Quando servimos com alegria, revelamos o coração de Deus ao mundo.', ref: 'Marcos 10:45', bookId: 'mc', ch: 10 },
-      { title: 'A Palavra como Lâmpada', body: 'Em um mundo cheio de vozes e opiniões contraditórias, a Palavra de Deus oferece uma orientação segura e confiável para cada passo.', ref: 'Salmos 119:105', bookId: 'sl', ch: 119 },
-      { title: 'Oração Persistente', body: 'Jesus nos ensinou a persistir na oração, não porque Deus seja relutante, mas porque a persistência forma nosso caráter e aprofunda nossa fé.', ref: 'Lucas 18:1', bookId: 'lc', ch: 18 },
-      { title: 'Identidade em Cristo', body: 'Somos filhos e filhas do Deus vivo. Essa identidade não muda conforme as circunstâncias — é eterna e fundamentada no amor do Pai.', ref: 'João 1:12', bookId: 'jn2', ch: 1 },
-      { title: 'A Generosidade que Transforma', body: 'A generosidade não empobrece — ela multiplica. Quando damos com alegria, participamos da economia do Reino que opera de forma diferente do mundo.', ref: '2 Coríntios 9:7', bookId: '2co', ch: 9 },
-      { title: 'Humildade: O Caminho da Exaltação', body: 'O paradoxo do Reino é que quem se humilha será exaltado. A verdadeira grandeza não vem de se promover, mas de servir aos outros.', ref: 'Tiago 4:10', bookId: 'tg', ch: 4 },
-      { title: 'Luz no Mundo', body: 'Somos chamados a ser luz onde há trevas. Isso não requer perfeição — apenas disponibilidade para deixar a luz de Deus brilhar através de nós.', ref: 'Mateus 5:14', bookId: 'mt', ch: 5 },
-      { title: 'O Descanso em Deus', body: 'Em um mundo que valoriza a hiperatividade, Deus nos convida ao descanso. Descansar em Deus é um ato de fé que reconhece que Ele é o provedor.', ref: 'Mateus 11:28', bookId: 'mt', ch: 11 },
-      { title: 'Perseverança na Fé', body: 'A fé madura não é ausência de dúvidas, é a escolha de continuar mesmo quando as dúvidas aparecem. Persevere — a colheita virá no tempo certo.', ref: 'Gálatas 6:9', bookId: 'gl', ch: 6 },
+      { title: 'A Fé que Move Montanhas', body: 'A fé genuína não é apenas crer que Deus existe, mas confiar completamente em Seu propósito para a nossa vida, mesmo quando não entendemos o caminho.', ref: 'Mateus 17:20', bookId: 'mt', ch: 17, verse: 20 },
+      { title: 'O Poder do Amor Incondicional', body: 'O amor de Deus por nós não depende de nosso desempenho. Ele nos amou enquanto ainda éramos pecadores — essa é a essência da graça.', ref: 'Romanos 5:8', bookId: 'rm', ch: 5, verse: 8 },
+      { title: 'Renovação Diária', body: 'Cada amanhecer é uma nova oportunidade de recomeçar. As misericórdias de Deus se renovam cada manhã, e Sua fidelidade é grande.', ref: 'Lamentações 3:22-23', bookId: 'lm', ch: 3, verse: 22 },
+      { title: 'A Paz que Transcende', body: 'No mundo agitado em que vivemos, a paz de Deus age como uma sentinela guarda nosso coração e mente, mesmo em meio às tempestades.', ref: 'Filipenses 4:7', bookId: 'fp', ch: 4, verse: 7 },
+      { title: 'Confiança no Caminho', body: 'Quando entregamos nossos planos a Deus, Ele não apenas guia nossos passos, mas também prepara o terreno pela frente. Confie no processo.', ref: 'Provérbios 3:5-6', bookId: 'pv', ch: 3, verse: 5 },
+      { title: 'Força nos Momentos Difíceis', body: 'Os momentos de fraqueza são justamente onde a força de Deus se manifesta com mais clareza. Quando somos fracos, Ele é forte em nós.', ref: '2 Coríntios 12:9', bookId: '2co', ch: 12, verse: 9 },
+      { title: 'A Beleza do Perdão', body: 'Perdoar não é esquecer, é libertar. Quando perdoamos, quebramos as correntes que nos prendem ao passado e abrimos espaço para o novo.', ref: 'Efésios 4:32', bookId: 'ef', ch: 4, verse: 32 },
+      { title: 'Buscando Primeiro o Reino', body: 'Quando nossa prioridade é o Reino de Deus, as outras coisas se ordenam naturalmente. O foco correto transforma toda a nossa perspectiva.', ref: 'Mateus 6:33', bookId: 'mt', ch: 6, verse: 33 },
+      { title: 'A Presença de Deus', body: 'Nunca estamos sozinhos. Em cada momento — de alegria ou tristeza, de dúvida ou certeza — a presença de Deus nos acompanha e sustenta.', ref: 'Salmos 23:4', bookId: 'sl', ch: 23, verse: 4 },
+      { title: 'Gratidão como Estilo de Vida', body: 'A gratidão não é apenas um sentimento, é uma postura diante da vida. Quando agradecemos em tudo, nossa perspectiva se transforma.', ref: '1 Tessalonicenses 5:18', bookId: '1ts', ch: 5, verse: 18 },
+      { title: 'Esperança Viva', body: 'A esperança cristã não é um desejo vago — é uma certeza fundamentada na ressurreição de Cristo. Essa esperança não envergonha.', ref: 'Romanos 5:5', bookId: 'rm', ch: 5, verse: 5 },
+      { title: 'Servindo com Alegria', body: 'O serviço ao próximo é a expressão mais prática do amor. Quando servimos com alegria, revelamos o coração de Deus ao mundo.', ref: 'Marcos 10:45', bookId: 'mc', ch: 10, verse: 45 },
+      { title: 'A Palavra como Lâmpada', body: 'Em um mundo cheio de vozes e opiniões contraditórias, a Palavra de Deus oferece uma orientação segura e confiável para cada passo.', ref: 'Salmos 119:105', bookId: 'sl', ch: 119, verse: 105 },
+      { title: 'Oração Persistente', body: 'Jesus nos ensinou a persistir na oração, não porque Deus seja relutante, mas porque a persistência forma nosso caráter e aprofunda nossa fé.', ref: 'Lucas 18:1', bookId: 'lc', ch: 18, verse: 1 },
+      { title: 'Identidade em Cristo', body: 'Somos filhos e filhas do Deus vivo. Essa identidade não muda conforme as circunstâncias — é eterna e fundamentada no amor do Pai.', ref: 'João 1:12', bookId: 'jn2', ch: 1, verse: 12 },
+      { title: 'A Generosidade que Transforma', body: 'A generosidade não empobrece — ela multiplica. Quando damos com alegria, participamos da economia do Reino que opera de forma diferente do mundo.', ref: '2 Coríntios 9:7', bookId: '2co', ch: 9, verse: 7 },
+      { title: 'Humildade: O Caminho da Exaltação', body: 'O paradoxo do Reino é que quem se humilha será exaltado. A verdadeira grandeza não vem de se promover, mas de servir aos outros.', ref: 'Tiago 4:10', bookId: 'tg', ch: 4, verse: 10 },
+      { title: 'Luz no Mundo', body: 'Somos chamados a ser luz onde há trevas. Isso não requer perfeição — apenas disponibilidade para deixar a luz de Deus brilhar através de nós.', ref: 'Mateus 5:14', bookId: 'mt', ch: 5, verse: 14 },
+      { title: 'O Descanso em Deus', body: 'Em um mundo que valoriza a hiperatividade, Deus nos convida ao descanso. Descansar em Deus é um ato de fé que reconhece que Ele é o provedor.', ref: 'Mateus 11:28', bookId: 'mt', ch: 11, verse: 28 },
+      { title: 'Perseverança na Fé', body: 'A fé madura não é ausência de dúvidas, é a escolha de continuar mesmo quando as dúvidas aparecem. Persevere — a colheita virá no tempo certo.', ref: 'Gálatas 6:9', bookId: 'gl', ch: 6, verse: 9 },
     ];
 
     /* ══ READING PLANS ══ */
@@ -3262,6 +3264,7 @@
       document.getElementById('devDate').textContent = today.toLocaleDateString('pt-BR', opts);
       document.getElementById('devReadBtn').dataset.bookId = dv.bookId;
       document.getElementById('devReadBtn').dataset.ch = dv.ch;
+      document.getElementById('devReadBtn').dataset.verse = dv.verse || 1;
 
       updateOfflineBanner();
       refreshHomeStats();
@@ -3314,16 +3317,27 @@
         bar.style.display = 'none';
       }
     }
-    function devGoRead() {
+    async function devGoRead() {
       const btn = document.getElementById('devReadBtn');
       const bookId = btn.dataset.bookId;
       const ch = parseInt(btn.dataset.ch);
+      const verse = parseInt(btn.dataset.verse) || 1;
       const all = allBooks();
       const book = all.find(b => b.id === bookId);
       if (!book) return;
-      S.book = book; S.ch = ch; S.startV = 1;
+      S.book = book; S.ch = ch; S.startV = verse;
       syncTest(book); renderBooks();
-      loadVerses(); goPage('pgReading');
+      goPage('pgReading');
+      await loadVerses();
+      /* Rola até o versículo do devocional e o destaca brevemente */
+      setTimeout(() => {
+        const el = document.getElementById('v' + verse);
+        if (el) {
+          el.scrollIntoView({ behavior: 'smooth', block: 'center' });
+          el.classList.add('play-v');
+          setTimeout(() => el.classList.remove('play-v'), 2500);
+        }
+      }, 350);
     }
     function doContinue() {
       if (!S.lastRead) return;
@@ -4048,14 +4062,19 @@
     function attachPullToRefresh(elId, onRefresh) {
       const el = document.getElementById(elId);
       if (!el) return;
-      let startY = 0, pulling = false;
+      let startY = 0, startX = 0, pulling = false;
       el.addEventListener('touchstart', e => {
-        if (e.touches.length === 1 && el.scrollTop <= 0) { startY = e.touches[0].clientY; pulling = true; } else pulling = false;
+        if (e.touches.length === 1 && el.scrollTop <= 0) {
+          startY = e.touches[0].clientY; startX = e.touches[0].clientX; pulling = true;
+        } else pulling = false;
       }, { passive: true });
       el.addEventListener('touchend', e => {
         if (!pulling) return; pulling = false;
         const dy = e.changedTouches[0].clientY - startY;
-        if (dy > 80 && el.scrollTop <= 0) onRefresh();
+        const dx = Math.abs(e.changedTouches[0].clientX - startX);
+        /* Exige puxão para baixo claro, predominantemente vertical e
+           maior que o threshold de scroll normal para não disparar à toa */
+        if (dy > 100 && dy > dx * 2 && el.scrollTop <= 0) onRefresh();
       }, { passive: true });
     }
     attachPullToRefresh('homeScroll', () => { showToast('🔄 Verificando atualizações...'); checkForUpdates(); refreshHomeStats(); });
@@ -4070,16 +4089,27 @@
     (function initSwipeNav() {
       const el = document.getElementById('readScroll');
       if (!el) return;
-      let sx = 0, sy = 0, active = false;
+      let sx = 0, sy = 0, active = false, canceled = false;
       el.addEventListener('touchstart', e => {
-        if (e.touches.length !== 1 || S.selVerses.size > 0) return;
-        sx = e.touches[0].clientX; sy = e.touches[0].clientY; active = true;
+        if (e.touches.length !== 1 || S.selVerses.size > 0) { active = false; return; }
+        sx = e.touches[0].clientX; sy = e.touches[0].clientY; active = true; canceled = false;
+      }, { passive: true });
+      el.addEventListener('touchmove', e => {
+        if (!active || canceled) return;
+        /* Se o movimento vertical já supera o horizontal, cancela o swipe
+           e deixa o scroll normal assumir — evita travar a rolagem */
+        const dx = Math.abs(e.touches[0].clientX - sx);
+        const dy = Math.abs(e.touches[0].clientY - sy);
+        if (dy > dx) { canceled = true; active = false; }
       }, { passive: true });
       el.addEventListener('touchend', e => {
-        if (!active) return; active = false;
+        if (!active || canceled) { active = false; return; }
+        active = false;
         const dx = e.changedTouches[0].clientX - sx;
         const dy = e.changedTouches[0].clientY - sy;
-        if (Math.abs(dx) > 70 && Math.abs(dx) > Math.abs(dy) * 2) {
+        /* Exige gesto bem mais horizontal que vertical, e distância maior,
+           para nunca competir com o scroll vertical de leitura */
+        if (Math.abs(dx) > 90 && Math.abs(dx) > Math.abs(dy) * 3) {
           if (dx < 0) nextCh(); else prevCh();
         }
       }, { passive: true });
