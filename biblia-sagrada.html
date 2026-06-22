@@ -196,6 +196,7 @@
 
     .scroll-body {
       flex: 1;
+      min-height: 0;
       overflow-y: auto;
       -webkit-overflow-scrolling: touch
     }
@@ -1020,6 +1021,7 @@
     /* reading content */
     .read-scroll {
       flex: 1;
+      min-height: 0;
       overflow-y: auto;
       -webkit-overflow-scrolling: touch;
       overscroll-behavior-y: contain;
@@ -2125,6 +2127,15 @@
       display: block
     }
 
+    #pgReading .read-main {
+      flex: 1;
+      min-height: 0;
+      min-width: 0;
+      display: flex;
+      flex-direction: column;
+      overflow: hidden
+    }
+
     /* reading sidebar (desktop chapter nav) */
     .read-sidebar {
       display: none;
@@ -2157,14 +2168,6 @@
 
       #pgReading.on {
         flex-direction: row
-      }
-
-      #pgReading .read-main {
-        flex: 1;
-        min-width: 0;
-        display: flex;
-        flex-direction: column;
-        overflow: hidden
       }
     }
 
