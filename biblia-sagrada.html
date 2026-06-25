@@ -14,7 +14,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link
-    href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Lora:ital,wght@0,400;0,500;0,600;1,400;1,500&display=swap"
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Lora:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Merriweather:ital,wght@0,300;0,400;0,700;1,300;1,400&display=swap"
     rel="stylesheet">
   <style>
     /* ═══════════════════════════════════════════════════
@@ -1553,7 +1553,10 @@
     }
 
     .read-controls-body.open {
-      display: block
+      display: block;
+      max-height: 55vh;
+      overflow-y: auto;
+      overscroll-behavior: contain
     }
 
     .ctrl-row {
@@ -3037,7 +3040,7 @@
       </button>
     </div>
     <div class="scroll-y">
-      <!-- Banner -->
+      <!-- Banner / Devocional do Dia (único) -->
       <div class="home-banner">
         <div class="home-banner-pattern"></div>
         <svg class="home-banner-cross" viewBox="0 0 80 120" width="80" height="120" fill="none">
@@ -3045,17 +3048,22 @@
           <rect x="0" y="30" width="80" height="20" rx="4" fill="white" opacity=".55" />
         </svg>
         <div class="home-banner-content">
-          <div class="home-banner-eyebrow">✦ Devocional do Dia</div>
-          <div class="home-banner-verse" id="bannerVerse">Carregando...</div>
-          <div class="home-banner-ref" id="bannerRef"></div>
-          <button class="home-banner-btn" onclick="devGoRead()">
-            Ler passagem
+          <div class="home-banner-eyebrow">✦ Devocional do Dia &nbsp;<span id="devDate" style="font-size:10px;opacity:.7;font-weight:500"></span></div>
+          <div class="home-banner-verse" id="bannerVerse" style="font-size:16px;font-weight:700;margin-bottom:6px">Carregando...</div>
+          <div id="bannerBody" style="font-size:13px;line-height:1.55;opacity:.88;margin-bottom:10px;display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden"></div>
+          <div class="home-banner-ref" id="bannerRef" style="margin-bottom:12px"></div>
+          <button class="home-banner-btn" id="devReadBtn" onclick="devGoRead()">
+            Ler passagem completa
             <svg viewBox="0 0 24 24" width="11" height="11" fill="none" stroke="currentColor" stroke-width="2.5">
               <path d="M5 12h14M12 5l7 7-7 7" />
             </svg>
           </button>
         </div>
       </div>
+      <!-- IDs usados por devGoRead() e initHome() — mantidos como refs ocultas -->
+      <span id="devTitle" style="display:none"></span>
+      <span id="devBody" style="display:none"></span>
+      <span id="devRef" style="display:none"></span>
       <!-- Continue -->
       <div class="continue-bar" id="continueBar" onclick="doContinue()">
         <div class="continue-icon">
@@ -3072,6 +3080,32 @@
           style="color:var(--ac);flex-shrink:0">
           <path d="M5 12h14M12 5l7 7-7 7" />
         </svg>
+      </div>
+      <!-- Streak row -->
+      <div id="streakRow" style="display:none;align-items:center;gap:8px;margin:8px 16px 0;padding:10px 14px;background:linear-gradient(135deg,var(--gold-100,#FDF3D0),#fff8e1);border-radius:var(--r3);border:1px solid var(--gold-300,#F0CB5A)">
+        <span style="font-size:18px">🔥</span>
+        <span id="streakTxt" style="font-size:13px;font-weight:600;color:var(--acgold)">2 dias seguidos lendo!</span>
+      </div>
+      <!-- Progresso de leitura -->
+      <div style="margin:12px 16px 0;display:flex;gap:10px">
+        <div style="flex:1;background:var(--bgcard);border:1px solid var(--br);border-radius:var(--r3);padding:12px 14px;box-shadow:var(--sh1)">
+          <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:6px">
+            <span style="font-size:11px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:var(--tx3)">Antigo</span>
+            <span id="atPct" style="font-size:12px;font-weight:700;color:var(--ac)">0%</span>
+          </div>
+          <div style="height:4px;background:var(--bgsrf);border-radius:var(--rfull);overflow:hidden">
+            <div id="atProgFill" style="height:100%;background:var(--ac);border-radius:var(--rfull);width:0%;transition:width .5s var(--ease)"></div>
+          </div>
+        </div>
+        <div style="flex:1;background:var(--bgcard);border:1px solid var(--br);border-radius:var(--r3);padding:12px 14px;box-shadow:var(--sh1)">
+          <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:6px">
+            <span style="font-size:11px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:var(--tx3)">Novo</span>
+            <span id="ntPct" style="font-size:12px;font-weight:700;color:var(--ac)">0%</span>
+          </div>
+          <div style="height:4px;background:var(--bgsrf);border-radius:var(--rfull);overflow:hidden">
+            <div id="ntProgFill" style="height:100%;background:var(--ac);border-radius:var(--rfull);width:0%;transition:width .5s var(--ease)"></div>
+          </div>
+        </div>
       </div>
       <!-- Nav grid -->
       <div class="home-section">
@@ -3139,26 +3173,6 @@
             </div>
             <div class="nav-card-title">Histórico</div>
             <div class="nav-card-desc">Capítulos lidos</div>
-          </div>
-        </div>
-      </div>
-      <!-- Devocional card -->
-      <div class="home-section" style="padding-bottom:32px">
-        <div class="dev-card">
-          <div class="dev-card-eyebrow">
-            <span class="dev-card-tag">✦ Devocional</span>
-            <span class="dev-card-date" id="devDate">—</span>
-          </div>
-          <div class="dev-card-title" id="devTitle">Carregando...</div>
-          <div class="dev-card-body" id="devBody"></div>
-          <div class="dev-card-footer">
-            <div class="dev-card-ref" id="devRef"></div>
-            <button class="dev-card-btn" id="devReadBtn" onclick="devGoRead()">
-              Ler passagem
-              <svg viewBox="0 0 24 24" width="11" height="11" fill="none" stroke="currentColor" stroke-width="2.5">
-                <path d="M5 12h14M12 5l7 7-7 7" />
-              </svg>
-            </button>
           </div>
         </div>
       </div>
@@ -3596,99 +3610,43 @@
       <select class="hmenu-ver-sel" id="hmenuVerSel" onchange="changeVerFromMenu(this.value)"></select>
     </div>
     <div class="hmenu-body">
-      <div class="hmenu-section-label">Navegação</div>
-      <div class="hmenu-item" onclick="closeHMenu();goPage('pgHome')">
-        <div class="hmenu-item-icon" style="background:var(--acsf)">🏠</div>
-        <div class="hmenu-item-text">
-          <div class="hmenu-item-title">Início</div>
-          <div class="hmenu-item-sub">Devocional e destaques</div>
-        </div>
-        <div class="hmenu-item-arr"><svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor"
-            stroke-width="2.5">
-            <path d="M9 18l6-6-6-6" />
-          </svg></div>
-      </div>
-      <div class="hmenu-item" onclick="closeHMenu();goPage('pgSelector')">
-        <div class="hmenu-item-icon" style="background:#E8F7F1">📖</div>
-        <div class="hmenu-item-text">
-          <div class="hmenu-item-title">Bíblia</div>
-          <div class="hmenu-item-sub">Escolher livro e capítulo</div>
-        </div>
-        <div class="hmenu-item-arr"><svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor"
-            stroke-width="2.5">
-            <path d="M9 18l6-6-6-6" />
-          </svg></div>
-      </div>
-      <div class="hmenu-item" onclick="closeHMenu();goPage('pgPlans')">
-        <div class="hmenu-item-icon" style="background:#EFF6FF">📅</div>
-        <div class="hmenu-item-text">
-          <div class="hmenu-item-title">Planos de Leitura</div>
-          <div class="hmenu-item-sub">Leia com estrutura diária</div>
-        </div>
-        <div class="hmenu-item-arr"><svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor"
-            stroke-width="2.5">
-            <path d="M9 18l6-6-6-6" />
-          </svg></div>
-      </div>
-      <div class="hmenu-section-label">Conteúdo</div>
-      <div class="hmenu-item" onclick="closeHMenu();openPanel('bm')">
-        <div class="hmenu-item-icon" style="background:#F5F3FF">🔖</div>
-        <div class="hmenu-item-text">
-          <div class="hmenu-item-title">Favoritos</div>
-          <div class="hmenu-item-sub" id="hmenuBmSub">0 capítulos</div>
-        </div>
-        <div class="hmenu-item-arr"><svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor"
-            stroke-width="2.5">
-            <path d="M9 18l6-6-6-6" />
-          </svg></div>
-      </div>
-      <div class="hmenu-item" onclick="closeHMenu();openPanel('hl')">
-        <div class="hmenu-item-icon" style="background:#FFF1F2">🖍️</div>
-        <div class="hmenu-item-text">
-          <div class="hmenu-item-title">Destaques</div>
-          <div class="hmenu-item-sub" id="hmenuHlSub">0 versículos</div>
-        </div>
-        <div class="hmenu-item-arr"><svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor"
-            stroke-width="2.5">
-            <path d="M9 18l6-6-6-6" />
-          </svg></div>
-      </div>
-      <div class="hmenu-item" onclick="closeHMenu();openPanel('notes')">
-        <div class="hmenu-item-icon" style="background:#FFFBEB">📝</div>
-        <div class="hmenu-item-text">
-          <div class="hmenu-item-title">Anotações</div>
-          <div class="hmenu-item-sub" id="hmenuNotesSub">0 anotações</div>
-        </div>
-        <div class="hmenu-item-arr"><svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor"
-            stroke-width="2.5">
-            <path d="M9 18l6-6-6-6" />
-          </svg></div>
-      </div>
-      <div class="hmenu-item" onclick="closeHMenu();openPanel('hist')">
-        <div class="hmenu-item-icon" style="background:#ECFEFF">📜</div>
-        <div class="hmenu-item-text">
-          <div class="hmenu-item-title">Histórico</div>
-          <div class="hmenu-item-sub" id="hmenuHistSub">0 capítulos</div>
-        </div>
-        <div class="hmenu-item-arr"><svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor"
-            stroke-width="2.5">
-            <path d="M9 18l6-6-6-6" />
-          </svg></div>
-      </div>
       <div class="hmenu-section-label">Aparência</div>
-      <div class="hmenu-item" style="cursor:default;flex-wrap:wrap">
+      <div class="hmenu-item" style="cursor:default;flex-wrap:wrap;gap:10px">
         <div class="hmenu-item-icon" style="background:var(--bgsrf)">🎨</div>
         <div class="hmenu-item-text" style="flex:none;margin-right:auto">
           <div class="hmenu-item-title">Tema</div>
-          <div class="hmenu-theme-row">
-            <div class="hmenu-theme-dot on" data-t="default" style="background:#F7F5F0;border:2px solid #C8C0B0"
-              onclick="setThemeById('default')"></div>
-            <div class="hmenu-theme-dot" data-t="sepia" style="background:#F5EDD9" onclick="setThemeById('sepia')">
-            </div>
-            <div class="hmenu-theme-dot" data-t="dark" style="background:#1E1E1E" onclick="setThemeById('dark')"></div>
-            <div class="hmenu-theme-dot" data-t="night" style="background:#080C14" onclick="setThemeById('night')">
-            </div>
-          </div>
+        </div>
+        <div class="hmenu-theme-row" style="flex-basis:100%;padding-left:48px;padding-bottom:4px">
+          <div class="hmenu-theme-dot" data-t="default" style="background:#F7F5F0;border:2px solid #C8C0B0"
+            onclick="setThemeById('default')"></div>
+          <div class="hmenu-theme-dot" data-t="sepia" style="background:#F5EDD9" onclick="setThemeById('sepia')"></div>
+          <div class="hmenu-theme-dot" data-t="dark" style="background:#1E1E1E" onclick="setThemeById('dark')"></div>
+          <div class="hmenu-theme-dot" data-t="night" style="background:#080C14" onclick="setThemeById('night')"></div>
+        </div>
+      </div>
+      <div class="hmenu-item" style="cursor:default;flex-wrap:wrap;gap:10px">
+        <div class="hmenu-item-icon" style="background:var(--bgsrf)">🔤</div>
+        <div class="hmenu-item-text" style="flex:none;margin-right:auto">
+          <div class="hmenu-item-title">Fonte</div>
+        </div>
+        <div style="flex-basis:100%;padding-left:48px;padding-bottom:4px;display:flex;gap:6px;flex-wrap:wrap">
+          <button class="font-pill" data-f="'Lora',Georgia,serif" onclick="setFont(this)">Lora</button>
+          <button class="font-pill" data-f="'Inter',sans-serif" onclick="setFont(this)">Inter</button>
+          <button class="font-pill" data-f="Georgia,serif" onclick="setFont(this)">Georgia</button>
+          <button class="font-pill" data-f="'Merriweather',serif" onclick="setFont(this)">Merriweather</button>
+        </div>
+      </div>
+      <div class="hmenu-item" style="cursor:default;flex-wrap:wrap;gap:10px">
+        <div class="hmenu-item-icon" style="background:var(--bgsrf)">📏</div>
+        <div class="hmenu-item-text" style="flex:none;margin-right:auto">
+          <div class="hmenu-item-title">Tamanho do texto</div>
+        </div>
+        <div style="flex-basis:100%;padding-left:48px;padding-bottom:4px;display:flex;align-items:center;gap:10px">
+          <button class="sz-btn" onclick="chFS(-1)" style="font-size:12px">A</button>
+          <span class="sz-val" id="hmenuFsVal" style="min-width:36px;text-align:center">18px</span>
+          <button class="sz-btn" onclick="chFS(1);document.getElementById('hmenuFsVal').textContent=S.fs+'px'" style="font-size:18px">A</button>
+          <input class="sz-slider" type="range" min="14" max="26" value="18" id="hmenuFsRange"
+            oninput="setFS(this.value);document.getElementById('hmenuFsVal').textContent=S.fs+'px'" style="flex:1">
         </div>
       </div>
       <div class="hmenu-section-label">App</div>
@@ -3927,7 +3885,7 @@
     /* ══ STATE ══ */
     const S = {
       test: 'at', book: AT[0], ch: 1, startV: 1, ver: 'NVI',
-      verses: [], fs: 18, lh: 1.85,
+      verses: [], fs: 18, lh: 1.85, ff: "'Lora',Georgia,serif", theme: 'default',
       bookmarks: [], highlights: {}, notes: {},
       history: [],         /* [{bookId,ch,ver,date,bookName}] */
       readChapters: {},    /* {bookId: Set of ch numbers} */
@@ -3955,14 +3913,17 @@
       const today = new Date();
       const doy = Math.floor((today - new Date(today.getFullYear(), 0, 0)) / 86400000);
       const dv = DEVOCIONAIS[doy % DEVOCIONAIS.length];
-      document.getElementById('devTitle').textContent = dv.title;
-      document.getElementById('devBody').textContent = dv.body;
-      document.getElementById('devRef').textContent = dv.ref;
-      /* Sync banner */
+      /* Banner único — título, corpo (3 linhas), referência */
       const bv = document.getElementById('bannerVerse');
+      const bb = document.getElementById('bannerBody');
       const br = document.getElementById('bannerRef');
-      if (bv) bv.textContent = dv.body.length > 120 ? dv.body.substring(0, 117) + '...' : dv.body;
+      if (bv) bv.textContent = dv.title;
+      if (bb) bb.textContent = dv.body;
       if (br) br.textContent = dv.ref;
+      /* Refs ocultas usadas por devGoRead() */
+      const dt = document.getElementById('devTitle'); if (dt) dt.textContent = dv.title;
+      const db = document.getElementById('devBody');  if (db) db.textContent = dv.body;
+      const dr = document.getElementById('devRef');   if (dr) dr.textContent = dv.ref;
       const opts = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
       document.getElementById('devDate').textContent = today.toLocaleDateString('pt-BR', opts);
       document.getElementById('devReadBtn').dataset.bookId = dv.bookId;
@@ -3984,10 +3945,10 @@
       const ntRead = NT.reduce((a, b) => a + (S.readChapters[b.id] ? S.readChapters[b.id].size : 0), 0);
       const atPct = atTotal ? Math.round(atRead / atTotal * 100) : 0;
       const ntPct = ntTotal ? Math.round(ntRead / ntTotal * 100) : 0;
-      document.getElementById('atPct').textContent = atPct + '%';
-      document.getElementById('ntPct').textContent = ntPct + '%';
-      document.getElementById('atProgFill').style.width = atPct + '%';
-      document.getElementById('ntProgFill').style.width = ntPct + '%';
+      const set = (id, v) => { const el = document.getElementById(id); if (el) el.textContent = v; };
+      const sw = (id, v) => { const el = document.getElementById(id); if (el) el.style.width = v; };
+      set('atPct', atPct + '%'); set('ntPct', ntPct + '%');
+      sw('atProgFill', atPct + '%'); sw('ntProgFill', ntPct + '%');
     }
     function computeStreak() {
       if (!S.history.length) return 0;
@@ -4775,19 +4736,17 @@
       if (handle) handle.style.background = S.ctrlOpen ? 'var(--ac)' : '';
     }
     function setTheme(t, el) {
+      S.theme = t;
       document.documentElement.setAttribute('data-theme', t === 'default' ? '' : t);
-      document.querySelectorAll('.th-dot,.theme-dot,.hmenu-theme-dot').forEach(d => d.classList.remove('on'));
-      if (el) el.classList.add('on');
-      /* Also sync hamburger menu dots */
-      document.querySelectorAll('[data-t="' + t + '"]').forEach(d => d.classList.add('on'));
+      document.querySelectorAll('[data-t]').forEach(d => d.classList.toggle('on', d.dataset.t === t));
       savePrefs();
     }
     function chFS(d) { S.fs = Math.max(12, Math.min(28, S.fs + d)); applyFS(); } function setFS(v) { S.fs = parseInt(v); applyFS(); }
     function applyFS() {
       document.documentElement.style.setProperty('--fs', S.fs + 'px');
-      document.documentElement.style.setProperty('--vfs', S.fs + 'px');  /* verse font size */
-      const fv = document.getElementById('fsVal'); if (fv) fv.textContent = S.fs + 'px';
-      const fr = document.getElementById('fsRange'); if (fr) fr.value = S.fs;
+      document.documentElement.style.setProperty('--vfs', S.fs + 'px');
+      ['fsVal', 'hmenuFsVal'].forEach(id => { const el = document.getElementById(id); if (el) el.textContent = S.fs + 'px'; });
+      ['fsRange', 'hmenuFsRange'].forEach(id => { const el = document.getElementById(id); if (el) el.value = S.fs; });
       savePrefs();
     }
     function chLH(d) { S.lh = Math.max(1.2, Math.min(2.5, parseFloat((S.lh + d).toFixed(2)))); applyLH(); } function setLH(v) { S.lh = parseFloat(parseFloat(v).toFixed(2)); applyLH(); }
@@ -4800,10 +4759,10 @@
     }
     function setFont(btn) {
       const ff = btn.dataset.f;
+      S.ff = ff;
       document.documentElement.style.setProperty('--ff', ff);
-      document.documentElement.style.setProperty('--vff', ff);  /* verse font */
-      document.querySelectorAll('.fpill,.font-pill').forEach(b => b.classList.remove('on'));
-      btn.classList.add('on');
+      document.documentElement.style.setProperty('--vff', ff);
+      document.querySelectorAll('.fpill,.font-pill').forEach(b => b.classList.toggle('on', b.dataset.f === ff));
       savePrefs();
     }
 
@@ -4815,7 +4774,7 @@
     /* ══ PERSIST ══ */
     function savePrefs() {
       try {
-        const data = { ver: S.ver, fs: S.fs, lh: S.lh, bookmarks: S.bookmarks, highlights: S.highlights, notes: S.notes, lastRead: S.lastRead, history: S.history, planProgress: S.planProgress };
+        const data = { ver: S.ver, fs: S.fs, lh: S.lh, ff: S.ff, theme: S.theme, bookmarks: S.bookmarks, highlights: S.highlights, notes: S.notes, lastRead: S.lastRead, history: S.history, planProgress: S.planProgress };
         /* readChapters: convert Set to Array */
         data.readChapters = {};
         for (const [k, v] of Object.entries(S.readChapters)) data.readChapters[k] = [...v];
@@ -4826,8 +4785,10 @@
       try {
         const p = JSON.parse(localStorage.getItem('bs8') || '{}');
         if (p.ver) S.ver = p.ver;
-        if (p.fs) { S.fs = p.fs; document.documentElement.style.setProperty('--fs', p.fs + 'px'); document.getElementById('fsVal').textContent = p.fs + 'px'; document.getElementById('fsRange').value = p.fs; }
-        if (p.lh) { S.lh = p.lh; document.documentElement.style.setProperty('--lh', p.lh); document.getElementById('lhVal').textContent = parseFloat(p.lh).toFixed(2); document.getElementById('lhRange').value = p.lh; }
+        if (p.fs) { S.fs = p.fs; document.documentElement.style.setProperty('--fs', p.fs + 'px'); document.documentElement.style.setProperty('--vfs', p.fs + 'px'); const fv = document.getElementById('fsVal'); if (fv) fv.textContent = p.fs + 'px'; const fr = document.getElementById('fsRange'); if (fr) fr.value = p.fs; }
+        if (p.lh) { S.lh = p.lh; document.documentElement.style.setProperty('--lh', p.lh); document.documentElement.style.setProperty('--vlh', p.lh); const lv = document.getElementById('lhVal'); if (lv) lv.textContent = parseFloat(p.lh).toFixed(2); const lr = document.getElementById('lhRange'); if (lr) lr.value = p.lh; }
+        if (p.ff) { S.ff = p.ff; document.documentElement.style.setProperty('--ff', p.ff); document.documentElement.style.setProperty('--vff', p.ff); document.querySelectorAll('.font-pill,.fpill').forEach(b => { if (b.dataset.f === p.ff) b.classList.add('on'); else b.classList.remove('on'); }); }
+        if (p.theme) { S.theme = p.theme; document.documentElement.setAttribute('data-theme', p.theme === 'default' ? '' : p.theme); document.querySelectorAll('[data-t]').forEach(d => d.classList.toggle('on', d.dataset.t === p.theme)); }
         if (p.bookmarks) S.bookmarks = p.bookmarks;
         if (p.highlights) S.highlights = p.highlights;
         if (p.notes) S.notes = p.notes;
@@ -4843,12 +4804,14 @@
     function showToast(m, undoFn) {
       const container = document.getElementById('toast-container');
       if (!container) return;
+      /* Remove todos os toasts anteriores imediatamente para não acumular */
+      clearTimeout(_tt);
+      container.innerHTML = '';
       const t = document.createElement('div');
       t.className = 'toast';
       _toastUndoFn = undoFn || null;
       t.innerHTML = `<span>${esc(m)}</span>${undoFn ? `<button class="toast-undo-btn" onclick="runToastUndo()">Desfazer</button>` : ''}`;
       container.appendChild(t);
-      clearTimeout(_tt);
       _tt = setTimeout(() => {
         t.classList.add('out');
         setTimeout(() => { if (t.parentNode) t.parentNode.removeChild(t); }, 250);
@@ -4857,8 +4820,9 @@
     function runToastUndo() {
       if (_toastUndoFn) _toastUndoFn();
       _toastUndoFn = null;
-      document.getElementById('toast').classList.remove('on');
       clearTimeout(_tt);
+      const container = document.getElementById('toast-container');
+      if (container) container.innerHTML = '';
     }
     function esc(s) { return String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;'); }
 
@@ -4963,38 +4927,35 @@
 
     /* ══ HAMBURGER MENU ══ */
     function openHMenu() {
-      /* Update counts */
-      const bmN = S.bookmarks.length;
-      const hlN = Object.keys(S.highlights).length;
-      const notN = Object.keys(S.notes).length;
-      const histN = S.history.length;
-      const setBmC = (id, v) => { const el = document.getElementById(id); if (el) el.textContent = v; };
-      setBmC('hmenuBmCount', bmN + ' salvos');
-      setBmC('hmenuHlCount', hlN + ' versículos');
-      setBmC('hmenuBmSub', bmN + ' capítulos');
-      setBmC('hmenuHlSub', hlN + ' versículos');
-      setBmC('hmenuNotesSub', notN + ' anotações');
-      setBmC('hmenuHistSub', histN + ' capítulos lidos');
-      setBmC('hmenuHistCount', histN + ' lidos');
-      setBmC('hmenuNotesCount', Object.keys(S.notes).length + ' anotação(ões)');
-      /* hmenuHistCount already set above */
+      /* Update counts shown on home nav-grid (shared elements) */
+      const set = (id, v) => { const el = document.getElementById(id); if (el) el.textContent = v; };
+      set('hmenuBmCount', S.bookmarks.length + ' salvos');
+      set('hmenuHlCount', Object.keys(S.highlights).length + ' versículos');
+      set('hmenuHistCount', S.history.length + ' lidos');
 
-      /* Current version info */
-      const ver = VERSIONS.find(v => v.code === S.ver);
-      const vcEl = document.getElementById('hmenuVerCode');
-      if (vcEl) vcEl.textContent = S.ver;
-      const vnEl = document.getElementById('hmenuVerName');
-      if (vnEl) vnEl.textContent = ver ? ver.name : '';
-      document.getElementById('hmenuAboutSub').textContent = 'Versão ' + APP_VERSION;
-      document.getElementById('hmenuFooterVer').textContent = 'Bíblia Sagrada v' + APP_VERSION;
-      document.getElementById('hmenuVerTxt').textContent = 'v' + APP_VERSION + ' • Atualizado';
+      /* App version info */
+      set('hmenuAboutSub', 'Versão ' + APP_VERSION);
+      set('hmenuFooterVer', 'Bíblia Sagrada v' + APP_VERSION);
+      set('hmenuVerTxt', 'v' + APP_VERSION + ' • Atualizado');
+
+      /* Sync font size control */
+      const hfv = document.getElementById('hmenuFsVal');
+      if (hfv) hfv.textContent = S.fs + 'px';
+      const hfr = document.getElementById('hmenuFsRange');
+      if (hfr) hfr.value = S.fs;
+
+      /* Sync font pills in hamburger */
+      document.querySelectorAll('.font-pill').forEach(b => b.classList.toggle('on', b.dataset.f === S.ff));
+
+      /* Sync theme dots */
+      document.querySelectorAll('[data-t]').forEach(d => d.classList.toggle('on', d.dataset.t === S.theme));
 
       /* Check notif status */
       const notifStatus = 'Notification' in window ?
         (Notification.permission === 'granted' ? '✓ Ativadas' :
           Notification.permission === 'denied' ? 'Bloqueadas — ajuste nas configurações do celular' :
             'Toque para ativar devocional diário') : 'Não suportado neste dispositivo';
-      document.getElementById('hmenuNotifSub').textContent = notifStatus;
+      set('hmenuNotifSub', notifStatus);
 
       /* Populate version select */
       populateHMenuVerSel();
@@ -5021,16 +4982,13 @@
 
     function changeVerFromMenu(code) {
       changeVer(code);
-      const ver = VERSIONS.find(v => v.code === code);
-      document.getElementById('hmenuVerCode').textContent = code;
-      document.getElementById('hmenuVerName').textContent = ver ? ver.name : '';
       showToast('✓ Versão alterada para ' + code);
     }
 
     function setThemeById(t) {
+      S.theme = t;
       document.documentElement.setAttribute('data-theme', t === 'default' ? '' : t);
-      document.querySelectorAll('.th-dot,.theme-dot,.hmenu-theme-dot').forEach(d => d.classList.remove('on'));
-      document.querySelectorAll('[data-t="' + t + '"]').forEach(d => d.classList.add('on'));
+      document.querySelectorAll('[data-t]').forEach(d => d.classList.toggle('on', d.dataset.t === t));
       savePrefs();
       showToast('🎨 Tema alterado!');
     }
@@ -5176,30 +5134,6 @@
 
   </script>
 
-  <script>
-    if ('serviceWorker' in navigator) {
-      window.addEventListener('load', () => {
-        navigator.serviceWorker.register('/bibliasagrada/sw.js').then(reg => {
-          setTimeout(requestNotifPermission, 3000);
-          reg.addEventListener('updatefound', () => {
-            const nw = reg.installing;
-            if (!nw) return;
-            nw.addEventListener('statechange', () => {
-              if (nw.state === 'installed' && navigator.serviceWorker.controller) {
-                setTimeout(silentUpdateCheck, 800);
-              }
-            });
-          });
-          let refreshing = false;
-          navigator.serviceWorker.addEventListener('controllerchange', () => {
-            if (refreshing) return; refreshing = true; window.location.reload();
-          });
-        }).catch(() => { });
-      });
-    }
-    window.addEventListener('online', () => updateOfflineBanner());
-    window.addEventListener('offline', () => updateOfflineBanner());
-  </script>
 
 </body>
 
