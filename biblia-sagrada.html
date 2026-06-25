@@ -1604,7 +1604,8 @@
       flex-wrap: wrap
     }
 
-    .font-pill {
+    .font-pill,
+    .fpill {
       padding: 5px 12px;
       border-radius: var(--rfull);
       font-size: 12px;
@@ -1615,7 +1616,8 @@
       transition: background var(--d1), color var(--d1)
     }
 
-    .font-pill.on {
+    .font-pill.on,
+    .fpill.on {
       background: var(--acsf);
       color: var(--ac);
       border-color: var(--brac)
@@ -3775,6 +3777,7 @@
 
   <script>
 
+
     'use strict';
 
     /* ══ VERSIONS ══ */
@@ -4391,7 +4394,12 @@
       const bar = document.getElementById('mselBar');
       const ctrl = document.getElementById('ctrlBar');
       const n = S.selVerses.size;
-      if (n > 0) { bar.classList.add('on'); ctrl.style.display = 'none'; document.getElementById('mselCount').textContent = n === 1 ? '1 versículo' : n + ' versículos'; }
+      if (n > 0) {
+        bar.classList.add('on'); ctrl.style.display = 'none';
+        const cnt = n === 1 ? '1 versículo' : n + ' versículos';
+        const cntEl = document.getElementById('mselCount'); if (cntEl) cntEl.textContent = cnt;
+        const bdg = document.getElementById('mselBadge'); if (bdg) bdg.textContent = n;
+      }
       else { bar.classList.remove('on'); ctrl.style.display = ''; }
     }
     function clearSel() { S.selVerses.forEach(n => { const el = document.getElementById('v' + n); if (el) el.classList.remove('sel-v'); }); S.selVerses.clear(); updateMselBar(); }
@@ -4708,7 +4716,7 @@
       document.getElementById('panelBg').classList.add('on');
       document.getElementById(pid).classList.add('on');
     }
-    function closePanel() { document.getElementById('panelBg').classList.remove('on'); document.querySelectorAll('.panel').forEach(p => p.classList.remove('on')); }
+    function closePanel() { document.getElementById('panelBg').classList.remove('on'); document.querySelectorAll('.side-panel,.panel').forEach(p => p.classList.remove('on')); }
 
     /* ══ SEARCH ══ */
     function toggleSearch() { S.searchOn = !S.searchOn; document.getElementById('sbar').classList.toggle('on', S.searchOn); document.getElementById('btnS').classList.toggle('on', S.searchOn); if (S.searchOn) document.getElementById('sinput').focus(); else clearSearch(); }
@@ -4758,13 +4766,46 @@
     function seekAudio(e) { const pct = e.offsetX / e.currentTarget.offsetWidth; const idx = Math.max(0, Math.min(S.verses.length - 1, Math.floor(pct * S.verses.length))); S.audioIdx = idx; stopAudio(false); speakVerse(idx); }
 
     /* ══ APPEARANCE ══ */
-    function toggleCtrl() { S.ctrlOpen = !S.ctrlOpen; document.getElementById('ctrlBody').classList.toggle('on', S.ctrlOpen); document.querySelector('.ctrl-toggle-btn').textContent = S.ctrlOpen ? '⚙ Aparência ⌃' : '⚙ Aparência ⌄'; }
-    function setTheme(t, el) { document.documentElement.setAttribute('data-theme', t === 'default' ? '' : t); document.querySelectorAll('.th-dot').forEach(d => d.classList.remove('on')); el.classList.add('on'); savePrefs(); }
+    function toggleCtrl() {
+      S.ctrlOpen = !S.ctrlOpen;
+      const body = document.getElementById('ctrlBody');
+      if (body) body.classList.toggle('open', S.ctrlOpen);
+      /* Update handle visual if present */
+      const handle = document.querySelector('.read-controls-handle');
+      if (handle) handle.style.background = S.ctrlOpen ? 'var(--ac)' : '';
+    }
+    function setTheme(t, el) {
+      document.documentElement.setAttribute('data-theme', t === 'default' ? '' : t);
+      document.querySelectorAll('.th-dot,.theme-dot,.hmenu-theme-dot').forEach(d => d.classList.remove('on'));
+      if (el) el.classList.add('on');
+      /* Also sync hamburger menu dots */
+      document.querySelectorAll('[data-t="' + t + '"]').forEach(d => d.classList.add('on'));
+      savePrefs();
+    }
     function chFS(d) { S.fs = Math.max(12, Math.min(28, S.fs + d)); applyFS(); } function setFS(v) { S.fs = parseInt(v); applyFS(); }
-    function applyFS() { document.documentElement.style.setProperty('--fs', S.fs + 'px'); document.getElementById('fsVal').textContent = S.fs + 'px'; document.getElementById('fsRange').value = S.fs; savePrefs(); }
+    function applyFS() {
+      document.documentElement.style.setProperty('--fs', S.fs + 'px');
+      document.documentElement.style.setProperty('--vfs', S.fs + 'px');  /* verse font size */
+      const fv = document.getElementById('fsVal'); if (fv) fv.textContent = S.fs + 'px';
+      const fr = document.getElementById('fsRange'); if (fr) fr.value = S.fs;
+      savePrefs();
+    }
     function chLH(d) { S.lh = Math.max(1.2, Math.min(2.5, parseFloat((S.lh + d).toFixed(2)))); applyLH(); } function setLH(v) { S.lh = parseFloat(parseFloat(v).toFixed(2)); applyLH(); }
-    function applyLH() { document.documentElement.style.setProperty('--lh', S.lh); document.getElementById('lhVal').textContent = S.lh.toFixed(2); document.getElementById('lhRange').value = S.lh; savePrefs(); }
-    function setFont(btn) { document.documentElement.style.setProperty('--ff', btn.dataset.f); document.querySelectorAll('.fpill').forEach(b => b.classList.remove('on')); btn.classList.add('on'); savePrefs(); }
+    function applyLH() {
+      document.documentElement.style.setProperty('--lh', S.lh);
+      document.documentElement.style.setProperty('--vlh', S.lh);  /* verse line height */
+      const lv = document.getElementById('lhVal'); if (lv) lv.textContent = S.lh.toFixed(2);
+      const lr = document.getElementById('lhRange'); if (lr) lr.value = S.lh;
+      savePrefs();
+    }
+    function setFont(btn) {
+      const ff = btn.dataset.f;
+      document.documentElement.style.setProperty('--ff', ff);
+      document.documentElement.style.setProperty('--vff', ff);  /* verse font */
+      document.querySelectorAll('.fpill,.font-pill').forEach(b => b.classList.remove('on'));
+      btn.classList.add('on');
+      savePrefs();
+    }
 
     /* ══ SCROLL ══ */
     function onScroll() { const el = document.getElementById('readScroll'); const pct = el.scrollHeight > el.clientHeight ? Math.round(el.scrollTop / (el.scrollHeight - el.clientHeight) * 100) : 100; document.getElementById('progFill').style.width = pct + '%'; }
@@ -4935,13 +4976,15 @@
       setBmC('hmenuNotesSub', notN + ' anotações');
       setBmC('hmenuHistSub', histN + ' capítulos lidos');
       setBmC('hmenuHistCount', histN + ' lidos');
-      document.getElementById('hmenuNotesCount').textContent = Object.keys(S.notes).length + ' anotação(ões)';
-      document.getElementById('hmenuHistCount').textContent = S.history.length + ' capítulo(s) lido(s)';
+      setBmC('hmenuNotesCount', Object.keys(S.notes).length + ' anotação(ões)');
+      /* hmenuHistCount already set above */
 
       /* Current version info */
       const ver = VERSIONS.find(v => v.code === S.ver);
-      document.getElementById('hmenuVerCode').textContent = S.ver;
-      document.getElementById('hmenuVerName').textContent = ver ? ver.name : '';
+      const vcEl = document.getElementById('hmenuVerCode');
+      if (vcEl) vcEl.textContent = S.ver;
+      const vnEl = document.getElementById('hmenuVerName');
+      if (vnEl) vnEl.textContent = ver ? ver.name : '';
       document.getElementById('hmenuAboutSub').textContent = 'Versão ' + APP_VERSION;
       document.getElementById('hmenuFooterVer').textContent = 'Bíblia Sagrada v' + APP_VERSION;
       document.getElementById('hmenuVerTxt').textContent = 'v' + APP_VERSION + ' • Atualizado';
@@ -4986,7 +5029,8 @@
 
     function setThemeById(t) {
       document.documentElement.setAttribute('data-theme', t === 'default' ? '' : t);
-      document.querySelectorAll('.th-dot').forEach(d => d.classList.toggle('on', d.dataset.t === t));
+      document.querySelectorAll('.th-dot,.theme-dot,.hmenu-theme-dot').forEach(d => d.classList.remove('on'));
+      document.querySelectorAll('[data-t="' + t + '"]').forEach(d => d.classList.add('on'));
       savePrefs();
       showToast('🎨 Tema alterado!');
     }
@@ -5128,6 +5172,7 @@
       if (action === 'continue' && S.lastRead) doContinue();
       else if (action === 'daily') devGoRead();
     })();
+
 
   </script>
 
