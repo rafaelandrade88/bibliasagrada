@@ -7,15 +7,137 @@
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
   <meta name="apple-mobile-web-app-title" content="Bíblia Sagrada">
-  <meta name="theme-color" content="#7c4f1e">
+  <meta name="theme-color" content="#1A6B4A">
   <link rel="manifest" href="/bibliasagrada/manifest.json">
   <link rel="apple-touch-icon" href="/bibliasagrada/icons/icon-192.png">
   <title>Bíblia Sagrada</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link
-    href="https://fonts.googleapis.com/css2?family=Crimson+Pro:ital,wght@0,300;0,400;0,600;1,400&family=Playfair+Display:wght@700&display=swap"
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Lora:ital,wght@0,400;0,500;0,600;1,400;1,500&display=swap"
     rel="stylesheet">
   <style>
+    /* ═══════════════════════════════════════════════════
+   DESIGN SYSTEM — Bíblia Sagrada 2026
+   Verde esmeralda sagrado + Dourado pergaminho
+   Inter (UI) + Lora (leitura)
+═══════════════════════════════════════════════════ */
+    :root {
+      /* Brand */
+      --em-900: #0D3D28;
+      --em-800: #0F4D32;
+      --em-700: #155F3F;
+      --em-600: #1A6B4A;
+      --em-500: #1E7A54;
+      --em-400: #2A9468;
+      --em-300: #3DAF80;
+      --em-200: #6ECBA3;
+      --em-100: #B8E8D4;
+      --em-50: #E8F7F1;
+      --gold-400: #E6B830;
+      --gold-300: #F0CB5A;
+      --gold-100: #FDF3D0;
+      /* Light (default) */
+      --bg: #F7F5F0;
+      --bg2: #FFFFFF;
+      --bgcard: #FFFFFF;
+      --bgsrf: #F0EDE6;
+      --bgel: #FFFFFF;
+      --tx: #1A1A1A;
+      --tx2: #4A4A4A;
+      --tx3: #767676;
+      --txi: #FFFFFF;
+      --ac: #1A6B4A;
+      --ac2: #155F3F;
+      --acsf: #E8F7F1;
+      --acgold: #B8860B;
+      --br: rgba(0, 0, 0, 0.08);
+      --br2: rgba(0, 0, 0, 0.14);
+      --br3: rgba(0, 0, 0, 0.24);
+      --brac: #2A9468;
+      --sh1: 0 1px 3px rgba(0, 0, 0, .08), 0 1px 2px rgba(0, 0, 0, .06);
+      --sh2: 0 4px 12px rgba(0, 0, 0, .10), 0 2px 4px rgba(0, 0, 0, .06);
+      --sh3: 0 8px 24px rgba(0, 0, 0, .12), 0 4px 8px rgba(0, 0, 0, .08);
+      --sh4: 0 20px 48px rgba(0, 0, 0, .16), 0 8px 16px rgba(0, 0, 0, .10);
+      --ov: rgba(0, 0, 0, .48);
+      --fui: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      --frd: 'Lora', Georgia, 'Times New Roman', serif;
+      --vfs: 18px;
+      --vlh: 1.85;
+      --vff: var(--frd);
+      --r1: 8px;
+      --r2: 12px;
+      --r3: 16px;
+      --r4: 20px;
+      --r5: 24px;
+      --rfull: 9999px;
+      --d1: 150ms;
+      --d2: 220ms;
+      --d3: 340ms;
+      --ease: cubic-bezier(.4, 0, .2, 1);
+      --spring: cubic-bezier(.34, 1.56, .64, 1);
+      --safe-t: env(safe-area-inset-top, 0px);
+      --safe-b: env(safe-area-inset-bottom, 0px);
+    }
+
+    [data-theme=dark] {
+      --bg: #121212;
+      --bg2: #1E1E1E;
+      --bgcard: #1E1E1E;
+      --bgsrf: #252525;
+      --bgel: #2C2C2C;
+      --tx: #F0F0F0;
+      --tx2: #B0B0B0;
+      --tx3: #767676;
+      --txi: #1A1A1A;
+      --ac: #3DAF80;
+      --ac2: #2A9468;
+      --acsf: rgba(61, 175, 128, .12);
+      --acgold: #F0CB5A;
+      --br: rgba(255, 255, 255, .06);
+      --br2: rgba(255, 255, 255, .12);
+      --br3: rgba(255, 255, 255, .20);
+      --brac: #2A9468;
+      --sh1: 0 1px 3px rgba(0, 0, 0, .30);
+      --sh2: 0 4px 12px rgba(0, 0, 0, .40);
+      --sh3: 0 8px 24px rgba(0, 0, 0, .50);
+      --sh4: 0 20px 48px rgba(0, 0, 0, .60);
+      --ov: rgba(0, 0, 0, .72);
+    }
+
+    [data-theme=sepia] {
+      --bg: #F5EDD9;
+      --bg2: #FBF6EA;
+      --bgcard: #FBF6EA;
+      --bgsrf: #EDE0C4;
+      --bgel: #FBF6EA;
+      --tx: #2C1A00;
+      --tx2: #5C3D1A;
+      --tx3: #8C6A3A;
+      --ac: #7A4A1A;
+      --ac2: #5C3510;
+      --acsf: rgba(122, 74, 26, .10);
+      --br: rgba(0, 0, 0, .10);
+      --br2: rgba(0, 0, 0, .18);
+    }
+
+    [data-theme=night] {
+      --bg: #080C14;
+      --bg2: #0F1520;
+      --bgcard: #0F1520;
+      --bgsrf: #141E2C;
+      --bgel: #1A2638;
+      --tx: #C8D8F0;
+      --tx2: #8090A8;
+      --tx3: #4A5E74;
+      --ac: #4A90D0;
+      --ac2: #6AA8E8;
+      --acsf: rgba(74, 144, 208, .12);
+      --br: rgba(255, 255, 255, .05);
+      --br2: rgba(255, 255, 255, .10);
+    }
+
+    /* Base */
     *,
     *::before,
     *::after {
@@ -25,132 +147,55 @@
       -webkit-tap-highlight-color: transparent
     }
 
-    :root {
-      --bg: #f8f5ef;
-      --bg2: #efe9dc;
-      --bg3: #e5dccb;
-      --sf: #fff;
-      --sf2: #faf8f4;
-      --tx: #1a1208;
-      --tx2: #4a3f2f;
-      --tx3: #8a7a62;
-      --ac: #7c4f1e;
-      --ac2: #a06830;
-      --br: #d4c9b0;
-      --br2: #c4b698;
-      --sh: rgba(60, 40, 10, .12);
-      --ff: 'Crimson Pro', Georgia, serif;
-      --fs: 18px;
-      --lh: 1.85;
-    }
-
-    [data-theme=dark] {
-      --bg: #0f0d09;
-      --bg2: #1a1710;
-      --bg3: #231f14;
-      --sf: #1e1a12;
-      --sf2: #28231a;
-      --tx: #f0e8d0;
-      --tx2: #c4b090;
-      --tx3: #7a6a52;
-      --ac: #e0a855;
-      --ac2: #c88c3a;
-      --br: #3a3020;
-      --br2: #4a3c28
-    }
-
-    [data-theme=sepia] {
-      --bg: #f4ede0;
-      --bg2: #ede3d0;
-      --bg3: #e5d8c0;
-      --sf: #f9f4ec;
-      --sf2: #f4ede0;
-      --tx: #3d2b10;
-      --tx2: #6b4f2a;
-      --tx3: #9b7a4a;
-      --ac: #8b5e1a;
-      --ac2: #a06830;
-      --br: #c8b898;
-      --br2: #b8a888
-    }
-
-    [data-theme=night] {
-      --bg: #080c14;
-      --bg2: #0d1220;
-      --bg3: #121828;
-      --sf: #0f1520;
-      --sf2: #161e2c;
-      --tx: #b8c8e0;
-      --tx2: #7890aa;
-      --tx3: #4a5e74;
-      --ac: #4a90d0;
-      --ac2: #3878b8;
-      --br: #1e2c40;
-      --br2: #2a3c54
-    }
-
-    [data-theme=forest] {
-      --bg: #0d1509;
-      --bg2: #141e0d;
-      --bg3: #1a2812;
-      --sf: #131d0f;
-      --sf2: #192614;
-      --tx: #d0e8c0;
-      --tx2: #90b878;
-      --tx3: #5a7a44;
-      --ac: #78c040;
-      --ac2: #60a030;
-      --br: #243818;
-      --br2: #304820
-    }
-
-    [data-theme=rose] {
-      --bg: #fdf4f5;
-      --bg2: #f8e8ea;
-      --bg3: #f0d8dc;
-      --sf: #fff;
-      --sf2: #fdf4f5;
-      --tx: #2d1418;
-      --tx2: #6b3040;
-      --tx3: #9b6070;
-      --ac: #c04060;
-      --ac2: #a03050;
-      --br: #e8c8cc;
-      --br2: #d8b0b8
-    }
-
     html,
     body {
       height: 100%;
       overflow: hidden;
       background: var(--bg);
       color: var(--tx);
-      font-family: var(--ff);
-      font-size: var(--fs);
-      line-height: var(--lh)
+      font-family: var(--fui);
+      font-size: 15px;
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased
+    }
+
+    button,
+    input,
+    select,
+    textarea {
+      font-family: inherit;
+      font-size: inherit;
+      color: inherit;
+      background: none;
+      border: none;
+      outline: none
     }
 
     button {
-      font-family: inherit;
       cursor: pointer;
       touch-action: manipulation
     }
 
-    input,
-    select,
-    textarea {
-      font-family: inherit
-    }
-
     ::-webkit-scrollbar {
-      width: 4px
+      width: 3px
     }
 
     ::-webkit-scrollbar-thumb {
       background: var(--br2);
-      border-radius: 2px
+      border-radius: var(--rfull)
     }
 
+    @media(prefers-reduced-motion:reduce) {
+
+      *,
+      *::before,
+      *::after {
+        animation-duration: .01ms !important;
+        transition-duration: .01ms !important
+      }
+    }
+
+    /* Pages */
     .page {
       display: none;
       position: fixed;
@@ -164,130 +209,144 @@
       display: flex
     }
 
-    /* ── SHARED ── */
-    .page-hdr {
-      background: var(--sf);
-      border-bottom: 1px solid var(--br);
-      padding: 12px 14px;
+    .page.fade-in {
+      animation: pgIn var(--d2) var(--ease) both
+    }
+
+    @keyframes pgIn {
+      from {
+        opacity: 0;
+        transform: translateY(6px)
+      }
+
+      to {
+        opacity: 1;
+        transform: translateY(0)
+      }
+    }
+
+    /* Scroll */
+    .scroll-y {
+      flex: 1;
+      overflow-y: auto;
+      overflow-x: hidden;
+      -webkit-overflow-scrolling: touch;
+      overscroll-behavior-y: contain
+    }
+
+    /* Topbar */
+    .topbar,
+    .selector-topbar {
       display: flex;
       align-items: center;
-      gap: 10px;
+      gap: 8px;
+      padding: calc(var(--safe-t) + 10px) 16px 10px;
+      background: var(--bg2);
+      border-bottom: 1px solid var(--br);
       flex-shrink: 0;
-      box-shadow: 0 1px 4px var(--sh)
+      box-shadow: var(--sh1)
     }
 
-    .back-btn {
-      background: none;
-      border: 1px solid var(--br);
-      border-radius: 8px;
-      padding: 7px 12px;
-      color: var(--tx2);
-      font-size: 14px;
-      touch-action: manipulation;
-      white-space: nowrap
-    }
-
-    .pg-title {
+    .topbar-title {
+      flex: 1;
       font-size: 17px;
       font-weight: 700;
       color: var(--tx);
-      flex: 1
+      letter-spacing: -.2px
     }
 
-    .scroll-body {
-      flex: 1;
-      min-height: 0;
-      overflow-y: auto;
-      -webkit-overflow-scrolling: touch
-    }
-
-    .card {
-      background: var(--sf);
-      border: 1px solid var(--br);
-      border-radius: 14px;
-      padding: 18px;
-      margin-bottom: 14px;
-      box-shadow: 0 2px 8px var(--sh)
-    }
-
-    .sec-label {
-      font-size: 10px;
-      font-weight: 800;
-      letter-spacing: 2px;
-      text-transform: uppercase;
-      color: var(--tx3);
-      margin-bottom: 8px
-    }
-
+    /* Icon btn */
     .ibtn {
-      background: none;
-      border: 1px solid var(--br);
-      border-radius: 8px;
-      padding: 6px 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 40px;
+      height: 40px;
+      border-radius: var(--r2);
       color: var(--tx2);
-      font-size: 14px;
-      touch-action: manipulation;
-      line-height: 1;
+      transition: background var(--d1), color var(--d1), transform var(--d1);
       flex-shrink: 0
     }
 
-    .ibtn:active,
-    .ibtn.on {
-      background: var(--bg2);
-      color: var(--ac);
-      border-color: var(--ac)
+    .ibtn:active {
+      transform: scale(.92);
+      background: var(--bgsrf)
     }
 
-    .pri-btn {
+    .ibtn.on {
+      color: var(--ac);
+      background: var(--acsf)
+    }
+
+    .ibtn svg {
+      width: 22px;
+      height: 22px;
+      flex-shrink: 0
+    }
+
+    /* Buttons */
+    .btn-primary {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      padding: 14px 24px;
       background: var(--ac);
       color: #fff;
-      border: none;
-      border-radius: 10px;
-      padding: 12px 20px;
-      font-size: 14px;
-      font-weight: 700;
-      touch-action: manipulation;
-      cursor: pointer
+      border-radius: var(--r4);
+      font-size: 17px;
+      font-weight: 600;
+      min-height: 52px;
+      transition: background var(--d1), transform var(--d1);
+      box-shadow: 0 2px 8px rgba(26, 107, 74, .25)
     }
 
-    .pri-btn:active {
+    .btn-primary:active {
+      transform: scale(.97);
       background: var(--ac2)
     }
 
-    .sec-btn {
-      background: none;
-      border: 1px solid var(--br);
-      border-radius: 10px;
-      padding: 10px 16px;
-      font-size: 13px;
-      color: var(--tx2);
-      touch-action: manipulation;
-      cursor: pointer
+    .btn-secondary {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      padding: 12px 20px;
+      background: var(--bgsrf);
+      color: var(--tx);
+      border-radius: var(--r4);
+      font-size: 15px;
+      font-weight: 500;
+      border: 1px solid var(--br2);
+      min-height: 48px;
+      transition: background var(--d1), transform var(--d1)
     }
 
-    .sec-btn:active {
-      background: var(--bg2)
+    .btn-secondary:active {
+      transform: scale(.97);
+      background: var(--bg)
     }
 
-    .spinner {
-      width: 30px;
-      height: 30px;
-      border: 3px solid var(--br);
-      border-top-color: var(--ac);
-      border-radius: 50%;
-      animation: spin .9s linear infinite
-    }
-
+    /* State */
     .state-box {
       display: flex;
       flex-direction: column;
       align-items: center;
       justify-content: center;
-      min-height: 260px;
-      gap: 14px;
+      gap: 16px;
+      padding: 48px 24px;
       color: var(--tx3);
       text-align: center;
-      padding: 20px
+      min-height: 280px
+    }
+
+    .spinner {
+      width: 32px;
+      height: 32px;
+      border: 3px solid var(--br2);
+      border-top-color: var(--ac);
+      border-radius: 50%;
+      animation: spin .8s linear infinite
     }
 
     @keyframes spin {
@@ -296,247 +355,468 @@
       }
     }
 
-    /* ── HOME ── */
-    .hero {
-      background: linear-gradient(160deg, #7c4f1e, #a06830);
-      padding: 40px 20px 32px;
-      text-align: center
+    .err-box {
+      background: var(--bgsrf);
+      border: 1px solid var(--br2);
+      border-radius: var(--r2);
+      padding: 16px;
+      font-size: 13px;
+      color: var(--tx2);
+      line-height: 1.6;
+      white-space: pre-wrap;
+      word-break: break-word;
+      max-width: 360px;
+      text-align: left
     }
 
-    .hero-icon {
-      width: 90px;
-      height: 90px;
-      background: rgba(255, 255, 255, .15);
-      border-radius: 20px;
-      margin: 0 auto 18px;
+    /* ── HOME ── */
+    .home-header {
       display: flex;
       align-items: center;
-      justify-content: center
+      justify-content: space-between;
+      padding: calc(var(--safe-t) + 14px) 16px 12px;
+      background: var(--bg2);
+      border-bottom: 1px solid var(--br);
+      flex-shrink: 0
     }
 
-    .hero-title {
-      font-family: 'Playfair Display', serif;
-      font-size: 30px;
-      color: #fff;
-      font-weight: 700
+    .home-logo {
+      display: flex;
+      align-items: center;
+      gap: 10px
     }
 
-    .hero-sub {
-      font-size: 12px;
-      color: rgba(255, 255, 255, .75);
+    .home-logo-mark {
+      width: 34px;
+      height: 34px;
+      background: var(--ac);
+      border-radius: var(--r2);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      box-shadow: 0 2px 6px rgba(26, 107, 74, .30)
+    }
+
+    .home-logo-mark svg {
+      width: 20px;
+      height: 20px;
+      color: #fff
+    }
+
+    .home-logo-title {
+      font-size: 17px;
+      font-weight: 700;
+      color: var(--tx);
+      letter-spacing: -.2px;
+      line-height: 1.2
+    }
+
+    .home-logo-sub {
+      font-size: 11px;
+      color: var(--tx3);
+      letter-spacing: .5px;
+      text-transform: uppercase
+    }
+
+    /* Banner */
+    .home-banner {
+      margin: 12px 16px 0;
+      border-radius: var(--r5);
+      overflow: hidden;
+      position: relative;
+      min-height: 160px;
+      background: linear-gradient(135deg, #0F4D32 0%, #1A6B4A 50%, #2A7A5A 100%);
+      flex-shrink: 0
+    }
+
+    .home-banner-pattern {
+      position: absolute;
+      inset: 0;
+      opacity: .10;
+      background-image: radial-gradient(circle at 20% 50%, #fff 1px, transparent 1px), radial-gradient(circle at 80% 20%, #fff 1px, transparent 1px);
+      background-size: 40px 40px, 60px 60px
+    }
+
+    .home-banner-cross {
+      position: absolute;
+      right: 16px;
+      top: 50%;
+      transform: translateY(-50%);
+      opacity: .15
+    }
+
+    .home-banner-content {
+      position: relative;
+      padding: 24px 20px
+    }
+
+    .home-banner-eyebrow {
+      font-size: 11px;
+      font-weight: 600;
+      color: rgba(255, 255, 255, .70);
       letter-spacing: 1.5px;
       text-transform: uppercase;
-      margin-top: 4px
+      margin-bottom: 8px
     }
 
-    .home-body {
-      padding: 20px 16px 40px;
-      max-width: 600px;
-      margin: 0 auto;
-      width: 100%
+    .home-banner-verse {
+      font-family: var(--frd);
+      font-size: 16px;
+      font-style: italic;
+      color: rgba(255, 255, 255, .95);
+      line-height: 1.45;
+      max-width: 240px;
+      margin-bottom: 10px
     }
 
+    .home-banner-ref {
+      font-size: 11px;
+      font-weight: 700;
+      color: var(--gold-300);
+      letter-spacing: .5px
+    }
+
+    .home-banner-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      margin-top: 12px;
+      padding: 7px 14px;
+      background: rgba(255, 255, 255, .15);
+      border: 1px solid rgba(255, 255, 255, .30);
+      border-radius: var(--rfull);
+      color: #fff;
+      font-size: 12px;
+      font-weight: 600;
+      transition: background var(--d1)
+    }
+
+    .home-banner-btn:active {
+      background: rgba(255, 255, 255, .25)
+    }
+
+    /* Continue */
     .continue-bar {
-      display: flex;
+      display: none;
       align-items: center;
       gap: 12px;
-      background: linear-gradient(135deg, var(--ac), var(--ac2));
-      border-radius: 14px;
-      padding: 14px 16px;
-      margin-bottom: 14px;
+      margin: 12px 16px 0;
+      padding: 12px 16px;
+      background: var(--acsf);
+      border: 1px solid var(--brac);
+      border-radius: var(--r3);
       cursor: pointer;
-      touch-action: manipulation
+      transition: opacity var(--d1), transform var(--d1)
+    }
+
+    .continue-bar.visible {
+      display: flex
     }
 
     .continue-bar:active {
-      opacity: .9
+      opacity: .75;
+      transform: scale(.98)
     }
 
-    .nav-grid {
+    .continue-icon {
+      width: 36px;
+      height: 36px;
+      background: var(--ac);
+      border-radius: var(--r1);
       display: flex;
-      flex-direction: column
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0
+    }
+
+    .continue-icon svg {
+      width: 18px;
+      height: 18px;
+      color: #fff
+    }
+
+    .continue-label {
+      font-size: 11px;
+      font-weight: 600;
+      color: var(--ac);
+      text-transform: uppercase;
+      letter-spacing: .5px
+    }
+
+    .continue-ref {
+      font-size: 13px;
+      font-weight: 500;
+      color: var(--tx);
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap
+    }
+
+    /* Home sections */
+    .home-section {
+      padding: 20px 16px 0
+    }
+
+    .home-section-title {
+      font-size: 11px;
+      font-weight: 700;
+      color: var(--tx2);
+      letter-spacing: .8px;
+      text-transform: uppercase;
+      margin-bottom: 12px
+    }
+
+    /* Nav grid */
+    .nav-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+      margin-bottom: 12px
     }
 
     .nav-card {
       display: flex;
-      align-items: center;
-      gap: 14px;
-      background: var(--sf);
-      border: 1px solid var(--br);
-      border-radius: 14px;
+      flex-direction: column;
+      gap: 8px;
       padding: 16px;
-      margin-bottom: 12px;
-      box-shadow: 0 2px 8px var(--sh);
+      background: var(--bgcard);
+      border-radius: var(--r4);
+      border: 1px solid var(--br);
+      box-shadow: var(--sh1);
       cursor: pointer;
-      touch-action: manipulation
+      transition: transform var(--d1), box-shadow var(--d1), opacity var(--d1);
+      user-select: none;
+      -webkit-user-select: none;
+      min-height: 100px
     }
 
     .nav-card:active {
-      background: var(--bg2)
+      transform: scale(.95);
+      box-shadow: none;
+      opacity: .85
     }
 
-    .nav-icon {
-      width: 46px;
-      height: 46px;
-      border-radius: 12px;
+    .nav-card-icon {
+      width: 44px;
+      height: 44px;
+      border-radius: var(--r2);
       display: flex;
       align-items: center;
       justify-content: center;
-      font-size: 20px;
-      flex-shrink: 0
+      font-size: 22px
     }
 
-    .nav-card h3 {
+    .nav-card-title {
       font-size: 15px;
       font-weight: 600;
       color: var(--tx);
-      margin-bottom: 2px
+      line-height: 1.2
     }
 
-    .nav-card p {
-      font-size: 12px;
+    .nav-card-desc {
+      font-size: 11px;
+      color: var(--tx3);
+      line-height: 1.4
+    }
+
+    .nc-bible .nav-card-icon {
+      background: linear-gradient(135deg, #1A6B4A, #2A9468)
+    }
+
+    .nc-dev .nav-card-icon {
+      background: linear-gradient(135deg, #B8860B, #E6B830)
+    }
+
+    .nc-plans .nav-card-icon {
+      background: linear-gradient(135deg, #2563EB, #3B82F6)
+    }
+
+    .nc-bm .nav-card-icon {
+      background: linear-gradient(135deg, #7C3AED, #A78BFA)
+    }
+
+    .nc-hl .nav-card-icon {
+      background: linear-gradient(135deg, #DC2626, #F87171)
+    }
+
+    .nc-hist .nav-card-icon {
+      background: linear-gradient(135deg, #0891B2, #22D3EE)
+    }
+
+    /* Devocional card */
+    .dev-card {
+      margin: 0 16px;
+      padding: 20px;
+      background: var(--bgcard);
+      border-radius: var(--r5);
+      border: 1px solid var(--br);
+      box-shadow: var(--sh2);
+      position: relative;
+      overflow: hidden
+    }
+
+    .dev-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 3px;
+      background: linear-gradient(90deg, var(--ac), var(--gold-400))
+    }
+
+    .dev-card-eyebrow {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin-bottom: 12px
+    }
+
+    .dev-card-tag {
+      font-size: 11px;
+      font-weight: 700;
+      color: var(--ac);
+      letter-spacing: 1px;
+      text-transform: uppercase
+    }
+
+    .dev-card-date {
+      font-size: 11px;
       color: var(--tx3)
     }
 
-    .nav-arr {
-      margin-left: auto;
-      color: var(--tx3);
-      font-size: 20px;
+    .dev-card-title {
+      font-size: 17px;
+      font-weight: 700;
+      color: var(--tx);
+      margin-bottom: 8px;
+      line-height: 1.35
+    }
+
+    .dev-card-body {
+      font-size: 13px;
+      color: var(--tx2);
+      line-height: 1.65;
+      margin-bottom: 16px
+    }
+
+    .dev-card-footer {
+      display: flex;
+      align-items: center;
+      justify-content: space-between
+    }
+
+    .dev-card-ref {
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--acgold)
+    }
+
+    .dev-card-ref::before {
+      content: '✦ '
+    }
+
+    .dev-card-btn {
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      padding: 8px 16px;
+      background: var(--ac);
+      color: #fff;
+      border-radius: var(--rfull);
+      font-size: 12px;
+      font-weight: 700;
+      transition: background var(--d1), transform var(--d1)
+    }
+
+    .dev-card-btn:active {
+      background: var(--ac2);
+      transform: scale(.96)
+    }
+
+    /* ── BOOK SELECTOR ── */
+    .search-wrap {
+      padding: 10px 14px;
+      background: var(--bg2);
+      border-bottom: 1px solid var(--br);
       flex-shrink: 0
     }
 
-    /* Day card */
-    .day-label {
-      font-size: 10px;
-      font-weight: 800;
-      letter-spacing: 2px;
-      text-transform: uppercase;
-      color: var(--ac);
-      margin-bottom: 3px
+    .search-input-wrap {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 0 12px;
+      background: var(--bgsrf);
+      border-radius: var(--r4);
+      border: 1px solid var(--br2);
+      transition: border-color var(--d1), box-shadow var(--d1)
     }
 
-    .day-date {
-      font-size: 11px;
+    .search-input-wrap:focus-within {
+      border-color: var(--ac);
+      box-shadow: 0 0 0 3px var(--acsf)
+    }
+
+    .search-input-wrap svg {
+      width: 18px;
+      height: 18px;
       color: var(--tx3);
-      margin-bottom: 10px
+      flex-shrink: 0
     }
 
-    .day-text {
-      font-size: 16px;
+    .search-input-wrap input {
+      flex: 1;
+      padding: 10px 0;
+      font-size: 15px;
       color: var(--tx);
-      line-height: 1.7;
-      font-style: italic;
-      margin-bottom: 10px
+      background: none
     }
 
-    .day-ref {
-      font-size: 12px;
-      font-weight: 700;
-      color: var(--ac);
-      text-align: right
+    .search-input-wrap input::placeholder {
+      color: var(--tx3)
     }
 
-    /* Devocional */
-    .dev-card {
-      background: linear-gradient(135deg, var(--sf), var(--sf2));
-      border: 1px solid var(--br);
-      border-radius: 14px;
-      padding: 18px;
-      margin-bottom: 14px;
-      box-shadow: 0 2px 8px var(--sh)
-    }
-
-    .dev-title {
-      font-size: 16px;
-      font-weight: 700;
-      color: var(--tx);
-      margin-bottom: 6px
-    }
-
-    .dev-body {
-      font-size: 14px;
-      color: var(--tx2);
-      line-height: 1.7;
-      margin-bottom: 10px
-    }
-
-    .dev-read-btn {
-      font-size: 12px;
-      color: var(--ac);
-      font-weight: 700;
-      background: none;
-      border: 1px solid var(--ac);
-      border-radius: 8px;
-      padding: 5px 12px;
-      touch-action: manipulation;
-      cursor: pointer
-    }
-
-    /* ── SELECTOR ── */
     .seg-tabs {
       display: flex;
+      padding: 8px 14px;
+      gap: 8px;
+      background: var(--bg2);
       border-bottom: 1px solid var(--br);
       flex-shrink: 0
     }
 
     .seg-tab {
       flex: 1;
-      padding: 10px;
-      font-size: 12px;
-      font-weight: 700;
-      letter-spacing: .5px;
-      text-transform: uppercase;
+      padding: 9px 12px;
+      border-radius: var(--r3);
+      font-size: 13px;
+      font-weight: 600;
       color: var(--tx3);
-      border: none;
-      background: none;
-      border-bottom: 2px solid transparent;
-      touch-action: manipulation
+      text-align: center;
+      transition: background var(--d1), color var(--d1)
     }
 
     .seg-tab.on {
-      color: var(--ac);
-      border-bottom-color: var(--ac)
+      background: var(--acsf);
+      color: var(--ac)
     }
 
-    .search-row {
-      padding: 10px 12px;
-      border-bottom: 1px solid var(--br);
-      flex-shrink: 0
-    }
-
-    .search-row input {
-      width: 100%;
-      padding: 8px 12px;
-      background: var(--bg2);
-      border: 1px solid var(--br);
-      border-radius: 8px;
-      color: var(--tx);
-      font-size: 14px
-    }
-
-    .search-row input:focus {
-      outline: none;
-      border-color: var(--ac)
-    }
-
-    .list-body {
-      flex: 1;
-      overflow-y: auto;
-      -webkit-overflow-scrolling: touch;
-      padding: 6px 10px 20px
+    /* Book list — keep old class names used by JS */
+    .book-list-body {
+      padding: 8px 14px 32px
     }
 
     .cat-lbl {
-      padding: 8px 6px 3px;
-      font-size: 9px;
-      font-weight: 800;
-      letter-spacing: 2px;
-      text-transform: uppercase;
-      color: var(--tx3);
-      margin-top: 6px;
       display: flex;
       align-items: center;
-      gap: 6px
+      gap: 8px;
+      padding: 14px 0 8px;
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 1.5px;
+      text-transform: uppercase
     }
 
     .cat-lbl::after {
@@ -546,27 +826,6 @@
       background: var(--br)
     }
 
-    .book-row {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      padding: 9px 10px;
-      border-radius: 8px;
-      cursor: pointer;
-      touch-action: manipulation;
-      margin-bottom: 1px
-    }
-
-    .book-row:active,
-    .book-row.on {
-      background: var(--bg3)
-    }
-
-    .book-row.on .b-name {
-      font-weight: 700;
-      color: var(--tx)
-    }
-
     .b-dot {
       width: 8px;
       height: 8px;
@@ -574,336 +833,434 @@
       flex-shrink: 0
     }
 
+    .book-row {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 10px 10px;
+      border-radius: var(--r3);
+      cursor: pointer;
+      transition: background var(--d1), transform var(--d1);
+      margin-bottom: 2px
+    }
+
+    .book-row:active {
+      background: var(--bgsrf);
+      transform: scale(.98)
+    }
+
+    .book-row.on {
+      background: var(--acsf)
+    }
+
+    .book-row.on .b-name {
+      font-weight: 600;
+      color: var(--tx)
+    }
+
+    .b-abbr-icon {
+      width: 34px;
+      height: 34px;
+      border-radius: var(--r1);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 11px;
+      font-weight: 800;
+      color: #fff;
+      flex-shrink: 0;
+      letter-spacing: .3px
+    }
+
     .b-name {
       font-size: 14px;
-      color: var(--tx2);
-      flex: 1
+      color: var(--tx);
+      flex: 1;
+      font-weight: 450
     }
 
     .b-ch {
       font-size: 11px;
-      color: var(--tx3)
+      color: var(--tx3);
+      flex-shrink: 0
     }
 
-    /* reading progress dots on book */
     .b-prog {
-      font-size: 10px;
-      color: #4caf50;
-      margin-left: 4px
+      font-size: 11px;
+      color: #16A34A;
+      font-weight: 600;
+      flex-shrink: 0;
+      margin-right: 4px
     }
 
     /* ── CHAPVER ── */
-    .cv-body {
-      flex: 1;
-      overflow-y: auto;
-      -webkit-overflow-scrolling: touch;
-      padding: 16px
+    .chapver-body {
+      padding: 20px 16px 32px
     }
 
     .cv-label {
-      font-size: 10px;
-      font-weight: 800;
-      letter-spacing: 2px;
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 1.5px;
       text-transform: uppercase;
       color: var(--tx3);
       margin-bottom: 10px;
-      margin-top: 4px
+      margin-top: 18px
+    }
+
+    .cv-label:first-child {
+      margin-top: 0
     }
 
     .num-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(44px, 1fr));
-      gap: 6px;
-      margin-bottom: 20px
+      grid-template-columns: repeat(auto-fill, minmax(48px, 1fr));
+      gap: 8px;
+      margin-bottom: 16px
     }
 
     .num-cell {
-      padding: 10px 2px;
-      text-align: center;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 10px 4px;
+      background: var(--bgcard);
       border: 1px solid var(--br);
-      border-radius: 8px;
-      cursor: pointer;
+      border-radius: var(--r2);
       font-size: 13px;
+      font-weight: 500;
       color: var(--tx2);
-      background: var(--sf);
-      touch-action: manipulation;
+      cursor: pointer;
+      min-height: 44px;
+      transition: background var(--d1), color var(--d1), border-color var(--d1), transform var(--d1);
       position: relative
     }
 
-    .num-cell:active,
+    .num-cell:active {
+      transform: scale(.91)
+    }
+
     .num-cell.on {
       background: var(--ac);
       color: #fff;
       border-color: var(--ac);
-      font-weight: 700
+      font-weight: 700;
+      box-shadow: 0 2px 8px rgba(26, 107, 74, .30)
+    }
+
+    .num-cell.on2 {
+      background: var(--acsf);
+      color: var(--ac);
+      border-color: var(--brac);
+      font-weight: 600
     }
 
     .num-cell.read {
-      background: var(--bg2);
+      background: var(--bgsrf);
       color: var(--tx3)
-    }
-
-    .num-cell.read.on {
-      background: var(--ac);
-      color: #fff
     }
 
     .num-cell.read::after {
       content: '✓';
       position: absolute;
-      top: 1px;
-      right: 3px;
+      top: 2px;
+      right: 4px;
       font-size: 8px;
-      color: #4caf50
+      color: #16A34A;
+      font-weight: 700
     }
 
-    .read-btn {
-      display: block;
-      width: 100%;
-      padding: 14px;
-      background: var(--ac);
-      color: #fff;
-      border: none;
-      border-radius: 12px;
-      font-size: 16px;
-      font-weight: 700;
-      margin-top: 8px;
-      touch-action: manipulation;
-      cursor: pointer
-    }
-
-    .read-btn:active {
-      background: var(--ac2)
+    .num-cell.on.read::after {
+      color: rgba(255, 255, 255, .7)
     }
 
     .mini-spin {
       width: 16px;
       height: 16px;
-      border: 2px solid var(--br);
+      border: 2px solid var(--br2);
       border-top-color: var(--ac);
       border-radius: 50%;
       animation: spin .8s linear infinite;
       flex-shrink: 0
     }
 
+    .cv-loading-row {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      color: var(--tx3);
+      font-size: 13px;
+      padding: 12px 0
+    }
+
+    .chapver-cta {
+      margin-top: 20px;
+      width: 100%
+    }
+
     /* ── READING ── */
     .read-topbar {
-      background: var(--sf);
-      border-bottom: 1px solid var(--br);
-      padding: 8px 12px;
       display: flex;
       flex-direction: column;
-      gap: 6px;
+      background: var(--bg2);
+      border-bottom: 1px solid var(--br);
       flex-shrink: 0;
-      box-shadow: 0 1px 4px var(--sh)
+      box-shadow: var(--sh1);
+      padding-top: var(--safe-t)
     }
 
-    .rt-row1 {
+    .read-tb-row1 {
       display: flex;
       align-items: center;
-      gap: 4px
+      gap: 6px;
+      padding: 8px 12px 8px
     }
 
-    .book-btn {
+    .read-book-btn {
       display: flex;
       align-items: center;
-      gap: 5px;
-      background: none;
-      border: 1px solid var(--br);
-      border-radius: 8px;
-      padding: 5px 9px;
-      touch-action: manipulation;
+      gap: 7px;
+      padding: 7px 12px;
+      background: var(--bgsrf);
+      border-radius: var(--r3);
+      border: 1px solid var(--br2);
       cursor: pointer;
-      max-width: 30vw;
+      flex: 1;
       min-width: 0;
-      flex-shrink: 1
+      max-width: 54vw;
+      transition: background var(--d1)
     }
 
-    .book-btn-name {
+    .read-book-btn:active {
+      background: var(--bg)
+    }
+
+    .read-book-name {
       font-size: 13px;
       font-weight: 700;
       color: var(--tx);
+      white-space: nowrap;
       overflow: hidden;
-      text-overflow: ellipsis;
-      white-space: nowrap
+      text-overflow: ellipsis
     }
 
-    .ch-badge {
+    .read-ch-badge {
+      font-size: 13px;
       color: var(--ac);
       font-weight: 700;
-      font-size: 13px;
       cursor: pointer;
-      text-decoration: underline dotted;
-      touch-action: manipulation;
+      padding: 3px 5px;
+      border-radius: var(--r1);
+      transition: background var(--d1);
+      white-space: nowrap;
       flex-shrink: 0
     }
 
-    .ver-pick {
-      padding: 5px 18px 5px 6px;
-      background: var(--bg2);
-      border: 1px solid var(--br);
-      border-radius: 8px;
+    .read-ch-badge:active {
+      background: var(--acsf)
+    }
+
+    .spacer {
+      flex: 1
+    }
+
+    .read-ver-sel {
+      padding: 5px 22px 5px 8px;
+      background: var(--acsf);
+      border: 1px solid var(--brac);
+      border-radius: var(--rfull);
       color: var(--ac);
       font-size: 11px;
       font-weight: 700;
       appearance: none;
-      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='8' height='5'%3E%3Cpath d='M0 0l4 5 4-5z' fill='%23888'/%3E%3C/svg%3E");
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6'%3E%3Cpath d='M0 0l5 6 5-6z' fill='%231A6B4A'/%3E%3C/svg%3E");
       background-repeat: no-repeat;
-      background-position: right 5px center;
+      background-position: right 6px center;
       cursor: pointer;
-      touch-action: manipulation;
-      max-width: 70px;
-      min-width: 0;
-      flex-shrink: 2;
-      overflow: hidden;
-      text-overflow: ellipsis;
-      white-space: nowrap
-    }
-
-    .spacer {
-      flex: 0 1 6px;
-      min-width: 0
-    }
-
-    .rt-actions {
-      display: flex;
-      align-items: center;
-      gap: 4px;
       flex-shrink: 0
     }
 
-    .rt-row2 {
+    [data-theme=dark] .read-ver-sel {
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6'%3E%3Cpath d='M0 0l5 6 5-6z' fill='%233DAF80'/%3E%3C/svg%3E")
+    }
+
+    .read-tb-row2 {
       display: flex;
       align-items: center;
-      gap: 5px
+      gap: 5px;
+      padding: 4px 12px 8px
     }
 
-    .nav-btn {
+    .read-nav-btn {
       flex: 1;
-      background: none;
-      border: 1px solid var(--br);
-      border-radius: 7px;
-      padding: 5px 8px;
-      font-size: 12px;
-      color: var(--tx2);
-      touch-action: manipulation;
-      cursor: pointer
-    }
-
-    .nav-btn:active {
-      background: var(--ac);
-      color: #fff;
-      border-color: var(--ac)
-    }
-
-    .caps-btn {
-      background: var(--bg2);
-      border: 1px solid var(--br);
-      border-radius: 7px;
-      padding: 5px 12px;
-      font-size: 12px;
-      font-weight: 700;
-      color: var(--tx);
-      touch-action: manipulation;
-      cursor: pointer
-    }
-
-    .home-btn {
-      background: none;
-      border: 1px solid var(--br);
-      border-radius: 8px;
-      padding: 5px 8px;
-      color: var(--tx2);
-      font-size: 14px;
-      touch-action: manipulation;
-      cursor: pointer
-    }
-
-    /* search / audio bars */
-    .sbar {
-      display: none;
+      display: flex;
       align-items: center;
-      gap: 7px;
-      padding: 7px 12px;
-      background: var(--sf2);
+      justify-content: center;
+      gap: 4px;
+      padding: 7px;
+      border-radius: var(--r3);
+      font-size: 13px;
+      font-weight: 500;
+      color: var(--tx2);
+      border: 1px solid var(--br);
+      background: var(--bgsrf);
+      transition: background var(--d1), transform var(--d1), color var(--d1);
+      min-height: 36px
+    }
+
+    .read-nav-btn:active {
+      background: var(--acsf);
+      color: var(--ac);
+      transform: scale(.96)
+    }
+
+    .read-nav-btn svg {
+      width: 15px;
+      height: 15px
+    }
+
+    .read-caps-btn {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 4px;
+      padding: 7px 14px;
+      border-radius: var(--r3);
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--tx);
+      background: var(--bgsrf);
+      border: 1px solid var(--br2);
+      min-height: 36px;
+      flex-shrink: 0;
+      transition: background var(--d1), color var(--d1)
+    }
+
+    .read-caps-btn:active {
+      background: var(--acsf);
+      color: var(--ac)
+    }
+
+    .read-fab-bar {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      padding: 8px 12px;
+      background: var(--bg2);
+      border-bottom: 1px solid var(--br);
+      flex-shrink: 0;
+      overflow-x: auto;
+      scrollbar-width: none
+    }
+
+    .read-fab-bar::-webkit-scrollbar {
+      display: none
+    }
+
+    .fab-btn {
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      padding: 6px 12px;
+      border-radius: var(--rfull);
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--tx2);
+      background: var(--bgsrf);
+      border: 1px solid var(--br);
+      white-space: nowrap;
+      flex-shrink: 0;
+      min-height: 34px;
+      transition: background var(--d1), color var(--d1), transform var(--d1)
+    }
+
+    .fab-btn svg {
+      width: 14px;
+      height: 14px
+    }
+
+    .fab-btn:active {
+      transform: scale(.93);
+      background: var(--acsf);
+      color: var(--ac)
+    }
+
+    .fab-btn.on {
+      background: var(--acsf);
+      color: var(--ac);
+      border-color: var(--brac)
+    }
+
+    /* Bars */
+    .sbar,
+    .abar,
+    .cmp-bar {
+      display: none;
+      background: var(--bg2);
       border-bottom: 1px solid var(--br);
       flex-shrink: 0
     }
 
-    .sbar.on {
-      display: flex
+    .sbar.on,
+    .abar.on,
+    .cmp-bar.on {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 8px 12px
     }
 
     .sinput {
       flex: 1;
-      padding: 7px 10px;
-      background: var(--bg2);
-      border: 1px solid var(--br);
-      border-radius: 8px;
+      padding: 9px 12px;
+      background: var(--bgsrf);
+      border: 1px solid var(--br2);
+      border-radius: var(--r3);
+      font-size: 15px;
       color: var(--tx);
-      font-size: 13px
+      transition: border-color var(--d1)
     }
 
     .sinput:focus {
-      outline: none;
       border-color: var(--ac)
     }
 
     .s-go {
-      padding: 7px 13px;
+      padding: 9px 14px;
       background: var(--ac);
       color: #fff;
-      border: none;
-      border-radius: 8px;
-      font-size: 12px;
+      border-radius: var(--r3);
+      font-size: 13px;
       font-weight: 600;
-      touch-action: manipulation;
-      cursor: pointer
+      flex-shrink: 0
     }
 
     .s-cl {
-      padding: 7px 9px;
-      background: none;
-      border: 1px solid var(--br);
-      border-radius: 8px;
+      padding: 9px 10px;
+      border-radius: var(--r3);
+      font-size: 13px;
       color: var(--tx3);
-      font-size: 12px;
-      touch-action: manipulation;
-      cursor: pointer
-    }
-
-    /* compare bar */
-    .cmp-bar {
-      display: none;
-      align-items: center;
-      gap: 6px;
-      padding: 6px 12px;
-      background: var(--sf2);
-      border-bottom: 1px solid var(--br);
-      flex-shrink: 0;
-      flex-wrap: wrap
-    }
-
-    .cmp-bar.on {
-      display: flex
+      background: var(--bgsrf);
+      border: 1px solid var(--br2);
+      flex-shrink: 0
     }
 
     .cmp-label {
-      font-size: 10px;
-      color: var(--tx3);
-      font-weight: 700
+      font-size: 11px;
+      font-weight: 700;
+      color: var(--tx3)
     }
 
     .cmp-ver-btn {
-      padding: 4px 9px;
-      border: 1px solid var(--br);
-      border-radius: 6px;
-      background: none;
-      color: var(--tx2);
+      padding: 5px 11px;
+      border-radius: var(--rfull);
       font-size: 11px;
       font-weight: 700;
-      touch-action: manipulation;
-      cursor: pointer
+      color: var(--tx2);
+      background: var(--bgsrf);
+      border: 1px solid var(--br2);
+      transition: background var(--d1), color var(--d1)
     }
 
     .cmp-ver-btn.on {
@@ -912,332 +1269,290 @@
       border-color: var(--ac)
     }
 
-    .abar {
-      display: none;
-      align-items: center;
-      gap: 8px;
-      padding: 8px 12px;
-      background: var(--sf2);
-      border-bottom: 1px solid var(--br);
-      flex-shrink: 0
-    }
-
-    .abar.on {
-      display: flex
-    }
-
-    .play-btn {
-      width: 34px;
-      height: 34px;
+    /* Audio bar */
+    .audio-play-btn {
+      width: 36px;
+      height: 36px;
       border-radius: 50%;
       background: var(--ac);
       color: #fff;
-      border: none;
       display: flex;
       align-items: center;
       justify-content: center;
-      font-size: 15px;
       flex-shrink: 0;
-      touch-action: manipulation;
-      cursor: pointer
+      transition: transform var(--d1), background var(--d1)
     }
 
-    .a-prog-wrap {
+    .audio-play-btn:active {
+      transform: scale(.88);
+      background: var(--ac2)
+    }
+
+    .audio-play-btn svg {
+      width: 17px;
+      height: 17px
+    }
+
+    .audio-info-col {
       flex: 1;
+      min-width: 0;
       display: flex;
       flex-direction: column;
       gap: 4px
     }
 
-    .a-prog {
-      height: 4px;
-      background: var(--br);
-      border-radius: 2px;
-      cursor: pointer;
-      touch-action: manipulation
-    }
-
-    .a-fill {
-      height: 100%;
-      background: var(--ac);
-      border-radius: 2px;
-      transition: width .2s;
-      width: 0%
-    }
-
-    .a-info {
+    .audio-prog-row {
       display: flex;
       align-items: center;
-      gap: 5px
+      gap: 8px
     }
 
-    .a-pct {
-      font-size: 10px;
+    .audio-pct {
+      font-size: 11px;
       color: var(--tx3);
       min-width: 26px
     }
 
-    .a-voice {
+    .audio-bar-prog {
       flex: 1;
-      padding: 3px 4px;
-      background: var(--bg2);
-      border: 1px solid var(--br);
-      border-radius: 6px;
-      color: var(--tx);
-      font-size: 10px;
+      height: 3px;
+      background: var(--br2);
+      border-radius: var(--rfull);
+      cursor: pointer;
+      overflow: hidden
+    }
+
+    .audio-bar-fill {
+      height: 100%;
+      background: var(--ac);
+      border-radius: var(--rfull);
+      width: 0%;
+      transition: width .2s
+    }
+
+    .audio-controls-row {
+      display: flex;
+      align-items: center;
+      gap: 8px
+    }
+
+    .audio-voice-sel,
+    .audio-speed-sel {
+      padding: 3px 18px 3px 7px;
+      background: var(--bgsrf);
+      border: 1px solid var(--br2);
+      border-radius: var(--r1);
+      font-size: 11px;
+      color: var(--tx2);
+      appearance: none;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='8' height='5'%3E%3Cpath d='M0 0l4 5 4-5z' fill='%23767676'/%3E%3C/svg%3E");
+      background-repeat: no-repeat;
+      background-position: right 5px center;
+      cursor: pointer
+    }
+
+    .audio-voice-sel {
+      flex: 1;
       min-width: 0;
-      max-width: 40vw;
       overflow: hidden;
       text-overflow: ellipsis;
-      white-space: nowrap;
-      touch-action: manipulation;
-      cursor: pointer
+      max-width: 40vw
     }
 
-    .a-speed {
-      padding: 3px 4px;
-      background: var(--bg2);
-      border: 1px solid var(--br);
-      border-radius: 6px;
-      color: var(--tx);
-      font-size: 10px;
-      flex-shrink: 0;
-      touch-action: manipulation;
-      cursor: pointer
+    /* Read area */
+    .read-main {
+      flex: 1;
+      min-width: 0;
+      display: flex;
+      flex-direction: column;
+      overflow: hidden
     }
 
-    .stop-btn {
-      background: none;
-      border: 1px solid var(--br);
-      border-radius: 7px;
-      padding: 5px 7px;
-      color: var(--tx3);
-      font-size: 13px;
-      flex-shrink: 0;
-      touch-action: manipulation;
-      cursor: pointer
-    }
-
-    /* reading content */
     .read-scroll {
       flex: 1;
-      min-height: 0;
       overflow-y: auto;
+      overflow-x: hidden;
       -webkit-overflow-scrolling: touch;
-      overscroll-behavior-y: contain;
-      touch-action: pan-y;
-      padding: 20px 16px 200px
+      overscroll-behavior-y: contain
     }
 
+    .read-content {
+      max-width: 660px;
+      margin: 0 auto;
+      padding: 24px 20px 200px
+    }
+
+    @media(min-width:640px) {
+      .read-content {
+        padding: 32px 32px 200px
+      }
+    }
+
+    /* Chapter header — keep old class names used by JS */
     .ch-hdr {
       text-align: center;
-      margin-bottom: 22px
+      margin-bottom: 24px;
+      padding-bottom: 20px;
+      border-bottom: 1px solid var(--br)
     }
 
     .ch-cat {
-      font-size: 10px;
-      font-weight: 800;
+      font-size: 11px;
+      font-weight: 700;
       letter-spacing: 2px;
       text-transform: uppercase;
-      margin-bottom: 5px
+      margin-bottom: 8px
     }
 
     .ch-book {
       font-size: 11px;
+      color: var(--tx3);
       letter-spacing: 1px;
       text-transform: uppercase;
-      color: var(--tx3);
-      margin-bottom: 3px
+      margin-bottom: 4px
     }
 
     .ch-num {
+      font-family: var(--frd);
       font-size: 44px;
       font-weight: 300;
-      line-height: 1
+      line-height: 1;
+      margin-bottom: 6px
     }
 
     .ch-vname {
       font-size: 11px;
       color: var(--tx3);
-      margin-top: 4px;
       font-style: italic
     }
 
     .ch-div {
       display: flex;
       align-items: center;
-      gap: 8px;
-      margin: 14px auto 26px;
-      max-width: 140px
-    }
-
-    .ch-div::before,
-    .ch-div::after {
-      content: '';
-      flex: 1;
-      height: 1px;
-      background: var(--br2)
-    }
-
-    .ch-div-ic {
+      justify-content: center;
+      gap: 12px;
+      margin-top: 16px;
       color: var(--br2);
-      font-size: 11px
+      font-size: 10px;
+      letter-spacing: 6px
     }
 
-    /* compare mode */
-    .cmp-cols {
-      display: flex;
-      gap: 0;
-      margin-bottom: 2px
-    }
-
-    .cmp-col {
-      flex: 1;
-      padding: 4px 6px;
-      border-left: 1px solid var(--br);
-      min-width: 0
-    }
-
-    .cmp-col:first-child {
-      border-left: none
-    }
-
-    .cmp-col-hdr {
-      font-size: 9px;
-      font-weight: 800;
-      color: var(--ac);
-      letter-spacing: 1px;
-      text-transform: uppercase;
-      margin-bottom: 4px
-    }
-
-    .cmp-vnum {
-      font-size: 11px;
-      color: var(--ac2);
-      font-weight: 800;
-      margin-bottom: 2px
-    }
-
-    .cmp-vtxt {
-      font-size: 13px;
-      color: var(--tx);
-      line-height: 1.6
-    }
-
+    /* Verses — keep old class names used by JS */
     .verse {
       display: flex;
-      gap: 10px;
+      gap: 12px;
       padding: 5px 6px;
-      border-radius: 7px;
+      border-radius: var(--r2);
+      margin-bottom: 1px;
       border-left: 3px solid transparent;
-      margin-bottom: 2px;
       cursor: pointer;
       user-select: none;
       -webkit-user-select: none
     }
 
-    .verse:active {
-      background: var(--sf2)
-    }
-
     .verse.sel-v {
-      outline: 2px solid var(--ac);
-      outline-offset: -1px;
-      background: rgba(124, 79, 30, .08) !important;
-      border-left-color: var(--ac)
+      background: var(--acsf) !important;
+      border-left-color: var(--ac) !important
     }
 
     .verse.play-v {
-      background: rgba(124, 79, 30, .08);
+      background: var(--acsf);
       border-left-color: var(--ac)
     }
 
     .verse[data-hl=yellow] {
-      background: rgba(255, 220, 80, .25);
-      border-left-color: #f0c040
+      background: rgba(234, 179, 8, .18);
+      border-left-color: #CA8A04
     }
 
     .verse[data-hl=green] {
-      background: rgba(80, 200, 120, .2);
-      border-left-color: #40a060
+      background: rgba(22, 163, 74, .14);
+      border-left-color: #16A34A
     }
 
     .verse[data-hl=blue] {
-      background: rgba(80, 140, 255, .18);
-      border-left-color: #4080e0
-    }
-
-    .verse[data-hl=pink] {
-      background: rgba(255, 100, 150, .18);
-      border-left-color: #e04080
+      background: rgba(37, 99, 235, .14);
+      border-left-color: #2563EB
     }
 
     .verse[data-hl=purple] {
-      background: rgba(160, 80, 255, .18);
-      border-left-color: #8040c0
+      background: rgba(124, 58, 237, .14);
+      border-left-color: #7C3AED
+    }
+
+    .verse[data-hl=red] {
+      background: rgba(220, 38, 38, .14);
+      border-left-color: #DC2626
+    }
+
+    .verse.sm {
+      background: rgba(230, 184, 48, .15)
     }
 
     .vnum {
       font-size: 11px;
-      color: var(--ac2);
-      font-weight: 800;
-      min-width: 20px;
-      padding-top: 4px;
+      color: var(--ac);
+      font-weight: 700;
+      min-width: 18px;
+      padding-top: 5px;
       text-align: right;
-      flex-shrink: 0
+      flex-shrink: 0;
+      opacity: .7;
+      font-family: var(--fui)
     }
 
     .vtxt {
+      font-family: var(--vff);
+      font-size: var(--vfs);
+      line-height: var(--vlh);
       color: var(--tx);
-      font-size: var(--fs);
-      line-height: var(--lh);
       flex: 1
     }
 
     .vnote {
       font-size: 11px;
-      color: var(--ac);
+      color: var(--tx3);
       font-style: italic;
-      margin-top: 3px;
-      border-left: 2px solid var(--ac);
-      padding-left: 6px
+      margin-top: 4px;
+      padding-left: 8px;
+      border-left: 2px solid var(--br2);
+      font-family: var(--fui);
+      line-height: 1.5
     }
 
-    /* inline controls */
-    .ctrl-bar {
+    /* Reading controls bar */
+    .read-controls-bar {
       position: fixed;
-      bottom: 0;
+      bottom: var(--safe-b);
       left: 0;
       right: 0;
-      background: var(--sf);
+      background: var(--bg2);
       border-top: 1px solid var(--br);
-      box-shadow: 0 -3px 12px var(--sh);
+      box-shadow: 0 -4px 20px rgba(0, 0, 0, .08);
       z-index: 80
     }
 
-    .ctrl-toggle {
+    .read-controls-toggle {
       display: flex;
+      align-items: center;
       justify-content: center;
-      padding: 6px
-    }
-
-    .ctrl-toggle-btn {
-      background: none;
-      border: 1px solid var(--br);
-      border-radius: 14px;
-      padding: 4px 16px;
-      font-size: 11px;
-      color: var(--tx3);
-      touch-action: manipulation;
+      padding: 8px 16px 4px;
       cursor: pointer
     }
 
-    .ctrl-body {
-      display: none;
-      padding: 10px 14px 12px
+    .read-controls-handle {
+      width: 36px;
+      height: 4px;
+      background: var(--br2);
+      border-radius: var(--rfull)
     }
 
-    .ctrl-body.on {
+    .read-controls-body {
+      display: none;
+      padding: 12px 16px 16px
+    }
+
+    .read-controls-body.open {
       display: block
     }
 
@@ -1245,63 +1560,68 @@
       display: flex;
       align-items: center;
       gap: 8px;
-      margin-bottom: 8px;
+      margin-bottom: 10px;
       flex-wrap: wrap
     }
 
-    .ctrl-lbl {
-      font-size: 10px;
-      font-weight: 800;
+    .ctrl-label {
+      font-size: 11px;
+      font-weight: 700;
       letter-spacing: 1px;
       text-transform: uppercase;
       color: var(--tx3);
-      min-width: 46px;
+      min-width: 52px;
       flex-shrink: 0
     }
 
-    .th-dots {
+    .theme-dots {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap
+    }
+
+    .theme-dot {
+      width: 28px;
+      height: 28px;
+      border-radius: var(--r1);
+      border: 2px solid transparent;
+      cursor: pointer;
+      transition: transform var(--d1), border-color var(--d1)
+    }
+
+    .theme-dot:active {
+      transform: scale(.85)
+    }
+
+    .theme-dot.on {
+      border-color: var(--ac);
+      box-shadow: 0 0 0 2px var(--acsf)
+    }
+
+    .font-pills {
       display: flex;
       gap: 6px;
       flex-wrap: wrap
     }
 
-    .th-dot {
-      width: 26px;
-      height: 26px;
-      border-radius: 7px;
-      cursor: pointer;
-      border: 2px solid transparent;
-      touch-action: manipulation
-    }
-
-    .th-dot.on {
-      border-color: var(--ac)
-    }
-
-    .font-pills {
-      display: flex;
-      gap: 4px;
-      flex-wrap: wrap
-    }
-
-    .fpill {
-      padding: 4px 8px;
-      border: 1px solid var(--br);
-      border-radius: 6px;
-      background: none;
+    .font-pill {
+      padding: 5px 12px;
+      border-radius: var(--rfull);
+      font-size: 12px;
+      font-weight: 600;
       color: var(--tx2);
-      font-size: 11px;
-      touch-action: manipulation;
-      cursor: pointer
+      background: var(--bgsrf);
+      border: 1px solid var(--br2);
+      transition: background var(--d1), color var(--d1)
     }
 
-    .fpill.on {
-      border-color: var(--ac);
+    .font-pill.on {
+      background: var(--acsf);
       color: var(--ac);
-      font-weight: 700
+      border-color: var(--brac)
     }
 
-    .sz-row {
+    .size-row {
       display: flex;
       align-items: center;
       gap: 8px;
@@ -1309,373 +1629,520 @@
     }
 
     .sz-btn {
-      width: 30px;
-      height: 30px;
-      border: 1px solid var(--br);
-      border-radius: 7px;
-      background: none;
-      color: var(--tx);
+      width: 36px;
+      height: 36px;
+      border-radius: var(--r2);
+      background: var(--bgsrf);
+      border: 1px solid var(--br2);
       display: flex;
       align-items: center;
       justify-content: center;
       flex-shrink: 0;
-      touch-action: manipulation;
-      cursor: pointer
+      transition: background var(--d1)
+    }
+
+    .sz-btn:active {
+      background: var(--acsf)
     }
 
     .sz-val {
       font-size: 13px;
-      color: var(--tx);
-      min-width: 36px;
+      font-weight: 600;
+      min-width: 40px;
       text-align: center;
-      font-weight: 600
+      color: var(--tx)
     }
 
-    input[type=range] {
+    .sz-slider {
       flex: 1;
       accent-color: var(--ac);
       height: 3px;
       cursor: pointer
     }
 
-    /* multi-select bar */
-    .msel-bar {
-      display: none;
+    /* Progress bar */
+    .prog-bar {
       position: fixed;
       bottom: 0;
       left: 0;
       right: 0;
-      z-index: 90;
-      background: var(--sf);
-      border-top: 2px solid var(--ac);
-      padding: 10px 14px 16px;
-      box-shadow: 0 -3px 14px var(--sh)
+      height: 2px;
+      background: var(--br);
+      z-index: 40;
+      pointer-events: none
+    }
+
+    .prog-fill {
+      height: 100%;
+      background: var(--ac);
+      transition: width .1s;
+      width: 0%
+    }
+
+    /* Multi-select */
+    .msel-bar {
+      display: none;
+      position: fixed;
+      bottom: var(--safe-b);
+      left: 0;
+      right: 0;
+      background: var(--bgel);
+      border-top: 1px solid var(--br2);
+      box-shadow: var(--sh4);
+      padding: 12px 16px 16px;
+      z-index: 200;
+      animation: slideUp var(--d2) var(--spring)
     }
 
     .msel-bar.on {
       display: block
     }
 
-    .msel-top {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      margin-bottom: 10px
+    @keyframes slideUp {
+      from {
+        transform: translateY(100%);
+        opacity: 0
+      }
+
+      to {
+        transform: translateY(0);
+        opacity: 1
+      }
     }
 
-    .msel-count {
-      font-size: 13px;
-      font-weight: 700;
-      color: var(--tx);
-      flex: 1
-    }
-
-    .msel-cancel {
-      padding: 5px 12px;
-      border: 1px solid var(--br);
-      border-radius: 7px;
-      background: none;
-      color: var(--tx3);
-      font-size: 12px;
-      touch-action: manipulation;
-      cursor: pointer
-    }
-
-    .msel-actions {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      flex-wrap: wrap
-    }
-
-    .hl-dot {
-      width: 30px;
-      height: 30px;
-      border-radius: 50%;
-      cursor: pointer;
-      border: 2px solid transparent;
-      touch-action: manipulation;
-      flex-shrink: 0
-    }
-
-    .hl-dot:active {
-      transform: scale(1.12)
-    }
-
-    .hl-rm {
-      padding: 6px 10px;
-      border: 1px solid var(--br);
-      border-radius: 8px;
-      background: none;
-      color: var(--tx3);
-      font-size: 12px;
-      touch-action: manipulation;
-      cursor: pointer
-    }
-
-    .share-verse-btn {
-      padding: 6px 10px;
-      border: 1px solid var(--ac);
-      border-radius: 8px;
-      background: none;
-      color: var(--ac);
-      font-size: 12px;
-      font-weight: 600;
-      touch-action: manipulation;
-      cursor: pointer
-    }
-
-    .note-btn {
-      padding: 6px 10px;
-      border: 1px solid var(--br);
-      border-radius: 8px;
-      background: none;
-      color: var(--tx3);
-      font-size: 12px;
-      touch-action: manipulation;
-      cursor: pointer
-    }
-
-    /* chapters popup */
-    .popup-bg {
-      display: none;
-      position: fixed;
-      inset: 0;
-      background: rgba(0, 0, 0, .45);
-      z-index: 200
-    }
-
-    .popup-bg.on {
-      display: block
-    }
-
-    .popup {
-      position: fixed;
-      bottom: 0;
-      left: 0;
-      right: 0;
-      background: var(--sf);
-      border-top: 2px solid var(--ac);
-      border-radius: 18px 18px 0 0;
-      padding: 12px 14px 24px;
-      max-height: 55vh;
-      overflow-y: auto;
-      -webkit-overflow-scrolling: touch;
-      z-index: 201;
-      display: none
-    }
-
-    .popup.on {
-      display: block
-    }
-
-    .pop-hdr {
+    .msel-header {
       display: flex;
       align-items: center;
       justify-content: space-between;
       margin-bottom: 12px
     }
 
-    .pop-title {
-      font-size: 12px;
-      font-weight: 800;
-      letter-spacing: 1.5px;
-      text-transform: uppercase;
-      color: var(--tx3)
-    }
-
-    .pop-close {
-      background: none;
-      border: none;
-      color: var(--tx3);
-      font-size: 18px;
-      padding: 2px 6px;
-      touch-action: manipulation;
-      cursor: pointer
-    }
-
-    .ch-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(40px, 1fr));
-      gap: 5px
-    }
-
-    .ch-cell {
-      padding: 9px 2px;
-      text-align: center;
-      border: 1px solid var(--br);
-      border-radius: 6px;
-      cursor: pointer;
+    .msel-count {
       font-size: 13px;
-      color: var(--tx2);
-      touch-action: manipulation;
-      position: relative
+      font-weight: 700;
+      color: var(--tx);
+      display: flex;
+      align-items: center;
+      gap: 8px
     }
 
-    .ch-cell:active,
-    .ch-cell.on {
+    .msel-count-badge {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 22px;
+      height: 22px;
+      border-radius: 50%;
       background: var(--ac);
       color: #fff;
-      border-color: var(--ac);
+      font-size: 11px;
       font-weight: 700
     }
 
-    .ch-cell.read {
-      background: var(--bg2)
+    .msel-cancel-btn {
+      padding: 6px 14px;
+      border-radius: var(--rfull);
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--tx2);
+      background: var(--bgsrf);
+      border: 1px solid var(--br2)
     }
 
-    .ch-cell.read::after {
-      content: '✓';
-      position: absolute;
-      top: 1px;
-      right: 2px;
-      font-size: 7px;
-      color: #4caf50
-    }
-
-    /* panel */
-    .panel-bg {
-      display: none;
-      position: fixed;
-      inset: 0;
-      background: rgba(0, 0, 0, .45);
-      z-index: 300
-    }
-
-    .panel-bg.on {
-      display: block
-    }
-
-    .panel {
-      position: fixed;
-      top: 0;
-      right: 0;
-      bottom: 0;
-      width: 88vw;
-      max-width: 360px;
-      background: var(--sf);
-      z-index: 301;
-      display: flex;
-      flex-direction: column;
-      transform: translateX(100%);
-      transition: transform .28s ease
-    }
-
-    .panel.on {
-      transform: translateX(0)
-    }
-
-    .panel-hd {
+    .msel-actions {
       display: flex;
       align-items: center;
-      justify-content: space-between;
-      padding: 14px 16px;
-      border-bottom: 1px solid var(--br);
-      background: var(--sf2);
+      gap: 12px;
+      flex-wrap: wrap
+    }
+
+    .hl-colors {
+      display: flex;
+      gap: 8px;
+      align-items: center
+    }
+
+    .hl-dot {
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      cursor: pointer;
+      border: 2px solid transparent;
+      transition: transform var(--d1);
       flex-shrink: 0
     }
 
-    .panel-title {
-      font-size: 15px;
+    .hl-dot:active {
+      transform: scale(.83)
+    }
+
+    .hl-dot.on {
+      border-color: var(--tx)
+    }
+
+    .msel-action-btns {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap
+    }
+
+    .msel-action-btn {
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      padding: 8px 14px;
+      border-radius: var(--rfull);
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--tx2);
+      background: var(--bgsrf);
+      border: 1px solid var(--br2);
+      transition: background var(--d1), color var(--d1)
+    }
+
+    .msel-action-btn:active {
+      background: var(--acsf);
+      color: var(--ac)
+    }
+
+    .msel-action-btn svg {
+      width: 13px;
+      height: 13px
+    }
+
+    /* Bottom sheet / popup */
+    .popup-backdrop {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: var(--ov);
+      z-index: 300;
+      backdrop-filter: blur(2px);
+      animation: fadeIn var(--d2) var(--ease)
+    }
+
+    .popup-backdrop.on {
+      display: block
+    }
+
+    @keyframes fadeIn {
+      from {
+        opacity: 0
+      }
+
+      to {
+        opacity: 1
+      }
+    }
+
+    .bottom-sheet {
+      display: none;
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      background: var(--bgel);
+      border-radius: var(--r5) var(--r5) 0 0;
+      z-index: 301;
+      max-height: 60vh;
+      overflow: hidden;
+      flex-direction: column;
+      box-shadow: var(--sh4);
+      padding-bottom: var(--safe-b);
+      animation: sheetUp var(--d3) var(--spring)
+    }
+
+    .bottom-sheet.on {
+      display: flex
+    }
+
+    @keyframes sheetUp {
+      from {
+        transform: translateY(100%)
+      }
+
+      to {
+        transform: translateY(0)
+      }
+    }
+
+    .sheet-handle {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 12px 16px 8px;
+      cursor: pointer;
+      flex-shrink: 0
+    }
+
+    .sheet-handle-bar {
+      width: 36px;
+      height: 4px;
+      background: var(--br2);
+      border-radius: var(--rfull)
+    }
+
+    .sheet-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 20px 12px;
+      flex-shrink: 0
+    }
+
+    .sheet-title {
+      font-size: 17px;
       font-weight: 700;
       color: var(--tx)
     }
 
-    .panel-close {
-      background: none;
-      border: none;
-      color: var(--tx3);
-      font-size: 20px;
-      touch-action: manipulation;
-      cursor: pointer
+    .sheet-body {
+      flex: 1;
+      overflow-y: auto;
+      padding: 8px 16px 20px
+    }
+
+    .caps-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(44px, 1fr));
+      gap: 8px
+    }
+
+    .cap-cell {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: 44px;
+      border-radius: var(--r2);
+      font-size: 13px;
+      font-weight: 500;
+      color: var(--tx2);
+      background: var(--bgcard);
+      border: 1px solid var(--br);
+      cursor: pointer;
+      transition: background var(--d1), color var(--d1), transform var(--d1);
+      position: relative
+    }
+
+    .cap-cell:active {
+      transform: scale(.88)
+    }
+
+    .cap-cell.on {
+      background: var(--ac);
+      color: #fff;
+      border-color: var(--ac);
+      font-weight: 700;
+      box-shadow: 0 2px 8px rgba(26, 107, 74, .30)
+    }
+
+    .cap-cell.read {
+      background: var(--bgsrf);
+      color: var(--tx3)
+    }
+
+    .cap-cell.read::after {
+      content: '✓';
+      position: absolute;
+      top: 2px;
+      right: 3px;
+      font-size: 7px;
+      color: #16A34A;
+      font-weight: 700
+    }
+
+    /* Panel */
+    .panel-backdrop {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: var(--ov);
+      z-index: 400;
+      backdrop-filter: blur(2px);
+      animation: fadeIn var(--d2) var(--ease)
+    }
+
+    .panel-backdrop.on {
+      display: block
+    }
+
+    .side-panel {
+      position: fixed;
+      top: 0;
+      right: 0;
+      bottom: 0;
+      width: min(88vw, 360px);
+      background: var(--bgel);
+      z-index: 401;
+      display: flex;
+      flex-direction: column;
+      transform: translateX(100%);
+      transition: transform var(--d3) var(--spring);
+      box-shadow: var(--sh4);
+      padding-top: var(--safe-t)
+    }
+
+    .side-panel.on {
+      transform: translateX(0)
+    }
+
+    .panel-hdr {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 16px 20px;
+      border-bottom: 1px solid var(--br);
+      flex-shrink: 0
+    }
+
+    .panel-hdr-title {
+      font-size: 17px;
+      font-weight: 700;
+      color: var(--tx)
     }
 
     .panel-body {
       flex: 1;
       overflow-y: auto;
-      -webkit-overflow-scrolling: touch;
-      padding: 14px
+      padding: 12px 16px
     }
 
-    .vg-lbl {
-      font-size: 9px;
-      font-weight: 800;
-      letter-spacing: 2px;
+    .ver-group-label {
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 1.5px;
       text-transform: uppercase;
       color: var(--tx3);
-      padding: 8px 0 4px
+      padding: 14px 0 8px
     }
 
     .ver-row {
       display: flex;
       align-items: center;
-      gap: 8px;
-      padding: 9px 10px;
-      border: 1px solid var(--br);
-      border-radius: 8px;
-      background: none;
-      text-align: left;
-      width: 100%;
-      margin-bottom: 4px;
+      gap: 12px;
+      padding: 10px 10px;
+      border-radius: var(--r3);
       cursor: pointer;
-      touch-action: manipulation
+      transition: background var(--d1), transform var(--d1);
+      margin-bottom: 3px;
+      border: 1px solid transparent
     }
 
-    .ver-row:active,
+    .ver-row:active {
+      transform: scale(.98)
+    }
+
     .ver-row.on {
-      background: var(--bg2);
-      border-color: var(--ac)
+      background: var(--acsf);
+      border-color: var(--brac)
     }
 
     .ver-code {
-      font-size: 14px;
+      font-size: 15px;
       font-weight: 800;
       color: var(--ac);
-      min-width: 38px
+      min-width: 44px
     }
 
     .ver-name {
-      font-size: 11px;
-      color: var(--tx3);
+      font-size: 13px;
+      color: var(--tx2);
       flex: 1
     }
 
-    .ver-row.on .ver-name {
-      color: var(--tx2)
-    }
-
     .ver-lang {
-      font-size: 10px;
+      font-size: 11px;
       color: var(--tx3);
-      background: var(--bg2);
-      padding: 2px 5px;
-      border-radius: 6px;
+      background: var(--bgsrf);
+      padding: 2px 7px;
+      border-radius: var(--rfull);
       border: 1px solid var(--br)
     }
 
-    .bm-empty {
+    .panel-empty {
       text-align: center;
-      padding: 36px 10px;
-      color: var(--tx3);
+      padding: 44px 20px;
+      color: var(--tx3)
+    }
+
+    .panel-empty-icon {
+      font-size: 44px;
+      margin-bottom: 12px
+    }
+
+    .panel-empty-txt {
       font-size: 13px;
-      line-height: 1.8
+      line-height: 1.6
+    }
+
+    .panel-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+      padding: 12px;
+      border-radius: var(--r3);
+      cursor: pointer;
+      margin-bottom: 8px;
+      border: 1px solid var(--br);
+      background: var(--bgcard);
+      transition: background var(--d1)
+    }
+
+    .panel-item:active {
+      background: var(--bgsrf)
+    }
+
+    .panel-item-body {
+      flex: 1;
+      min-width: 0
+    }
+
+    .panel-item-ref {
+      font-size: 13px;
+      font-weight: 700;
+      color: var(--ac);
+      margin-bottom: 3px
+    }
+
+    .panel-item-preview {
+      font-size: 12px;
+      color: var(--tx3);
+      overflow: hidden;
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      -webkit-box-orient: vertical;
+      line-height: 1.5
+    }
+
+    .panel-item-del {
+      padding: 4px 8px;
+      color: var(--tx3);
+      flex-shrink: 0
+    }
+
+    /* Keeping old panel classes used by JS */
+    .bm-empty,
+    .panel-empty-inner {
+      text-align: center;
+      padding: 44px 20px;
+      color: var(--tx3)
     }
 
     .bm-item {
-      padding: 10px 12px;
-      background: var(--sf2);
-      border: 1px solid var(--br);
-      border-radius: 9px;
-      cursor: pointer;
-      margin-bottom: 7px;
-      touch-action: manipulation;
       display: flex;
       align-items: flex-start;
-      gap: 8px
+      gap: 12px;
+      padding: 12px;
+      border-radius: var(--r3);
+      cursor: pointer;
+      margin-bottom: 8px;
+      border: 1px solid var(--br);
+      background: var(--bgcard);
+      transition: background var(--d1)
     }
 
     .bm-item:active {
-      background: var(--bg2)
+      background: var(--bgsrf)
     }
 
     .bm-ref {
@@ -1691,148 +2158,584 @@
       overflow: hidden;
       display: -webkit-box;
       -webkit-line-clamp: 2;
-      -webkit-box-orient: vertical
-    }
-
-    .bm-del {
-      background: none;
-      border: none;
-      color: var(--tx3);
-      font-size: 16px;
-      padding: 0 2px;
-      touch-action: manipulation;
-      cursor: pointer;
-      flex-shrink: 0;
-      opacity: 0;
-      margin-left: auto
-    }
-
-    .bm-item:hover .bm-del,
-    .bm-item:focus-within .bm-del {
-      opacity: 1
-    }
-
-    /* note modal */
-    .modal-bg {
-      display: none;
-      position: fixed;
-      inset: 0;
-      background: rgba(0, 0, 0, .5);
-      z-index: 500;
-      align-items: center;
-      justify-content: center;
-      padding: 20px
-    }
-
-    .modal-bg.on {
-      display: flex
-    }
-
-    .modal {
-      background: var(--sf);
-      border-radius: 16px;
-      padding: 22px;
-      max-width: 400px;
-      width: 100%;
-      box-shadow: 0 16px 48px rgba(0, 0, 0, .25)
-    }
-
-    .modal-title {
-      font-size: 16px;
-      font-weight: 700;
-      color: var(--tx);
-      margin-bottom: 12px
-    }
-
-    .modal-ref {
-      font-size: 12px;
-      color: var(--ac);
-      font-weight: 700;
-      margin-bottom: 8px
-    }
-
-    .modal-verse {
-      font-size: 13px;
-      color: var(--tx2);
-      font-style: italic;
-      margin-bottom: 12px;
-      line-height: 1.6;
-      border-left: 2px solid var(--ac);
-      padding-left: 8px
-    }
-
-    .note-ta {
-      width: 100%;
-      min-height: 100px;
-      padding: 10px;
-      background: var(--bg2);
-      border: 1px solid var(--br);
-      border-radius: 8px;
-      color: var(--tx);
-      font-size: 14px;
-      resize: vertical;
-      margin-bottom: 14px;
+      -webkit-box-orient: vertical;
       line-height: 1.5
     }
 
-    .note-ta:focus {
-      outline: none;
+    .bm-del {
+      padding: 4px 8px;
+      color: var(--tx3);
+      flex-shrink: 0;
+      background: none;
+      border: none;
+      cursor: pointer;
+      opacity: 0;
+      transition: opacity var(--d1)
+    }
+
+    .bm-item:hover .bm-del {
+      opacity: 1
+    }
+
+    /* Highlights panel */
+    .hl-panel-item {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 12px;
+      background: var(--bgcard);
+      border: 1px solid var(--br);
+      border-radius: var(--r3);
+      cursor: pointer;
+      margin-bottom: 8px;
+      transition: background var(--d1)
+    }
+
+    .hl-panel-item:active {
+      background: var(--bgsrf)
+    }
+
+    .hl-color-badge {
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+      flex-shrink: 0
+    }
+
+    .hl-panel-ref {
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--ac);
+      flex: 1
+    }
+
+    .hl-panel-del {
+      padding: 4px 8px;
+      color: var(--tx3);
+      flex-shrink: 0;
+      background: none;
+      border: none;
+      cursor: pointer
+    }
+
+    /* History */
+    .hist-item {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 12px;
+      border-radius: var(--r3);
+      cursor: pointer;
+      margin-bottom: 8px;
+      transition: background var(--d1)
+    }
+
+    .hist-item:active {
+      background: var(--bgsrf)
+    }
+
+    .hist-icon {
+      width: 36px;
+      height: 36px;
+      background: var(--bgsrf);
+      border-radius: var(--r2);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      font-size: 16px
+    }
+
+    .hist-ref {
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--tx)
+    }
+
+    .hist-date {
+      font-size: 11px;
+      color: var(--tx3)
+    }
+
+    .hist-del {
+      padding: 8px;
+      color: var(--tx3);
+      flex-shrink: 0;
+      background: none;
+      border: none;
+      cursor: pointer
+    }
+
+    /* Compare */
+    .cmp-cols {
+      display: flex;
+      margin-bottom: 12px;
+      padding-bottom: 12px;
+      border-bottom: 1px solid var(--br)
+    }
+
+    .cmp-col {
+      flex: 1;
+      padding: 0 12px;
+      border-left: 1px solid var(--br)
+    }
+
+    .cmp-col:first-child {
+      border-left: none;
+      padding-left: 0
+    }
+
+    .cmp-col-hdr {
+      font-size: 11px;
+      font-weight: 800;
+      color: var(--ac);
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      margin-bottom: 4px
+    }
+
+    .cmp-vnum {
+      font-size: 11px;
+      color: var(--tx3);
+      font-weight: 700;
+      margin-bottom: 3px
+    }
+
+    .cmp-vtxt {
+      font-family: var(--frd);
+      font-size: 13px;
+      color: var(--tx);
+      line-height: 1.5
+    }
+
+    /* Hamburger menu */
+    .hmenu-backdrop {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: var(--ov);
+      z-index: 500;
+      backdrop-filter: blur(2px)
+    }
+
+    .hmenu-backdrop.on {
+      display: block
+    }
+
+    .hmenu {
+      position: fixed;
+      top: 0;
+      right: 0;
+      bottom: 0;
+      width: min(88vw, 340px);
+      background: var(--bgel);
+      z-index: 501;
+      display: flex;
+      flex-direction: column;
+      transform: translateX(100%);
+      transition: transform var(--d3) var(--spring);
+      padding-top: var(--safe-t)
+    }
+
+    .hmenu.on {
+      transform: translateX(0)
+    }
+
+    .hmenu-hdr {
+      padding: 20px 20px 16px;
+      background: linear-gradient(135deg, #0F4D32, #1A6B4A);
+      position: relative;
+      overflow: hidden;
+      flex-shrink: 0
+    }
+
+    .hmenu-hdr::before {
+      content: '';
+      position: absolute;
+      bottom: -24px;
+      right: -24px;
+      width: 120px;
+      height: 120px;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, .06)
+    }
+
+    .hmenu-logo-row {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 16px
+    }
+
+    .hmenu-logo-icon {
+      width: 40px;
+      height: 40px;
+      background: rgba(255, 255, 255, .15);
+      border-radius: var(--r2);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0
+    }
+
+    .hmenu-logo-icon svg {
+      width: 24px;
+      height: 24px;
+      color: #fff
+    }
+
+    .hmenu-logo-title {
+      font-size: 18px;
+      font-weight: 700;
+      color: #fff
+    }
+
+    .hmenu-logo-sub {
+      font-size: 11px;
+      color: rgba(255, 255, 255, .65);
+      letter-spacing: 1px;
+      text-transform: uppercase
+    }
+
+    .hmenu-ver-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: rgba(255, 255, 255, .12);
+      border: 1px solid rgba(255, 255, 255, .25);
+      border-radius: var(--rfull);
+      padding: 5px 12px
+    }
+
+    .hmenu-ver-dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: #F0CB5A
+    }
+
+    .hmenu-ver-txt {
+      font-size: 12px;
+      font-weight: 600;
+      color: rgba(255, 255, 255, .90)
+    }
+
+    .hmenu-ver-sel-wrap {
+      padding: 14px 16px 10px;
+      border-bottom: 1px solid var(--br);
+      flex-shrink: 0
+    }
+
+    .hmenu-ver-label {
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      color: var(--tx3);
+      margin-bottom: 8px
+    }
+
+    .hmenu-ver-sel {
+      width: 100%;
+      padding: 10px 28px 10px 12px;
+      background: var(--bgsrf);
+      border: 1px solid var(--br2);
+      border-radius: var(--r3);
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--tx);
+      appearance: none;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6'%3E%3Cpath d='M0 0l5 6 5-6z' fill='%23767676'/%3E%3C/svg%3E");
+      background-repeat: no-repeat;
+      background-position: right 10px center;
+      cursor: pointer
+    }
+
+    .hmenu-body {
+      flex: 1;
+      overflow-y: auto
+    }
+
+    .hmenu-section-label {
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      color: var(--tx3);
+      padding: 14px 16px 6px
+    }
+
+    .hmenu-item {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 12px 16px;
+      cursor: pointer;
+      transition: background var(--d1);
+      border-bottom: 1px solid var(--br)
+    }
+
+    .hmenu-item:active {
+      background: var(--bgsrf)
+    }
+
+    .hmenu-item-icon {
+      width: 36px;
+      height: 36px;
+      border-radius: var(--r2);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 18px;
+      flex-shrink: 0
+    }
+
+    .hmenu-item-text {
+      flex: 1
+    }
+
+    .hmenu-item-title {
+      font-size: 15px;
+      font-weight: 500;
+      color: var(--tx);
+      margin-bottom: 1px
+    }
+
+    .hmenu-item-sub {
+      font-size: 12px;
+      color: var(--tx3)
+    }
+
+    .hmenu-item-arr {
+      color: var(--tx3);
+      flex-shrink: 0
+    }
+
+    .hmenu-item-arr svg {
+      width: 16px;
+      height: 16px
+    }
+
+    .hmenu-theme-row {
+      display: flex;
+      gap: 8px;
+      padding: 6px 0
+    }
+
+    .hmenu-theme-dot {
+      width: 30px;
+      height: 30px;
+      border-radius: var(--r1);
+      border: 2px solid transparent;
+      cursor: pointer;
+      transition: transform var(--d1), border-color var(--d1)
+    }
+
+    .hmenu-theme-dot:active {
+      transform: scale(.83)
+    }
+
+    .hmenu-theme-dot.on {
       border-color: var(--ac)
     }
 
-    .modal-btns {
+    .hmenu-footer {
+      padding: 14px 16px;
+      border-top: 1px solid var(--br);
+      flex-shrink: 0
+    }
+
+    .hmenu-footer-ver {
+      font-size: 12px;
+      color: var(--tx3);
+      text-align: center;
+      margin-bottom: 3px
+    }
+
+    .hmenu-footer-link {
+      font-size: 12px;
+      color: var(--ac);
+      font-weight: 600;
+      text-align: center;
+      cursor: pointer
+    }
+
+    /* Update banner */
+    .update-banner {
+      display: none;
+      position: fixed;
+      top: var(--safe-t);
+      left: 12px;
+      right: 12px;
+      background: #0F4D32;
+      border-radius: var(--r4);
+      padding: 12px 16px;
+      z-index: 900;
+      box-shadow: var(--sh4);
+      align-items: center;
+      gap: 12px;
+      animation: dropIn var(--d3) var(--spring)
+    }
+
+    .update-banner.on {
+      display: flex
+    }
+
+    @keyframes dropIn {
+      from {
+        transform: translateY(-20px);
+        opacity: 0
+      }
+
+      to {
+        transform: translateY(0);
+        opacity: 1
+      }
+    }
+
+    .update-banner-text {
+      flex: 1
+    }
+
+    .update-banner-title {
+      font-size: 14px;
+      font-weight: 700;
+      color: #fff
+    }
+
+    .update-banner-sub {
+      font-size: 12px;
+      color: rgba(255, 255, 255, .70)
+    }
+
+    .update-reload-btn {
+      padding: 7px 14px;
+      background: rgba(255, 255, 255, .20);
+      border: 1px solid rgba(255, 255, 255, .35);
+      border-radius: var(--rfull);
+      color: #fff;
+      font-size: 12px;
+      font-weight: 700;
+      flex-shrink: 0
+    }
+
+    .update-close-btn {
+      color: rgba(255, 255, 255, .60);
+      padding: 4px;
+      flex-shrink: 0;
       display: flex;
+      align-items: center;
+      justify-content: center
+    }
+
+    /* Toast */
+    #toast-container {
+      position: fixed;
+      top: calc(var(--safe-t) + 12px);
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 1000;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
       gap: 8px;
-      justify-content: flex-end
+      pointer-events: none;
+      width: min(90vw, 360px)
     }
 
-    /* share modal */
-    .share-canvas-wrap {
-      background: var(--bg2);
-      border-radius: 10px;
-      overflow: hidden;
-      margin-bottom: 14px;
-      text-align: center
-    }
-
-    #shareCanvas {
-      max-width: 100%;
-      border-radius: 10px
-    }
-
-    .share-themes {
+    .toast {
       display: flex;
-      gap: 6px;
-      margin-bottom: 12px;
-      flex-wrap: wrap
+      align-items: center;
+      gap: 12px;
+      padding: 12px 18px;
+      background: var(--tx);
+      color: var(--txi);
+      border-radius: var(--r4);
+      font-size: 14px;
+      font-weight: 600;
+      box-shadow: var(--sh4);
+      animation: toastIn var(--d2) var(--spring) both;
+      pointer-events: all;
+      max-width: 100%;
+      width: max-content
     }
 
-    .sh-theme {
-      width: 28px;
-      height: 28px;
-      border-radius: 6px;
-      border: 2px solid transparent;
+    .toast.out {
+      animation: toastOut var(--d2) var(--ease) both
+    }
+
+    @keyframes toastIn {
+      from {
+        transform: translateY(-12px) scale(.90);
+        opacity: 0
+      }
+
+      to {
+        transform: translateY(0) scale(1);
+        opacity: 1
+      }
+    }
+
+    @keyframes toastOut {
+      from {
+        transform: translateY(0);
+        opacity: 1
+      }
+
+      to {
+        transform: translateY(-8px);
+        opacity: 0
+      }
+    }
+
+    .toast-undo-btn {
+      color: #F0CB5A;
+      font-weight: 700;
+      padding: 2px 6px;
+      pointer-events: all;
+      background: none;
+      border: none;
       cursor: pointer;
-      touch-action: manipulation
+      font-size: 13px
     }
 
-    .sh-theme.on {
-      border-color: var(--tx)
+    /* Plans */
+    .plans-body {
+      padding: 16px 16px 32px
     }
 
-    /* reading plans */
     .plan-card {
-      background: var(--sf);
+      background: var(--bgcard);
       border: 1px solid var(--br);
-      border-radius: 12px;
-      padding: 14px;
-      margin-bottom: 10px;
+      border-radius: var(--r4);
+      padding: 16px 20px;
+      margin-bottom: 12px;
       cursor: pointer;
-      touch-action: manipulation
+      transition: transform var(--d1), box-shadow var(--d1);
+      box-shadow: var(--sh1)
     }
 
     .plan-card:active {
-      background: var(--bg2)
+      transform: scale(.98);
+      box-shadow: none
+    }
+
+    .plan-card-hdr {
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+      margin-bottom: 12px
+    }
+
+    .plan-card-icon {
+      width: 44px;
+      height: 44px;
+      border-radius: var(--r2);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 22px;
+      flex-shrink: 0
     }
 
     .plan-name {
@@ -1844,53 +2747,56 @@
 
     .plan-desc {
       font-size: 12px;
-      color: var(--tx3);
-      margin-bottom: 8px
+      color: var(--tx3)
     }
 
     .plan-prog-wrap {
-      background: var(--bg2);
-      border-radius: 4px;
-      height: 5px;
+      height: 4px;
+      background: var(--br);
+      border-radius: var(--rfull);
       overflow: hidden
     }
 
     .plan-prog-fill {
       height: 100%;
       background: var(--ac);
-      border-radius: 4px;
-      transition: width .3s
+      border-radius: var(--rfull);
+      transition: width .5s var(--ease)
     }
 
     .plan-meta {
       display: flex;
       align-items: center;
       justify-content: space-between;
-      margin-top: 6px
+      margin-top: 8px
     }
 
     .plan-days {
-      font-size: 11px;
+      font-size: 12px;
       color: var(--tx3)
     }
 
     .plan-pct {
-      font-size: 11px;
+      font-size: 14px;
       font-weight: 700;
       color: var(--ac)
     }
 
+    .plan-detail-body {
+      padding: 16px
+    }
+
     .plan-day-card {
-      background: var(--sf);
+      background: var(--bgcard);
       border: 1px solid var(--br);
-      border-radius: 10px;
-      padding: 14px;
-      margin-bottom: 8px
+      border-radius: var(--r3);
+      padding: 16px;
+      margin-bottom: 12px
     }
 
     .plan-day-num {
       font-size: 11px;
-      font-weight: 800;
+      font-weight: 700;
       letter-spacing: 1px;
       text-transform: uppercase;
       color: var(--tx3);
@@ -1899,599 +2805,173 @@
 
     .plan-day-ref {
       font-size: 15px;
-      font-weight: 700;
-      color: var(--tx);
-      margin-bottom: 2px
-    }
-
-    .plan-day-done {
-      font-size: 12px;
-      color: #4caf50;
-      font-weight: 700
-    }
-
-    /* history */
-    .hist-item {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      padding: 10px 12px;
-      background: var(--sf2);
-      border: 1px solid var(--br);
-      border-radius: 9px;
-      margin-bottom: 7px;
-      cursor: pointer;
-      touch-action: manipulation
-    }
-
-    .hist-item:active {
-      background: var(--bg2)
-    }
-
-    .hist-icon {
-      font-size: 16px;
-      flex-shrink: 0
-    }
-
-    .hist-ref {
-      font-size: 13px;
-      font-weight: 700;
-      color: var(--tx)
-    }
-
-    .hist-date {
-      font-size: 11px;
-      color: var(--tx3)
-    }
-
-    .hist-del {
-      margin-left: auto;
-      background: none;
-      border: none;
-      color: var(--tx3);
-      font-size: 14px;
-      touch-action: manipulation;
-      cursor: pointer
-    }
-
-    /* progress bar */
-    .prog-bar {
-      position: fixed;
-      bottom: 0;
-      left: 0;
-      right: 0;
-      height: 3px;
-      background: var(--br);
-      z-index: 50;
-      pointer-events: none
-    }
-
-    .prog-fill {
-      height: 100%;
-      background: var(--ac);
-      transition: width .12s;
-      width: 0%
-    }
-
-    /* toast */
-    #toast {
-      position: fixed;
-      top: calc(env(safe-area-inset-top, 0px) + 10px);
-      left: 50%;
-      transform: translateX(-50%) translateY(-6px);
-      background: var(--tx);
-      color: var(--bg);
-      padding: 8px 10px 8px 18px;
-      border-radius: 16px;
-      font-size: 13px;
       font-weight: 600;
-      z-index: 999;
-      opacity: 0;
-      transition: opacity .2s, transform .2s;
-      pointer-events: none;
-      white-space: nowrap;
-      max-width: 88vw;
-      text-align: center;
-      box-shadow: 0 4px 14px rgba(0, 0, 0, .25);
-      display: flex;
-      align-items: center;
-      gap: 10px
-    }
-
-    #toast.on {
-      opacity: 1;
-      transform: translateX(-50%) translateY(0);
-      pointer-events: auto
-    }
-
-    .toast-undo {
-      background: rgba(255, 255, 255, .15);
-      border: 1px solid rgba(255, 255, 255, .3);
-      color: var(--bg);
-      border-radius: 10px;
-      padding: 4px 10px;
-      font-size: 12px;
-      font-weight: 700;
-      cursor: pointer;
-      touch-action: manipulation;
-      flex-shrink: 0
-    }
-
-    @media(min-width:600px) {
-      .read-scroll {
-        padding: 28px 10% 200px
-      }
-
-      .home-body {
-        max-width: 500px
-      }
-    }
-
-    @media(max-width:360px) {
-      .ver-pick {
-        max-width: 54px
-      }
-
-      .book-btn {
-        max-width: 26vw
-      }
-
-      .ibtn {
-        padding: 6px 6px
-      }
-    }
-
-    /* ── DESKTOP / WIDE SCREENS ── */
-    @media(min-width:760px) {
-      .home-body {
-        max-width: 760px
-      }
-
-      .nav-grid {
-        display: grid;
-        grid-template-columns: 1fr 1fr;
-        gap: 12px
-      }
-
-      .nav-grid .nav-card {
-        margin-bottom: 0
-      }
-
-      .list-body {
-        display: grid;
-        grid-template-columns: 1fr 1fr;
-        gap: 1px 16px;
-        align-content: start
-      }
-
-      .cat-lbl {
-        grid-column: 1/-1
-      }
-
-      #plansBody {
-        display: grid;
-        grid-template-columns: 1fr 1fr;
-        gap: 12px;
-        align-content: start
-      }
-
-      #plansBody .plan-card {
-        margin-bottom: 0
-      }
-    }
-
-    /* progress / streak */
-    .prog-stat-row {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      margin-bottom: 5px
-    }
-
-    .prog-stat-lbl {
-      font-size: 12px;
-      color: var(--tx2);
-      font-weight: 600
-    }
-
-    .prog-stat-pct {
-      font-size: 12px;
-      color: var(--ac);
-      font-weight: 700
-    }
-
-    .streak-row {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      margin-top: 12px;
-      padding-top: 12px;
-      border-top: 1px solid var(--br);
-      font-size: 13px;
-      color: var(--tx2);
-      font-weight: 600
-    }
-
-    /* offline banner */
-    .offline-banner {
-      display: none;
-      background: linear-gradient(135deg, #6a6a6a, #4a4a4a);
-      color: #fff;
-      font-size: 12px;
-      font-weight: 600;
-      text-align: center;
-      padding: 9px 14px
-    }
-
-    .offline-banner.on {
-      display: block
-    }
-
-    #pgReading .read-main {
-      flex: 1;
-      min-height: 0;
-      min-width: 0;
-      display: flex;
-      flex-direction: column;
-      overflow: hidden
-    }
-
-    /* reading sidebar (desktop chapter nav) */
-    .read-sidebar {
-      display: none;
-      width: 220px;
-      flex-shrink: 0;
-      border-right: 1px solid var(--br);
-      background: var(--sf2);
-      flex-direction: column;
-      overflow-y: auto;
-      padding: 14px
-    }
-
-    .read-sidebar-title {
-      font-size: 13px;
-      font-weight: 800;
       color: var(--tx);
-      margin-bottom: 10px
-    }
-
-    .read-sidebar .ch-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(36px, 1fr));
-      gap: 5px
-    }
-
-    @media(min-width:900px) {
-      .read-sidebar {
-        display: flex
-      }
-
-      #pgReading.on {
-        flex-direction: row
-      }
-    }
-
-    /* ── HAMBURGER MENU ── */
-    .hbg-btn {
-      position: absolute;
-      top: 14px;
-      right: 14px;
-      background: rgba(255, 255, 255, .15);
-      border: 1px solid rgba(255, 255, 255, .3);
-      border-radius: 10px;
-      padding: 8px 10px;
-      cursor: pointer;
-      touch-action: manipulation;
-      display: flex;
-      flex-direction: column;
-      gap: 4px;
-      z-index: 10
-    }
-
-    .hbg-line {
-      width: 20px;
-      height: 2px;
-      background: #fff;
-      border-radius: 2px;
-      display: block
-    }
-
-    .hmenu-bg {
-      display: none;
-      position: fixed;
-      inset: 0;
-      background: rgba(0, 0, 0, .5);
-      z-index: 400
-    }
-
-    .hmenu-bg.on {
-      display: block
-    }
-
-    .hmenu {
-      position: fixed;
-      top: 0;
-      right: 0;
-      bottom: 0;
-      width: 80vw;
-      max-width: 320px;
-      background: var(--sf);
-      z-index: 401;
-      display: flex;
-      flex-direction: column;
-      transform: translateX(100%);
-      transition: transform .28s ease;
-      box-shadow: -4px 0 20px rgba(0, 0, 0, .2)
-    }
-
-    .hmenu.on {
-      transform: translateX(0)
-    }
-
-    .hmenu-hd {
-      background: linear-gradient(135deg, var(--ac), var(--ac2));
-      padding: 32px 20px 20px;
-      flex-shrink: 0
-    }
-
-    .hmenu-logo {
-      display: flex;
-      align-items: center;
-      gap: 12px;
       margin-bottom: 12px
     }
 
-    .hmenu-logo-icon {
-      width: 44px;
-      height: 44px;
-      background: rgba(255, 255, 255, .2);
-      border-radius: 12px;
+    .plan-day-actions {
       display: flex;
+      gap: 8px
+    }
+
+    /* Offline */
+    .offline-banner {
+      display: none;
       align-items: center;
       justify-content: center;
-      font-size: 22px
-    }
-
-    .hmenu-logo-title {
-      font-family: 'Playfair Display', serif;
-      font-size: 20px;
+      gap: 8px;
+      padding: 8px 16px;
+      background: #374151;
       color: #fff;
-      font-weight: 700
-    }
-
-    .hmenu-logo-sub {
-      font-size: 10px;
-      color: rgba(255, 255, 255, .7);
-      letter-spacing: 1.5px;
-      text-transform: uppercase
-    }
-
-    .hmenu-ver-badge {
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-      background: rgba(255, 255, 255, .15);
-      border: 1px solid rgba(255, 255, 255, .3);
-      border-radius: 20px;
-      padding: 5px 12px
-    }
-
-    .hmenu-ver-txt {
       font-size: 12px;
-      color: #fff;
-      font-weight: 600
-    }
-
-    .hmenu-ver-dot {
-      width: 7px;
-      height: 7px;
-      border-radius: 50%;
-      background: #4caf50
-    }
-
-    .hmenu-body {
-      flex: 1;
-      overflow-y: auto;
-      -webkit-overflow-scrolling: touch;
-      padding: 8px 0
-    }
-
-    .hmenu-section {
-      padding: 6px 16px 2px;
-      font-size: 9px;
-      font-weight: 800;
-      letter-spacing: 2px;
-      text-transform: uppercase;
-      color: var(--tx3);
-      margin-top: 8px
-    }
-
-    .hmenu-item {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-      padding: 13px 20px;
-      cursor: pointer;
-      touch-action: manipulation;
-      border-bottom: 1px solid var(--br)
-    }
-
-    .hmenu-item:active {
-      background: var(--bg2)
-    }
-
-    .hmenu-item-icon {
-      font-size: 20px;
-      width: 28px;
-      text-align: center;
+      font-weight: 600;
       flex-shrink: 0
     }
 
-    .hmenu-item-text {
-      flex: 1
+    .offline-banner.on {
+      display: flex
     }
 
-    .hmenu-item-title {
-      font-size: 14px;
-      font-weight: 600;
-      color: var(--tx);
-      margin-bottom: 1px
+    /* Modals */
+    .modal-backdrop {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: var(--ov);
+      z-index: 600;
+      align-items: flex-end;
+      justify-content: center;
+      backdrop-filter: blur(4px)
     }
 
-    .hmenu-item-sub {
-      font-size: 11px;
-      color: var(--tx3)
+    .modal-backdrop.on {
+      display: flex
     }
 
-    .hmenu-item-arr {
-      color: var(--tx3);
-      font-size: 16px
-    }
-
-    .hmenu-ver-sel-wrap {
-      padding: 12px 16px;
-      border-bottom: 1px solid var(--br)
-    }
-
-    .hmenu-ver-label {
-      font-size: 10px;
-      font-weight: 800;
-      letter-spacing: 1.5px;
-      text-transform: uppercase;
-      color: var(--tx3);
-      margin-bottom: 6px
-    }
-
-    .hmenu-ver-sel {
+    .modal-sheet {
+      background: var(--bgel);
+      border-radius: var(--r5) var(--r5) 0 0;
+      padding: 24px 20px calc(24px + var(--safe-b));
       width: 100%;
-      padding: 9px 28px 9px 12px;
-      background: var(--bg2);
-      border: 1px solid var(--br);
-      border-radius: 8px;
-      color: var(--tx);
-      font-size: 13px;
-      font-weight: 600;
-      appearance: none;
-      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='8' height='5'%3E%3Cpath d='M0 0l4 5 4-5z' fill='%23888'/%3E%3C/svg%3E");
-      background-repeat: no-repeat;
-      background-position: right 10px center;
-      cursor: pointer;
-      touch-action: manipulation
+      max-height: 85vh;
+      overflow-y: auto;
+      animation: sheetUp var(--d3) var(--spring)
     }
 
-    .hmenu-ver-sel:focus {
-      outline: none;
+    .modal-title {
+      font-size: 18px;
+      font-weight: 700;
+      margin-bottom: 4px;
+      color: var(--tx)
+    }
+
+    .modal-subtitle {
+      font-size: 13px;
+      color: var(--tx3);
+      margin-bottom: 16px
+    }
+
+    .modal-verse-preview {
+      font-family: var(--frd);
+      font-size: 15px;
+      font-style: italic;
+      color: var(--tx2);
+      line-height: 1.5;
+      margin-bottom: 16px;
+      padding: 12px 16px;
+      background: var(--bgsrf);
+      border-radius: var(--r3);
+      border-left: 3px solid var(--ac)
+    }
+
+    .modal-note-ta {
+      width: 100%;
+      min-height: 120px;
+      padding: 12px 16px;
+      background: var(--bgsrf);
+      border: 1px solid var(--br2);
+      border-radius: var(--r3);
+      font-size: 15px;
+      color: var(--tx);
+      resize: vertical;
+      margin-bottom: 16px;
+      line-height: 1.6;
+      transition: border-color var(--d1)
+    }
+
+    .modal-note-ta:focus {
       border-color: var(--ac)
     }
 
-    .hmenu-cur-ver {
+    .modal-btns {
       display: flex;
-      align-items: center;
-      justify-content: space-between;
-      padding: 8px 0 0
+      gap: 12px
     }
 
-    .hmenu-cur-ver-name {
-      font-size: 12px;
-      color: var(--tx3)
+    .modal-btns>* {
+      flex: 1
     }
 
-    .hmenu-cur-ver-code {
-      font-size: 13px;
-      font-weight: 800;
-      color: var(--ac)
+    .share-canvas-wrap {
+      margin-bottom: 16px;
+      border-radius: var(--r3);
+      overflow: hidden
     }
 
-    .hmenu-footer {
-      padding: 14px 16px;
-      border-top: 1px solid var(--br);
-      flex-shrink: 0
-    }
-
-    .hmenu-footer-ver {
-      font-size: 11px;
-      color: var(--tx3);
-      text-align: center;
-      margin-bottom: 4px
-    }
-
-    .hmenu-footer-update {
-      font-size: 11px;
-      color: var(--ac);
-      font-weight: 700;
-      text-align: center;
-      cursor: pointer;
-      touch-action: manipulation
-    }
-
-    /* ── UPDATE BANNER ── */
-    .update-banner {
-      display: none;
-      position: fixed;
-      top: 0;
-      left: 0;
-      right: 0;
-      z-index: 2000;
-      background: linear-gradient(135deg, var(--ac), var(--ac2));
-      padding: 12px 16px;
-      box-shadow: 0 2px 12px rgba(0, 0, 0, .3)
-    }
-
-    .update-banner.on {
-      display: flex;
-      align-items: center;
-      gap: 10px
-    }
-
-    .update-banner-text {
-      flex: 1;
-      color: #fff;
-      font-size: 13px;
-      font-weight: 600
-    }
-
-    .update-banner-sub {
-      font-size: 11px;
-      color: rgba(255, 255, 255, .8);
+    #shareCanvas {
       display: block;
-      margin-top: 1px
+      width: 100%;
+      max-width: 100%
     }
 
-    .update-reload {
-      padding: 7px 14px;
-      background: rgba(255, 255, 255, .2);
-      border: 1px solid rgba(255, 255, 255, .4);
-      border-radius: 8px;
-      color: #fff;
-      font-size: 12px;
-      font-weight: 700;
-      cursor: pointer;
-      touch-action: manipulation;
-      flex-shrink: 0
+    .share-themes {
+      display: flex;
+      gap: 8px;
+      margin-bottom: 16px
     }
 
-    .update-close {
-      background: none;
-      border: none;
-      color: rgba(255, 255, 255, .7);
-      font-size: 18px;
+    .share-theme-dot {
+      width: 32px;
+      height: 32px;
+      border-radius: var(--r2);
+      border: 2px solid transparent;
       cursor: pointer;
-      touch-action: manipulation;
-      flex-shrink: 0;
-      padding: 2px 4px
+      transition: transform var(--d1), border-color var(--d1)
+    }
+
+    .share-theme-dot:active {
+      transform: scale(.83)
+    }
+
+    .share-theme-dot.on {
+      border-color: var(--tx)
+    }
+
+    /* Desktop */
+    @media(min-width:768px) {
+      .nav-grid {
+        grid-template-columns: repeat(3, 1fr)
+      }
+
+      .side-panel {
+        width: 400px
+      }
     }
 
     @media print {
 
-      .ctrl-bar,
       .read-topbar,
+      .read-fab-bar,
+      .read-controls-bar,
       .prog-bar,
-      #toast {
+      #toast-container,
+      .msel-bar,
+      .update-banner {
         display: none !important
       }
 
       .read-scroll {
-        padding: 20px;
         overflow: visible
       }
 
@@ -2502,359 +2982,603 @@
       }
     }
   </style>
-</head>
 
 <body>
 
-  <!-- ════ HOME ════ -->
-  <div class="page on" id="pgHome">
-    <div class="scroll-body" id="homeScroll">
-      <!-- Offline banner -->
-      <div class="offline-banner" id="offlineBanner">📡 Sem conexão — algumas funções podem não estar disponíveis</div>
-      <!-- Update banner -->
-      <div class="update-banner" id="updateBanner">
-        <div style="font-size:20px;flex-shrink:0">🎉</div>
-        <div class="update-banner-text">
-          Nova versão disponível!
-          <span class="update-banner-sub" id="updateBannerSub">Toque para atualizar</span>
-        </div>
-        <button class="update-reload" onclick="reloadApp()">Atualizar</button>
-        <button class="update-close" onclick="dismissUpdate()">✕</button>
-      </div>
+  <!-- ═══ UPDATE BANNER ═══ -->
+  <div class="update-banner" id="updateBanner">
+    <span style="font-size:20px;flex-shrink:0">✨</span>
+    <div class="update-banner-text">
+      <div class="update-banner-title">Atualização disponível</div>
+      <div class="update-banner-sub" id="updateBannerSub">Nova versão disponível</div>
+    </div>
+    <button class="update-reload-btn" onclick="reloadApp()">Atualizar</button>
+    <button class="update-close-btn" onclick="dismissUpdate()">
+      <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.5">
+        <path d="M18 6L6 18M6 6l12 12" />
+      </svg>
+    </button>
+  </div>
 
-      <div class="hero" style="position:relative">
-        <!-- Hamburger button -->
-        <button class="hbg-btn" onclick="openHMenu()" aria-label="Menu">
-          <span class="hbg-line"></span>
-          <span class="hbg-line"></span>
-          <span class="hbg-line"></span>
-        </button>
-        <div class="hero-icon">
-          <svg width="56" height="56" viewBox="0 0 56 56" fill="none">
-            <rect x="7" y="4" width="36" height="48" rx="3" fill="rgba(255,255,255,.18)" stroke="rgba(255,255,255,.8)"
-              stroke-width="1.5" />
-            <rect x="7" y="4" width="6" height="48" rx="2" fill="rgba(255,255,255,.12)" stroke="rgba(255,255,255,.5)"
-              stroke-width="1" />
-            <line x1="28" y1="16" x2="28" y2="34" stroke="white" stroke-width="2.5" stroke-linecap="round" />
-            <line x1="20" y1="23" x2="36" y2="23" stroke="white" stroke-width="2.5" stroke-linecap="round" />
+  <div id="toast-container"></div>
+
+  <!-- ═══ HOME ═══ -->
+  <div class="page on" id="pgHome">
+    <div class="offline-banner" id="offlineBanner">
+      <svg viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" stroke-width="2">
+        <path
+          d="M1 1l22 22M16.72 11.06A10.94 10.94 0 0119 12.55M5 12.55a10.94 10.94 0 015.17-2.39M10.71 5.05A16 16 0 0122.56 9M1.42 9a15.91 15.91 0 014.7-2.88M8.53 16.11a6 6 0 016.95 0M12 20h.01" />
+      </svg>
+      Sem conexão — modo offline ativo
+    </div>
+    <div class="home-header">
+      <div class="home-logo">
+        <div class="home-logo-mark">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+            <path d="M4 19.5A2.5 2.5 0 016.5 17H20" />
+            <path d="M6.5 2H20v20H6.5A2.5 2.5 0 014 19.5v-15A2.5 2.5 0 016.5 2z" />
+            <line x1="12" y1="7" x2="12" y2="13" stroke-linecap="round" />
+            <line x1="9" y1="10" x2="15" y2="10" stroke-linecap="round" />
           </svg>
         </div>
-        <div class="hero-title">Bíblia Sagrada</div>
-        <div class="hero-sub">Palavra de Deus</div>
+        <div>
+          <div class="home-logo-title">Bíblia Sagrada</div>
+          <div class="home-logo-sub">Palavra de Deus</div>
+        </div>
       </div>
-      <div class="home-body">
-        <div id="continueBar" class="continue-bar" style="display:none" onclick="doContinue()">
-          <span style="font-size:20px">📖</span>
-          <div style="flex:1">
-            <div style="font-size:14px;font-weight:700;color:#fff">Continuar lendo</div>
-            <div id="continueRef" style="font-size:12px;color:rgba(255,255,255,.8)"></div>
-          </div>
-          <span style="color:rgba(255,255,255,.8);font-size:20px">›</span>
+      <button class="ibtn" onclick="openHMenu()" aria-label="Menu">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
+          <line x1="3" y1="6" x2="21" y2="6" />
+          <line x1="3" y1="12" x2="21" y2="12" />
+          <line x1="3" y1="18" x2="21" y2="18" />
+        </svg>
+      </button>
+    </div>
+    <div class="scroll-y">
+      <!-- Banner -->
+      <div class="home-banner">
+        <div class="home-banner-pattern"></div>
+        <svg class="home-banner-cross" viewBox="0 0 80 120" width="80" height="120" fill="none">
+          <rect x="30" y="0" width="20" height="120" rx="4" fill="white" opacity=".55" />
+          <rect x="0" y="30" width="80" height="20" rx="4" fill="white" opacity=".55" />
+        </svg>
+        <div class="home-banner-content">
+          <div class="home-banner-eyebrow">✦ Devocional do Dia</div>
+          <div class="home-banner-verse" id="bannerVerse">Carregando...</div>
+          <div class="home-banner-ref" id="bannerRef"></div>
+          <button class="home-banner-btn" onclick="devGoRead()">
+            Ler passagem
+            <svg viewBox="0 0 24 24" width="11" height="11" fill="none" stroke="currentColor" stroke-width="2.5">
+              <path d="M5 12h14M12 5l7 7-7 7" />
+            </svg>
+          </button>
         </div>
-
-        <!-- Devocional do Dia -->
-        <div class="dev-card" id="devCard">
-          <div class="day-label">🌅 Devocional do Dia</div>
-          <div class="day-date" id="devDate">—</div>
-          <div class="dev-title" id="devTitle"></div>
-          <div class="dev-body" id="devBody"></div>
-          <div style="display:flex;align-items:center;justify-content:space-between">
-            <div class="day-ref" id="devRef" style="text-align:left"></div>
-            <button class="dev-read-btn" id="devReadBtn" onclick="devGoRead()">Ler passagem →</button>
-          </div>
+      </div>
+      <!-- Continue -->
+      <div class="continue-bar" id="continueBar" onclick="doContinue()">
+        <div class="continue-icon">
+          <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M4 19.5A2.5 2.5 0 016.5 17H20" />
+            <path d="M6.5 2H20v20H6.5A2.5 2.5 0 014 19.5v-15A2.5 2.5 0 016.5 2z" />
+          </svg>
         </div>
-
-        <!-- Progresso de leitura + sequência -->
-        <div class="card" id="progressCard">
-          <div class="sec-label">Seu progresso</div>
-          <div class="prog-stat-row">
-            <span class="prog-stat-lbl">Antigo Testamento</span>
-            <span class="prog-stat-pct" id="atPct">0%</span>
-          </div>
-          <div class="plan-prog-wrap">
-            <div class="plan-prog-fill" id="atProgFill" style="width:0%"></div>
-          </div>
-          <div class="prog-stat-row" style="margin-top:10px">
-            <span class="prog-stat-lbl">Novo Testamento</span>
-            <span class="prog-stat-pct" id="ntPct">0%</span>
-          </div>
-          <div class="plan-prog-wrap">
-            <div class="plan-prog-fill" id="ntProgFill" style="width:0%"></div>
-          </div>
-          <div class="streak-row" id="streakRow" style="display:none">
-            <span style="font-size:18px">🔥</span>
-            <span id="streakTxt"></span>
-          </div>
+        <div style="flex:1;min-width:0">
+          <div class="continue-label">Continuar lendo</div>
+          <div class="continue-ref" id="continueRef">—</div>
         </div>
-
+        <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.5"
+          style="color:var(--ac);flex-shrink:0">
+          <path d="M5 12h14M12 5l7 7-7 7" />
+        </svg>
+      </div>
+      <!-- Nav grid -->
+      <div class="home-section">
+        <div class="home-section-title">Explorar</div>
         <div class="nav-grid">
-          <div class="nav-card" onclick="goPage('pgSelector')">
-            <div class="nav-icon" style="background:linear-gradient(135deg,#7c4f1e,#a06830)">
-              <svg width="22" height="22" viewBox="0 0 24 24" fill="none">
-                <rect x="3" y="2" width="14" height="20" rx="2" fill="rgba(255,255,255,.25)" stroke="white"
-                  stroke-width="1.5" />
-                <line x1="6" y1="2" x2="6" y2="22" stroke="white" stroke-width="1.5" />
-                <line x1="11" y1="7" x2="11" y2="15" stroke="white" stroke-width="2" stroke-linecap="round" />
-                <line x1="8" y1="10" x2="14" y2="10" stroke="white" stroke-width="2" stroke-linecap="round" />
+          <div class="nav-card nc-bible" onclick="goPage('pgSelector')">
+            <div class="nav-card-icon">
+              <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="#fff" stroke-width="1.8">
+                <path d="M4 19.5A2.5 2.5 0 016.5 17H20" />
+                <path d="M6.5 2H20v20H6.5A2.5 2.5 0 014 19.5v-15A2.5 2.5 0 016.5 2z" />
+                <line x1="12" y1="7" x2="12" y2="13" stroke-linecap="round" />
+                <line x1="9" y1="10" x2="15" y2="10" stroke-linecap="round" />
               </svg>
             </div>
-            <div>
-              <h3>Bíblia</h3>
-              <p>Escolha o livro, capítulo e versículo</p>
-            </div>
-            <div class="nav-arr">›</div>
+            <div class="nav-card-title">Bíblia</div>
+            <div class="nav-card-desc" id="hmenuHistCount">66 livros</div>
           </div>
-
-          <div class="nav-card" onclick="goPage('pgPlans')">
-            <div class="nav-icon" style="background:linear-gradient(135deg,#2a7a4a,#3a9a5a)"><span
-                style="color:#fff;font-size:20px">📅</span></div>
-            <div>
-              <h3>Planos de Leitura</h3>
-              <p>Leia a Bíblia com um plano diário</p>
+          <div class="nav-card nc-dev" onclick="devGoRead()">
+            <div class="nav-card-icon">
+              <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="#fff" stroke-width="1.8">
+                <circle cx="12" cy="12" r="10" />
+                <polyline points="12 6 12 12 16 14" />
+              </svg>
             </div>
-            <div class="nav-arr">›</div>
+            <div class="nav-card-title">Devocional</div>
+            <div class="nav-card-desc">Reflexão do dia</div>
           </div>
-
-          <div class="nav-card" onclick="openPanel('bm')">
-            <div class="nav-icon" style="background:linear-gradient(135deg,#5a6aac,#7a8acc)"><span
-                style="color:#fff;font-size:20px">🔖</span></div>
-            <div>
-              <h3>Favoritos</h3>
-              <p>Capítulos marcados para ler depois</p>
+          <div class="nav-card nc-plans" onclick="goPage('pgPlans')">
+            <div class="nav-card-icon">
+              <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="#fff" stroke-width="1.8">
+                <rect x="3" y="4" width="18" height="18" rx="2" />
+                <line x1="16" y1="2" x2="16" y2="6" />
+                <line x1="8" y1="2" x2="8" y2="6" />
+                <line x1="3" y1="10" x2="21" y2="10" />
+              </svg>
             </div>
-            <div class="nav-arr">›</div>
+            <div class="nav-card-title">Planos</div>
+            <div class="nav-card-desc">Leia com estrutura</div>
           </div>
-
-          <div class="nav-card" onclick="openPanel('hl')">
-            <div class="nav-icon" style="background:linear-gradient(135deg,#a06030,#c08050)"><span
-                style="color:#fff;font-size:20px">🖍️</span></div>
-            <div>
-              <h3>Destaques</h3>
-              <p>Versículos marcados com cores</p>
+          <div class="nav-card nc-bm" onclick="openPanel('bm')">
+            <div class="nav-card-icon">
+              <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="#fff" stroke-width="1.8">
+                <path d="M19 21l-7-5-7 5V5a2 2 0 012-2h10a2 2 0 012 2z" />
+              </svg>
             </div>
-            <div class="nav-arr">›</div>
+            <div class="nav-card-title">Favoritos</div>
+            <div class="nav-card-desc" id="hmenuBmCount">0 salvos</div>
           </div>
-
-          <div class="nav-card" onclick="openPanel('hist')">
-            <div class="nav-icon" style="background:linear-gradient(135deg,#6a3a8a,#8a5aaa)"><span
-                style="color:#fff;font-size:20px">📜</span></div>
-            <div>
-              <h3>Histórico de Leitura</h3>
-              <p>Capítulos que você já leu</p>
+          <div class="nav-card nc-hl" onclick="openPanel('hl')">
+            <div class="nav-card-icon">
+              <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="#fff" stroke-width="1.8">
+                <path d="M12 20h9" />
+                <path d="M16.5 3.5a2.121 2.121 0 013 3L7 19l-4 1 1-4L16.5 3.5z" />
+              </svg>
             </div>
-            <div class="nav-arr">›</div>
+            <div class="nav-card-title">Destaques</div>
+            <div class="nav-card-desc" id="hmenuHlCount">0 versículos</div>
+          </div>
+          <div class="nav-card nc-hist" onclick="openPanel('hist')">
+            <div class="nav-card-icon">
+              <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="#fff" stroke-width="1.8">
+                <polyline points="12 8 12 12 14 14" />
+                <path d="M3.05 11a9 9 0 1 1 .5 4m-.5 5v-5h5" />
+              </svg>
+            </div>
+            <div class="nav-card-title">Histórico</div>
+            <div class="nav-card-desc">Capítulos lidos</div>
+          </div>
+        </div>
+      </div>
+      <!-- Devocional card -->
+      <div class="home-section" style="padding-bottom:32px">
+        <div class="dev-card">
+          <div class="dev-card-eyebrow">
+            <span class="dev-card-tag">✦ Devocional</span>
+            <span class="dev-card-date" id="devDate">—</span>
+          </div>
+          <div class="dev-card-title" id="devTitle">Carregando...</div>
+          <div class="dev-card-body" id="devBody"></div>
+          <div class="dev-card-footer">
+            <div class="dev-card-ref" id="devRef"></div>
+            <button class="dev-card-btn" id="devReadBtn" onclick="devGoRead()">
+              Ler passagem
+              <svg viewBox="0 0 24 24" width="11" height="11" fill="none" stroke="currentColor" stroke-width="2.5">
+                <path d="M5 12h14M12 5l7 7-7 7" />
+              </svg>
+            </button>
           </div>
         </div>
       </div>
     </div>
   </div>
 
-  <!-- ════ SELECTOR ════ -->
+  <!-- ═══ BOOK SELECTOR ═══ -->
   <div class="page" id="pgSelector">
-    <div class="page-hdr">
-      <button class="back-btn" onclick="goPage('pgHome')">‹ Início</button>
-      <span class="pg-title">Escolha o Livro</span>
+    <div class="selector-topbar">
+      <button class="ibtn" onclick="goPage('pgHome')" aria-label="Voltar">
+        <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2.5">
+          <path d="M19 12H5M12 19l-7-7 7-7" />
+        </svg>
+      </button>
+      <span class="topbar-title">Escolha o Livro</span>
       <select id="vselTop" onchange="changeVer(this.value)"
-        style="padding:5px 20px 5px 8px;background:var(--bg2);border:1px solid var(--br);border-radius:8px;color:var(--ac);font-size:11px;font-weight:700;appearance:none;background-image:url('data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%228%22 height=%225%22%3E%3Cpath d=%22M0 0l4 5 4-5z%22 fill=%22%23888%22/%3E%3C/svg%3E');background-repeat:no-repeat;background-position:right 6px center;cursor:pointer;touch-action:manipulation"></select>
+        style="padding:6px 22px 6px 10px;background:var(--acsf);border:1px solid var(--brac);border-radius:999px;color:var(--ac);font-size:12px;font-weight:700;appearance:none;background-image:url(&quot;data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6'%3E%3Cpath d='M0 0l5 6 5-6z' fill='%231A6B4A'/%3E%3C/svg%3E&quot;);background-repeat:no-repeat;background-position:right 8px center;cursor:pointer"></select>
+    </div>
+    <div class="search-wrap">
+      <div class="search-input-wrap">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <circle cx="11" cy="11" r="8" />
+          <path d="M21 21l-4.35-4.35" />
+        </svg>
+        <input id="bSearch" type="text" placeholder="Buscar livro..." oninput="filterBooks(this.value)">
+      </div>
     </div>
     <div class="seg-tabs">
-      <button class="seg-tab on" id="tabAT" onclick="setTest('at',this)">Antigo</button>
-      <button class="seg-tab" id="tabNT" onclick="setTest('nt',this)">Novo</button>
+      <button class="seg-tab on" id="tabAT" onclick="setTest('at',this)">Antigo Testamento</button>
+      <button class="seg-tab" id="tabNT" onclick="setTest('nt',this)">Novo Testamento</button>
     </div>
-    <div class="search-row"><input id="bSearch" type="text" placeholder="Buscar livro..."
-        oninput="filterBooks(this.value)"></div>
-    <div class="list-body" id="bookList"></div>
+    <div class="scroll-y">
+      <div class="book-list-body" id="bookList"></div>
+    </div>
   </div>
 
-  <!-- ════ CHAPVER ════ -->
+  <!-- ═══ CHAPTER/VERSE ═══ -->
   <div class="page" id="pgChapVer">
-    <div class="page-hdr">
-      <button class="back-btn" onclick="goPage('pgSelector')">‹ Livros</button>
-      <span class="pg-title" id="cvTitle">Capítulo</span>
+    <div class="selector-topbar">
+      <button class="ibtn" onclick="goPage('pgSelector')" aria-label="Voltar">
+        <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2.5">
+          <path d="M19 12H5M12 19l-7-7 7-7" />
+        </svg>
+      </button>
+      <span class="topbar-title" id="cvTitle">Capítulo</span>
     </div>
-    <div class="cv-body" id="cvBody"></div>
+    <div class="scroll-y">
+      <div class="chapver-body" id="cvBody"></div>
+    </div>
   </div>
 
-  <!-- ════ READING ════ -->
+  <!-- ═══ READING ═══ -->
   <div class="page" id="pgReading">
-    <div class="read-sidebar" id="readSidebar">
-      <div class="read-sidebar-title" id="sbTitle">—</div>
-      <div class="ch-grid" id="sbChGrid"></div>
+    <div class="read-topbar">
+      <div class="read-tb-row1">
+        <button class="read-book-btn" onclick="goPage('pgSelector')">
+          <svg viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" stroke-width="2"
+            style="color:var(--ac);flex-shrink:0">
+            <path d="M4 19.5A2.5 2.5 0 016.5 17H20" />
+            <path d="M6.5 2H20v20H6.5A2.5 2.5 0 014 19.5v-15A2.5 2.5 0 016.5 2z" />
+          </svg>
+          <span class="read-book-name" id="navBook">—</span>
+        </button>
+        <span style="color:var(--tx3);font-size:11px;flex-shrink:0">Cap.</span>
+        <span class="read-ch-badge" id="navCh" onclick="openCaps()">1</span>
+        <select class="read-ver-sel" id="navVer" onchange="changeVer(this.value)"></select>
+        <div class="spacer"></div>
+        <button class="ibtn" id="btnS" onclick="toggleSearch()" aria-label="Buscar">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <circle cx="11" cy="11" r="8" />
+            <path d="M21 21l-4.35-4.35" />
+          </svg>
+        </button>
+        <button class="ibtn" onclick="openHMenu()" aria-label="Menu">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
+            <line x1="3" y1="6" x2="21" y2="6" />
+            <line x1="3" y1="12" x2="21" y2="12" />
+            <line x1="3" y1="18" x2="21" y2="18" />
+          </svg>
+        </button>
+      </div>
+      <div class="read-tb-row2">
+        <button class="read-nav-btn" onclick="prevCh()">
+          <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5">
+            <path d="M15 18l-6-6 6-6" />
+          </svg>
+          Anterior
+        </button>
+        <button class="read-caps-btn" onclick="openCaps()">
+          Capítulos
+          <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5">
+            <path d="M6 9l6 6 6-6" />
+          </svg>
+        </button>
+        <button class="read-nav-btn" onclick="nextCh()">
+          Próximo
+          <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5">
+            <path d="M9 18l6-6-6-6" />
+          </svg>
+        </button>
+        <button class="ibtn" onclick="goPage('pgHome')" aria-label="Início"
+          style="flex-shrink:0;width:36px;height:36px">
+          <svg viewBox="0 0 24 24" width="19" height="19" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z" />
+            <polyline points="9 22 9 12 15 12 15 22" />
+          </svg>
+        </button>
+      </div>
     </div>
-    <div class="read-main">
-      <div class="read-topbar">
-        <div class="rt-row1">
-          <button class="book-btn" onclick="goPage('pgSelector')">
-            <span style="font-size:13px">📚</span>
-            <span class="book-btn-name" id="navBook">—</span>
-          </button>
-          <span style="color:var(--tx3);font-size:11px">Cap.</span>
-          <span class="ch-badge" id="navCh" onclick="openCaps()">1</span>
-          <select class="ver-pick" id="navVer" onchange="changeVer(this.value)"></select>
-          <div class="spacer"></div>
-          <div class="rt-actions">
-            <button class="ibtn" id="btnS" onclick="toggleSearch()">🔍</button>
-            <button class="ibtn" id="btnCmp" onclick="toggleCompare()">⚖️</button>
-            <button class="ibtn" id="btnA" onclick="toggleAudio()">🔊</button>
-            <button class="ibtn" onclick="addBm()">🔖</button>
-          </div>
-        </div>
-        <div class="rt-row2">
-          <button class="nav-btn" onclick="prevCh()">‹ Anterior</button>
-          <button class="caps-btn" onclick="openCaps()">Caps ⌄</button>
-          <button class="nav-btn" onclick="nextCh()">Próximo ›</button>
-          <button class="home-btn" onclick="goPage('pgHome')">⌂</button>
-        </div>
-      </div>
-
-      <div class="sbar" id="sbar">
+    <!-- FAB bar -->
+    <div class="read-fab-bar">
+      <button class="fab-btn" id="btnA" onclick="toggleAudio()">
+        <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2">
+          <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5" />
+          <path d="M19.07 4.93a10 10 0 010 14.14M15.54 8.46a5 5 0 010 7.07" />
+        </svg>
+        Áudio
+      </button>
+      <button class="fab-btn" id="btnCmp" onclick="toggleCompare()">
+        <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M18 20V10M12 20V4M6 20v-6" />
+        </svg>
+        Comparar
+      </button>
+      <button class="fab-btn" onclick="addBm()">
+        <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M19 21l-7-5-7 5V5a2 2 0 012-2h10a2 2 0 012 2z" />
+        </svg>
+        Favoritar
+      </button>
+      <button class="fab-btn" onclick="openPanel('notes')">
+        <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M11 4H4a2 2 0 00-2 2v14a2 2 0 002 2h14a2 2 0 002-2v-7" />
+          <path d="M18.5 2.5a2.121 2.121 0 013 3L12 15l-4 1 1-4 9.5-9.5z" />
+        </svg>
+        Anotações
+      </button>
+    </div>
+    <!-- Search bar -->
+    <div class="sbar" id="sbar">
+      <div class="search-input-wrap" style="flex:1">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <circle cx="11" cy="11" r="8" />
+          <path d="M21 21l-4.35-4.35" />
+        </svg>
         <input class="sinput" id="sinput" placeholder="Buscar no capítulo..."
-          onkeydown="if(event.key==='Enter')doSearch()">
-        <button class="s-go" onclick="doSearch()">Buscar</button>
-        <button class="s-cl" onclick="clearSearch()">✕</button>
+          style="background:none;border:none;padding:9px 0" onkeydown="if(event.key==='Enter')doSearch()">
       </div>
-
-      <div class="cmp-bar" id="cmpBar">
-        <span class="cmp-label">Comparar:</span>
-        <div id="cmpBtns" style="display:flex;gap:5px;flex-wrap:wrap"></div>
-        <button class="s-cl" onclick="toggleCompare()">✕</button>
-      </div>
-
-      <div class="abar" id="abar">
-        <button class="play-btn" id="playBtn" onclick="togglePlay()">▶</button>
-        <div class="a-prog-wrap">
-          <div class="a-prog" onclick="seekAudio(event)">
-            <div class="a-fill" id="aFill"></div>
-          </div>
-          <div class="a-info">
-            <span class="a-pct" id="aPct">0%</span>
-            <select class="a-voice" id="aVoice" onchange="onVoiceChange(this)">
-              <option>Carregando...</option>
-            </select>
-            <select class="a-speed" id="aSpeed" onchange="onSpeedChange(this.value)">
-              <option value=".75">.75×</option>
-              <option value="1" selected>1×</option>
-              <option value="1.25">1.25×</option>
-              <option value="1.5">1.5×</option>
-              <option value="2">2×</option>
-            </select>
+      <button class="s-go" onclick="doSearch()">Buscar</button>
+      <button class="s-cl" onclick="clearSearch()">✕</button>
+    </div>
+    <!-- Compare bar -->
+    <div class="cmp-bar" id="cmpBar">
+      <span class="cmp-label">Versões:</span>
+      <div id="cmpBtns" style="display:flex;gap:6px;flex-wrap:wrap;flex:1"></div>
+      <button class="s-cl" onclick="toggleCompare()">✕</button>
+    </div>
+    <!-- Audio bar -->
+    <div class="abar" id="abar">
+      <button class="audio-play-btn" id="playBtn" onclick="togglePlay()">
+        <svg id="playIcon" viewBox="0 0 24 24" fill="currentColor" width="17" height="17">
+          <polygon points="5 3 19 12 5 21 5 3" />
+        </svg>
+      </button>
+      <div class="audio-info-col">
+        <div class="audio-prog-row">
+          <span class="audio-pct" id="aPct">0%</span>
+          <div class="audio-bar-prog" onclick="seekAudio(event)">
+            <div class="audio-bar-fill" id="aFill"></div>
           </div>
         </div>
-        <button class="stop-btn" onclick="stopAudio()">⏹</button>
+        <div class="audio-controls-row">
+          <select class="audio-voice-sel" id="aVoice" onchange="onVoiceChange(this)">
+            <option>Carregando...</option>
+          </select>
+          <select class="audio-speed-sel" id="aSpeed" onchange="onSpeedChange(this.value)">
+            <option value=".75">.75×</option>
+            <option value="1" selected>1×</option>
+            <option value="1.25">1.25×</option>
+            <option value="1.5">1.5×</option>
+            <option value="2">2×</option>
+          </select>
+        </div>
       </div>
-
+      <button onclick="stopAudio()"
+        style="padding:8px;color:var(--tx3);border-radius:8px;display:flex;align-items:center">⏹</button>
+    </div>
+    <!-- Reading area -->
+    <div class="read-main">
       <div class="read-scroll" id="readScroll" onscroll="onScroll()">
-        <div id="readContent">
+        <div class="read-content" id="readContent">
           <div class="state-box">
             <div class="spinner"></div>
           </div>
         </div>
       </div>
-
-      <div class="ctrl-bar" id="ctrlBar">
-        <div class="ctrl-toggle"><button class="ctrl-toggle-btn" onclick="toggleCtrl()">⚙ Aparência ⌄</button></div>
-        <div class="ctrl-body" id="ctrlBody">
-          <div class="ctrl-row">
-            <span class="ctrl-lbl">Tema</span>
-            <div class="th-dots">
-              <div class="th-dot on" data-t="default" style="background:#f8f5ef;border-color:#d4c9b0"
-                onclick="setTheme('default',this)"></div>
-              <div class="th-dot" data-t="sepia" style="background:#f4ede0" onclick="setTheme('sepia',this)"></div>
-              <div class="th-dot" data-t="dark" style="background:#1a1710" onclick="setTheme('dark',this)"></div>
-              <div class="th-dot" data-t="night" style="background:#080c14" onclick="setTheme('night',this)"></div>
-              <div class="th-dot" data-t="forest" style="background:#0d1509" onclick="setTheme('forest',this)"></div>
-              <div class="th-dot" data-t="rose" style="background:#fdf4f5;border-color:#e8c8cc"
-                onclick="setTheme('rose',this)"></div>
-            </div>
+    </div>
+    <!-- Reading controls -->
+    <div class="read-controls-bar" id="ctrlBar">
+      <div class="read-controls-toggle" onclick="toggleCtrl()">
+        <div class="read-controls-handle"></div>
+      </div>
+      <div class="read-controls-body" id="ctrlBody">
+        <div class="ctrl-row">
+          <span class="ctrl-label">Tema</span>
+          <div class="theme-dots">
+            <div class="theme-dot on" data-t="default" style="background:#F7F5F0;border-color:#C8C0B0"
+              onclick="setTheme('default',this)"></div>
+            <div class="theme-dot" data-t="sepia" style="background:#F5EDD9" onclick="setTheme('sepia',this)"></div>
+            <div class="theme-dot" data-t="dark" style="background:#1E1E1E" onclick="setTheme('dark',this)"></div>
+            <div class="theme-dot" data-t="night" style="background:#080C14" onclick="setTheme('night',this)"></div>
           </div>
-          <div class="ctrl-row">
-            <span class="ctrl-lbl">Fonte</span>
-            <div class="font-pills">
-              <button class="fpill on" data-f="'Crimson Pro',serif" onclick="setFont(this)">Crimson</button>
-              <button class="fpill" data-f="Georgia,serif" onclick="setFont(this)">Georgia</button>
-              <button class="fpill" data-f="'Lora',serif" onclick="setFont(this)">Lora</button>
-              <button class="fpill" data-f="'Merriweather',serif" onclick="setFont(this)">Merriweather</button>
-              <button class="fpill" data-f="'Spectral',serif" onclick="setFont(this)">Spectral</button>
-            </div>
+        </div>
+        <div class="ctrl-row">
+          <span class="ctrl-label">Fonte</span>
+          <div class="font-pills">
+            <button class="font-pill on" data-f="'Lora',Georgia,serif" onclick="setFont(this)">Lora</button>
+            <button class="font-pill" data-f="'Inter',sans-serif" onclick="setFont(this)">Inter</button>
+            <button class="font-pill" data-f="Georgia,serif" onclick="setFont(this)">Georgia</button>
+            <button class="font-pill" data-f="'Merriweather',serif" onclick="setFont(this)">Merriweather</button>
           </div>
-          <div class="ctrl-row">
-            <span class="ctrl-lbl">Tamanho</span>
-            <div class="sz-row">
-              <button class="sz-btn" onclick="chFS(-1)" style="font-size:12px">A</button>
-              <span class="sz-val" id="fsVal">18px</span>
-              <button class="sz-btn" onclick="chFS(1)" style="font-size:17px">A</button>
-              <input type="range" min="12" max="28" value="18" id="fsRange" oninput="setFS(this.value)">
-            </div>
+        </div>
+        <div class="ctrl-row">
+          <span class="ctrl-label">Tamanho</span>
+          <div class="size-row">
+            <button class="sz-btn" onclick="chFS(-1)" style="font-size:12px">A</button>
+            <span class="sz-val" id="fsVal">18px</span>
+            <button class="sz-btn" onclick="chFS(1)" style="font-size:18px">A</button>
+            <input class="sz-slider" type="range" min="14" max="26" value="18" id="fsRange" oninput="setFS(this.value)">
           </div>
-          <div class="ctrl-row">
-            <span class="ctrl-lbl">Espaço</span>
-            <div class="sz-row">
-              <button class="sz-btn" onclick="chLH(-.1)" style="font-size:10px">≡</button>
-              <span class="sz-val" id="lhVal">1.85</span>
-              <button class="sz-btn" onclick="chLH(.1)" style="font-size:10px">≣</button>
-              <input type="range" min="1.2" max="2.5" step="0.05" value="1.85" id="lhRange" oninput="setLH(this.value)">
-            </div>
+        </div>
+        <div class="ctrl-row">
+          <span class="ctrl-label">Espaço</span>
+          <div class="size-row">
+            <button class="sz-btn" onclick="chLH(-.1)">≡</button>
+            <span class="sz-val" id="lhVal">1.85</span>
+            <button class="sz-btn" onclick="chLH(.1)">≣</button>
+            <input class="sz-slider" type="range" min="1.2" max="2.4" step="0.05" value="1.85" id="lhRange"
+              oninput="setLH(this.value)">
           </div>
         </div>
       </div>
     </div>
   </div>
 
-  <!-- ════ READING PLANS ════ -->
+  <!-- ═══ PLANS ═══ -->
   <div class="page" id="pgPlans">
-    <div class="page-hdr">
-      <button class="back-btn" onclick="goPage('pgHome')">‹ Início</button>
-      <span class="pg-title">Planos de Leitura</span>
+    <div class="selector-topbar">
+      <button class="ibtn" onclick="goPage('pgHome')" aria-label="Voltar">
+        <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2.5">
+          <path d="M19 12H5M12 19l-7-7 7-7" />
+        </svg>
+      </button>
+      <span class="topbar-title">Planos de Leitura</span>
     </div>
-    <div class="scroll-body" style="padding:16px" id="plansBody"></div>
+    <div class="scroll-y">
+      <div class="plans-body" id="plansBody"></div>
+    </div>
   </div>
 
-  <!-- ════ PLAN DETAIL ════ -->
+  <!-- ═══ PLAN DETAIL ═══ -->
   <div class="page" id="pgPlanDetail">
-    <div class="page-hdr">
-      <button class="back-btn" onclick="goPage('pgPlans')">‹ Planos</button>
-      <span class="pg-title" id="planDetailTitle">Plano</span>
+    <div class="selector-topbar">
+      <button class="ibtn" onclick="goPage('pgPlans')" aria-label="Voltar">
+        <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2.5">
+          <path d="M19 12H5M12 19l-7-7 7-7" />
+        </svg>
+      </button>
+      <span class="topbar-title" id="planDetailTitle">Plano</span>
     </div>
-    <div class="scroll-body" style="padding:16px" id="planDetailBody"></div>
+    <div class="scroll-y">
+      <div class="plan-detail-body" id="planDetailBody"></div>
+    </div>
   </div>
 
-  <!-- multi-select bar -->
+  <!-- ═══ OVERLAYS ═══ -->
+  <!-- Multi-select bar -->
   <div class="msel-bar" id="mselBar">
-    <div class="msel-top">
-      <span class="msel-count" id="mselCount">0 selecionados</span>
-      <button class="msel-cancel" onclick="clearSel()">Cancelar</button>
+    <div class="msel-header">
+      <div class="msel-count">
+        <div class="msel-count-badge" id="mselBadge">0</div>
+        <span id="mselCount">selecionados</span>
+      </div>
+      <button class="msel-cancel-btn" onclick="clearSel()">Cancelar</button>
     </div>
     <div class="msel-actions">
-      <span style="font-size:11px;color:var(--tx3)">Cor:</span>
-      <div class="hl-dot" style="background:#f0c040" onclick="applyHLMulti('yellow')"></div>
-      <div class="hl-dot" style="background:#40a060" onclick="applyHLMulti('green')"></div>
-      <div class="hl-dot" style="background:#4080e0" onclick="applyHLMulti('blue')"></div>
-      <div class="hl-dot" style="background:#e04080" onclick="applyHLMulti('pink')"></div>
-      <div class="hl-dot" style="background:#8040c0" onclick="applyHLMulti('purple')"></div>
-      <button class="hl-rm" onclick="applyHLMulti(null)">🗑</button>
-      <button class="note-btn" onclick="openNoteFromSel()">📝 Nota</button>
-      <button class="note-btn" onclick="shareVerseText()">🔗 Texto</button>
-      <button class="share-verse-btn" onclick="openShareFromSel()">🖼️ Imagem</button>
+      <div class="hl-colors">
+        <div class="hl-dot" style="background:#EAB308" onclick="applyHLMulti('yellow')" title="Amarelo"></div>
+        <div class="hl-dot" style="background:#16A34A" onclick="applyHLMulti('green')" title="Verde"></div>
+        <div class="hl-dot" style="background:#2563EB" onclick="applyHLMulti('blue')" title="Azul"></div>
+        <div class="hl-dot" style="background:#7C3AED" onclick="applyHLMulti('purple')" title="Roxo"></div>
+        <div class="hl-dot" style="background:#DC2626" onclick="applyHLMulti('red')" title="Vermelho"></div>
+      </div>
+      <div class="msel-action-btns">
+        <button class="msel-action-btn" onclick="applyHLMulti(null)">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="13" height="13">
+            <polyline points="3 6 5 6 21 6" />
+            <path d="M19 6v14a2 2 0 01-2 2H7a2 2 0 01-2-2V6m3 0V4a2 2 0 012-2h4a2 2 0 012 2v2" />
+          </svg>
+          Remover
+        </button>
+        <button class="msel-action-btn" onclick="openNoteFromSel()">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="13" height="13">
+            <path d="M11 4H4a2 2 0 00-2 2v14a2 2 0 002 2h14a2 2 0 002-2v-7" />
+            <path d="M18.5 2.5a2.121 2.121 0 013 3L12 15l-4 1 1-4 9.5-9.5z" />
+          </svg>
+          Nota
+        </button>
+        <button class="msel-action-btn" onclick="openShareFromSel()">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="13" height="13">
+            <circle cx="18" cy="5" r="3" />
+            <circle cx="6" cy="12" r="3" />
+            <circle cx="18" cy="19" r="3" />
+            <line x1="8.59" y1="13.51" x2="15.42" y2="17.49" />
+            <line x1="15.41" y1="6.51" x2="8.59" y2="10.49" />
+          </svg>
+          Compartilhar
+        </button>
+      </div>
     </div>
   </div>
 
-  <!-- chapters popup -->
-  <div class="popup-bg" id="capsBg" onclick="closeCaps()"></div>
-  <div class="popup" id="capsPopup">
-    <div class="pop-hdr"><span class="pop-title" id="capsTitle">Capítulos</span><button class="pop-close"
-        onclick="closeCaps()">✕</button></div>
-    <div class="ch-grid" id="capsGrid"></div>
+  <!-- Chapters sheet -->
+  <div class="popup-backdrop" id="capsBg" onclick="closeCaps()"></div>
+  <div class="bottom-sheet" id="capsPopup">
+    <div class="sheet-handle" onclick="closeCaps()">
+      <div class="sheet-handle-bar"></div>
+    </div>
+    <div class="sheet-header">
+      <span class="sheet-title" id="capsTitle">Capítulos</span>
+      <button class="ibtn" onclick="closeCaps()" style="width:36px;height:36px">
+        <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.5">
+          <path d="M18 6L6 18M6 6l12 12" />
+        </svg>
+      </button>
+    </div>
+    <div class="sheet-body">
+      <div class="caps-grid" id="capsGrid"></div>
+    </div>
   </div>
 
-  <!-- panel bg -->
-  <div class="panel-bg" id="panelBg" onclick="closePanel()"></div>
+  <!-- Panel backdrop -->
+  <div class="panel-backdrop" id="panelBg" onclick="closePanel()"></div>
 
-  <!-- ════ HAMBURGER MENU ════ -->
-  <div class="hmenu-bg" id="hmenuBg" onclick="closeHMenu()"></div>
+  <!-- Versions panel -->
+  <div class="side-panel" id="panelVer">
+    <div class="panel-hdr">
+      <span class="panel-hdr-title">Tradução</span>
+      <button class="ibtn" onclick="closePanel()" style="width:36px;height:36px">
+        <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.5">
+          <path d="M18 6L6 18M6 6l12 12" />
+        </svg>
+      </button>
+    </div>
+    <div class="panel-body" id="panelVerBody"></div>
+  </div>
+
+  <!-- Bookmarks panel -->
+  <div class="side-panel" id="panelBm">
+    <div class="panel-hdr">
+      <span class="panel-hdr-title">Favoritos</span>
+      <button class="ibtn" onclick="closePanel()" style="width:36px;height:36px">
+        <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.5">
+          <path d="M18 6L6 18M6 6l12 12" />
+        </svg>
+      </button>
+    </div>
+    <div class="panel-body" id="panelBmBody"></div>
+  </div>
+
+  <!-- Highlights panel -->
+  <div class="side-panel" id="panelHl">
+    <div class="panel-hdr">
+      <span class="panel-hdr-title">Destaques</span>
+      <button class="ibtn" onclick="closePanel()" style="width:36px;height:36px">
+        <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.5">
+          <path d="M18 6L6 18M6 6l12 12" />
+        </svg>
+      </button>
+    </div>
+    <div class="panel-body" id="panelHlBody"></div>
+  </div>
+
+  <!-- Notes panel -->
+  <div class="side-panel" id="panelNotes">
+    <div class="panel-hdr">
+      <span class="panel-hdr-title">Anotações</span>
+      <button class="ibtn" onclick="closePanel()" style="width:36px;height:36px">
+        <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.5">
+          <path d="M18 6L6 18M6 6l12 12" />
+        </svg>
+      </button>
+    </div>
+    <div class="panel-body" id="panelNotesBody"></div>
+  </div>
+
+  <!-- History panel -->
+  <div class="side-panel" id="panelHist">
+    <div class="panel-hdr">
+      <span class="panel-hdr-title">Histórico</span>
+      <button class="ibtn" onclick="closePanel()" style="width:36px;height:36px">
+        <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.5">
+          <path d="M18 6L6 18M6 6l12 12" />
+        </svg>
+      </button>
+    </div>
+    <div class="panel-body" id="panelHistBody"></div>
+  </div>
+
+  <!-- Hamburger menu -->
+  <div class="hmenu-backdrop" id="hmenuBg" onclick="closeHMenu()"></div>
   <div class="hmenu" id="hmenu">
-    <div class="hmenu-hd">
-      <div class="hmenu-logo">
-        <div class="hmenu-logo-icon">✦</div>
+    <div class="hmenu-hdr">
+      <div class="hmenu-logo-row">
+        <div class="hmenu-logo-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" width="24" height="24">
+            <path d="M4 19.5A2.5 2.5 0 016.5 17H20" />
+            <path d="M6.5 2H20v20H6.5A2.5 2.5 0 014 19.5v-15A2.5 2.5 0 016.5 2z" />
+            <line x1="12" y1="7" x2="12" y2="13" stroke-linecap="round" />
+            <line x1="9" y1="10" x2="15" y2="10" stroke-linecap="round" />
+          </svg>
+        </div>
         <div>
           <div class="hmenu-logo-title">Bíblia Sagrada</div>
           <div class="hmenu-logo-sub">Palavra de Deus</div>
@@ -2862,215 +3586,185 @@
       </div>
       <div class="hmenu-ver-badge">
         <div class="hmenu-ver-dot"></div>
-        <span class="hmenu-ver-txt" id="hmenuVerTxt">v1.1.0 • Atualizado</span>
+        <span class="hmenu-ver-txt" id="hmenuVerTxt">v1.2.2</span>
       </div>
     </div>
-
+    <div class="hmenu-ver-sel-wrap">
+      <div class="hmenu-ver-label">Tradução atual</div>
+      <select class="hmenu-ver-sel" id="hmenuVerSel" onchange="changeVerFromMenu(this.value)"></select>
+    </div>
     <div class="hmenu-body">
-      <!-- Versão da Bíblia — sempre visível -->
-      <div class="hmenu-ver-sel-wrap">
-        <div class="hmenu-ver-label">Tradução atual</div>
-        <select class="hmenu-ver-sel" id="hmenuVerSel" onchange="changeVerFromMenu(this.value)"></select>
-        <div class="hmenu-cur-ver">
-          <span class="hmenu-cur-ver-name" id="hmenuVerName">Nova Versão Internacional</span>
-          <span class="hmenu-cur-ver-code" id="hmenuVerCode">NVI</span>
-        </div>
-      </div>
-
-      <!-- Navegação -->
-      <div class="hmenu-section">Navegação</div>
+      <div class="hmenu-section-label">Navegação</div>
       <div class="hmenu-item" onclick="closeHMenu();goPage('pgHome')">
-        <span class="hmenu-item-icon">🏠</span>
+        <div class="hmenu-item-icon" style="background:var(--acsf)">🏠</div>
         <div class="hmenu-item-text">
           <div class="hmenu-item-title">Início</div>
-          <div class="hmenu-item-sub">Devocional e destaques do dia</div>
+          <div class="hmenu-item-sub">Devocional e destaques</div>
         </div>
-        <span class="hmenu-item-arr">›</span>
+        <div class="hmenu-item-arr"><svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor"
+            stroke-width="2.5">
+            <path d="M9 18l6-6-6-6" />
+          </svg></div>
       </div>
       <div class="hmenu-item" onclick="closeHMenu();goPage('pgSelector')">
-        <span class="hmenu-item-icon">📖</span>
+        <div class="hmenu-item-icon" style="background:#E8F7F1">📖</div>
         <div class="hmenu-item-text">
           <div class="hmenu-item-title">Bíblia</div>
           <div class="hmenu-item-sub">Escolher livro e capítulo</div>
         </div>
-        <span class="hmenu-item-arr">›</span>
+        <div class="hmenu-item-arr"><svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor"
+            stroke-width="2.5">
+            <path d="M9 18l6-6-6-6" />
+          </svg></div>
       </div>
       <div class="hmenu-item" onclick="closeHMenu();goPage('pgPlans')">
-        <span class="hmenu-item-icon">📅</span>
+        <div class="hmenu-item-icon" style="background:#EFF6FF">📅</div>
         <div class="hmenu-item-text">
           <div class="hmenu-item-title">Planos de Leitura</div>
-          <div class="hmenu-item-sub">Leia com um plano diário</div>
+          <div class="hmenu-item-sub">Leia com estrutura diária</div>
         </div>
-        <span class="hmenu-item-arr">›</span>
+        <div class="hmenu-item-arr"><svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor"
+            stroke-width="2.5">
+            <path d="M9 18l6-6-6-6" />
+          </svg></div>
       </div>
-
-      <!-- Conteúdo salvo -->
-      <div class="hmenu-section">Meu Conteúdo</div>
+      <div class="hmenu-section-label">Conteúdo</div>
       <div class="hmenu-item" onclick="closeHMenu();openPanel('bm')">
-        <span class="hmenu-item-icon">🔖</span>
+        <div class="hmenu-item-icon" style="background:#F5F3FF">🔖</div>
         <div class="hmenu-item-text">
           <div class="hmenu-item-title">Favoritos</div>
-          <div class="hmenu-item-sub" id="hmenuBmCount">0 capítulos salvos</div>
+          <div class="hmenu-item-sub" id="hmenuBmSub">0 capítulos</div>
         </div>
-        <span class="hmenu-item-arr">›</span>
+        <div class="hmenu-item-arr"><svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor"
+            stroke-width="2.5">
+            <path d="M9 18l6-6-6-6" />
+          </svg></div>
       </div>
       <div class="hmenu-item" onclick="closeHMenu();openPanel('hl')">
-        <span class="hmenu-item-icon">🖍️</span>
+        <div class="hmenu-item-icon" style="background:#FFF1F2">🖍️</div>
         <div class="hmenu-item-text">
           <div class="hmenu-item-title">Destaques</div>
-          <div class="hmenu-item-sub" id="hmenuHlCount">0 versículos destacados</div>
+          <div class="hmenu-item-sub" id="hmenuHlSub">0 versículos</div>
         </div>
-        <span class="hmenu-item-arr">›</span>
+        <div class="hmenu-item-arr"><svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor"
+            stroke-width="2.5">
+            <path d="M9 18l6-6-6-6" />
+          </svg></div>
       </div>
       <div class="hmenu-item" onclick="closeHMenu();openPanel('notes')">
-        <span class="hmenu-item-icon">📝</span>
+        <div class="hmenu-item-icon" style="background:#FFFBEB">📝</div>
         <div class="hmenu-item-text">
           <div class="hmenu-item-title">Anotações</div>
-          <div class="hmenu-item-sub" id="hmenuNotesCount">0 anotações</div>
+          <div class="hmenu-item-sub" id="hmenuNotesSub">0 anotações</div>
         </div>
-        <span class="hmenu-item-arr">›</span>
+        <div class="hmenu-item-arr"><svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor"
+            stroke-width="2.5">
+            <path d="M9 18l6-6-6-6" />
+          </svg></div>
       </div>
       <div class="hmenu-item" onclick="closeHMenu();openPanel('hist')">
-        <span class="hmenu-item-icon">📜</span>
+        <div class="hmenu-item-icon" style="background:#ECFEFF">📜</div>
         <div class="hmenu-item-text">
           <div class="hmenu-item-title">Histórico</div>
-          <div class="hmenu-item-sub" id="hmenuHistCount">0 capítulos lidos</div>
+          <div class="hmenu-item-sub" id="hmenuHistSub">0 capítulos</div>
         </div>
-        <span class="hmenu-item-arr">›</span>
+        <div class="hmenu-item-arr"><svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor"
+            stroke-width="2.5">
+            <path d="M9 18l6-6-6-6" />
+          </svg></div>
       </div>
-
-      <!-- Aparência -->
-      <div class="hmenu-section">Aparência</div>
-      <div class="hmenu-item" onclick="closeHMenu();">
-        <span class="hmenu-item-icon">🎨</span>
-        <div class="hmenu-item-text">
+      <div class="hmenu-section-label">Aparência</div>
+      <div class="hmenu-item" style="cursor:default;flex-wrap:wrap">
+        <div class="hmenu-item-icon" style="background:var(--bgsrf)">🎨</div>
+        <div class="hmenu-item-text" style="flex:none;margin-right:auto">
           <div class="hmenu-item-title">Tema</div>
-          <div style="display:flex;gap:6px;margin-top:6px">
-            <div
-              style="width:24px;height:24px;border-radius:6px;background:#f8f5ef;border:2px solid #d4c9b0;cursor:pointer;touch-action:manipulation"
-              onclick="event.stopPropagation();setThemeById('default')" title="Claro"></div>
-            <div
-              style="width:24px;height:24px;border-radius:6px;background:#f4ede0;border:2px solid transparent;cursor:pointer;touch-action:manipulation"
-              onclick="event.stopPropagation();setThemeById('sepia')" title="Sépia"></div>
-            <div
-              style="width:24px;height:24px;border-radius:6px;background:#1a1710;border:2px solid transparent;cursor:pointer;touch-action:manipulation"
-              onclick="event.stopPropagation();setThemeById('dark')" title="Escuro"></div>
-            <div
-              style="width:24px;height:24px;border-radius:6px;background:#080c14;border:2px solid transparent;cursor:pointer;touch-action:manipulation"
-              onclick="event.stopPropagation();setThemeById('night')" title="Noite"></div>
-            <div
-              style="width:24px;height:24px;border-radius:6px;background:#0d1509;border:2px solid transparent;cursor:pointer;touch-action:manipulation"
-              onclick="event.stopPropagation();setThemeById('forest')" title="Floresta"></div>
-            <div
-              style="width:24px;height:24px;border-radius:6px;background:#fdf4f5;border:2px solid #e8c8cc;cursor:pointer;touch-action:manipulation"
-              onclick="event.stopPropagation();setThemeById('rose')" title="Rosa"></div>
+          <div class="hmenu-theme-row">
+            <div class="hmenu-theme-dot on" data-t="default" style="background:#F7F5F0;border:2px solid #C8C0B0"
+              onclick="setThemeById('default')"></div>
+            <div class="hmenu-theme-dot" data-t="sepia" style="background:#F5EDD9" onclick="setThemeById('sepia')">
+            </div>
+            <div class="hmenu-theme-dot" data-t="dark" style="background:#1E1E1E" onclick="setThemeById('dark')"></div>
+            <div class="hmenu-theme-dot" data-t="night" style="background:#080C14" onclick="setThemeById('night')">
+            </div>
           </div>
         </div>
       </div>
-
-      <!-- Sobre -->
-      <div class="hmenu-section">Sobre o App</div>
+      <div class="hmenu-section-label">App</div>
       <div class="hmenu-item" onclick="showAbout()">
-        <span class="hmenu-item-icon">ℹ️</span>
+        <div class="hmenu-item-icon" style="background:var(--bgsrf)">ℹ️</div>
         <div class="hmenu-item-text">
           <div class="hmenu-item-title">Sobre</div>
-          <div class="hmenu-item-sub" id="hmenuAboutSub">Versão 1.0.0</div>
+          <div class="hmenu-item-sub" id="hmenuAboutSub">Versão 1.2.2</div>
         </div>
-        <span class="hmenu-item-arr">›</span>
+        <div class="hmenu-item-arr"><svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor"
+            stroke-width="2.5">
+            <path d="M9 18l6-6-6-6" />
+          </svg></div>
       </div>
       <div class="hmenu-item" onclick="checkForUpdates()">
-        <span class="hmenu-item-icon">🔄</span>
+        <div class="hmenu-item-icon" style="background:var(--bgsrf)">🔄</div>
         <div class="hmenu-item-text">
           <div class="hmenu-item-title">Verificar atualizações</div>
           <div class="hmenu-item-sub" id="hmenuUpdateSub">Toque para verificar</div>
         </div>
-        <span class="hmenu-item-arr">›</span>
+        <div class="hmenu-item-arr"><svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor"
+            stroke-width="2.5">
+            <path d="M9 18l6-6-6-6" />
+          </svg></div>
       </div>
       <div class="hmenu-item" onclick="requestNotifPermission();closeHMenu()">
-        <span class="hmenu-item-icon">🔔</span>
+        <div class="hmenu-item-icon" style="background:var(--bgsrf)">🔔</div>
         <div class="hmenu-item-text">
           <div class="hmenu-item-title">Notificações</div>
           <div class="hmenu-item-sub" id="hmenuNotifSub">Ativar devocional diário</div>
         </div>
-        <span class="hmenu-item-arr">›</span>
+        <div class="hmenu-item-arr"><svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor"
+            stroke-width="2.5">
+            <path d="M9 18l6-6-6-6" />
+          </svg></div>
       </div>
     </div>
-
     <div class="hmenu-footer">
-      <div class="hmenu-footer-ver" id="hmenuFooterVer">Bíblia Sagrada v1.0.0</div>
-      <div class="hmenu-footer-update" id="hmenuFooterDate">Atualizado em 15/06/2025</div>
+      <div class="hmenu-footer-ver" id="hmenuFooterVer">Bíblia Sagrada v1.2.2</div>
+      <div class="hmenu-footer-link" onclick="checkForUpdates()">Verificar atualização</div>
     </div>
   </div>
 
-  <!-- Versions panel -->
-  <div class="panel" id="panelVer">
-    <div class="panel-hd"><span class="panel-title">Versão</span><button class="panel-close"
-        onclick="closePanel()">✕</button></div>
-    <div class="panel-body" id="panelVerBody"></div>
-  </div>
-
-  <!-- Bookmarks panel -->
-  <div class="panel" id="panelBm">
-    <div class="panel-hd"><span class="panel-title">Favoritos</span><button class="panel-close"
-        onclick="closePanel()">✕</button></div>
-    <div class="panel-body" id="panelBmBody"></div>
-  </div>
-
-  <!-- Highlights panel -->
-  <div class="panel" id="panelHl">
-    <div class="panel-hd"><span class="panel-title">Destaques</span><button class="panel-close"
-        onclick="closePanel()">✕</button></div>
-    <div class="panel-body" id="panelHlBody"></div>
-  </div>
-
-  <!-- Notes panel -->
-  <div class="panel" id="panelNotes">
-    <div class="panel-hd"><span class="panel-title">Anotações</span><button class="panel-close"
-        onclick="closePanel()">✕</button></div>
-    <div class="panel-body" id="panelNotesBody"></div>
-  </div>
-
-  <!-- History panel -->
-  <div class="panel" id="panelHist">
-    <div class="panel-hd"><span class="panel-title">Histórico de Leitura</span><button class="panel-close"
-        onclick="closePanel()">✕</button></div>
-    <div class="panel-body" id="panelHistBody"></div>
-  </div>
-
-  <!-- Note Modal -->
-  <div class="modal-bg" id="noteMod">
-    <div class="modal">
+  <!-- Note modal -->
+  <div class="modal-backdrop" id="noteMod">
+    <div class="modal-sheet">
       <div class="modal-title">📝 Anotação</div>
-      <div class="modal-ref" id="noteModRef"></div>
-      <div class="modal-verse" id="noteModVerse"></div>
-      <textarea class="note-ta" id="noteTa" placeholder="Escreva sua anotação aqui..."></textarea>
+      <div class="modal-subtitle" id="noteModRef"></div>
+      <div class="modal-verse-preview" id="noteModVerse"></div>
+      <textarea class="modal-note-ta" id="noteTa" placeholder="Escreva sua reflexão..."></textarea>
       <div class="modal-btns">
-        <button class="sec-btn" onclick="closeNoteMod()">Cancelar</button>
-        <button class="pri-btn" onclick="saveNote()">Salvar</button>
+        <button class="btn-secondary" onclick="closeNoteMod()">Cancelar</button>
+        <button class="btn-primary" onclick="saveNote()">Salvar</button>
       </div>
     </div>
   </div>
 
-  <!-- Share Modal -->
-  <div class="modal-bg" id="shareMod">
-    <div class="modal" style="max-width:420px">
-      <div class="modal-title" style="margin-bottom:10px">📤 Compartilhar Versículo</div>
+  <!-- Share modal -->
+  <div class="modal-backdrop" id="shareMod">
+    <div class="modal-sheet">
+      <div class="modal-title">📤 Compartilhar</div>
+      <div class="modal-subtitle">Escolha um visual para o versículo</div>
       <div class="share-themes" id="shareThemes">
-        <div class="sh-theme on" data-st="0" style="background:linear-gradient(135deg,#7c4f1e,#c8954a)"
+        <div class="share-theme-dot on" data-st="0" style="background:linear-gradient(135deg,#0F4D32,#1E7A54)"
           onclick="setShareTheme(0,this)"></div>
-        <div class="sh-theme" data-st="1" style="background:linear-gradient(135deg,#1a3a5c,#2a6aac)"
+        <div class="share-theme-dot" data-st="1" style="background:linear-gradient(135deg,#1E3A5F,#2563EB)"
           onclick="setShareTheme(1,this)"></div>
-        <div class="sh-theme" data-st="2" style="background:linear-gradient(135deg,#1a4a2a,#2a8a4a)"
+        <div class="share-theme-dot" data-st="2" style="background:linear-gradient(135deg,#3D1A0A,#8B4513)"
           onclick="setShareTheme(2,this)"></div>
-        <div class="sh-theme" data-st="3" style="background:linear-gradient(135deg,#4a1a4a,#8a2a8a)"
+        <div class="share-theme-dot" data-st="3" style="background:linear-gradient(135deg,#2D1B4E,#7C3AED)"
           onclick="setShareTheme(3,this)"></div>
-        <div class="sh-theme" data-st="4" style="background:linear-gradient(135deg,#1a1a1a,#3a3a3a)"
+        <div class="share-theme-dot" data-st="4" style="background:linear-gradient(135deg,#111,#333)"
           onclick="setShareTheme(4,this)"></div>
       </div>
       <div class="share-canvas-wrap"><canvas id="shareCanvas" width="540" height="300"></canvas></div>
       <div class="modal-btns">
-        <button class="sec-btn" onclick="closeShareMod()">Fechar</button>
-        <button class="pri-btn" onclick="downloadShareImg()">⬇ Baixar imagem</button>
+        <button class="btn-secondary" onclick="closeShareMod()">Fechar</button>
+        <button class="btn-primary" onclick="downloadShareImg()">⬇ Baixar imagem</button>
       </div>
     </div>
   </div>
@@ -3078,16 +3772,15 @@
   <div class="prog-bar">
     <div class="prog-fill" id="progFill"></div>
   </div>
-  <div id="toast"><span id="toastMsg"></span><button id="toastUndo" class="toast-undo" onclick="runToastUndo()"
-      style="display:none">Desfazer</button></div>
 
   <script>
+
     'use strict';
 
     /* ══ VERSIONS ══ */
     /* ══ APP VERSION ══ */
-    const APP_VERSION = '1.2.2';
-    const APP_VERSION_DATE = '21/06/2025';
+    const APP_VERSION = '1.2.1';
+    const APP_VERSION_DATE = '25/06/2025';
 
     const VERSIONS = [
       { code: 'NVI', name: 'Nova Versão Internacional', lang: 'PT-BR', url: 'https://raw.githubusercontent.com/thiagobodruk/biblia/master/json/nvi.json' },
@@ -3262,6 +3955,11 @@
       document.getElementById('devTitle').textContent = dv.title;
       document.getElementById('devBody').textContent = dv.body;
       document.getElementById('devRef').textContent = dv.ref;
+      /* Sync banner */
+      const bv = document.getElementById('bannerVerse');
+      const br = document.getElementById('bannerRef');
+      if (bv) bv.textContent = dv.body.length > 120 ? dv.body.substring(0, 117) + '...' : dv.body;
+      if (br) br.textContent = dv.ref;
       const opts = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
       document.getElementById('devDate').textContent = today.toLocaleDateString('pt-BR', opts);
       document.getElementById('devReadBtn').dataset.bookId = dv.bookId;
@@ -4102,14 +4800,18 @@
     /* ══ TOAST (com suporte a "Desfazer") ══ */
     let _tt, _toastUndoFn = null;
     function showToast(m, undoFn) {
-      const t = document.getElementById('toast');
-      document.getElementById('toastMsg').textContent = m;
-      const ub = document.getElementById('toastUndo');
+      const container = document.getElementById('toast-container');
+      if (!container) return;
+      const t = document.createElement('div');
+      t.className = 'toast';
       _toastUndoFn = undoFn || null;
-      ub.style.display = undoFn ? '' : 'none';
-      t.classList.add('on');
+      t.innerHTML = `<span>${esc(m)}</span>${undoFn ? `<button class="toast-undo-btn" onclick="runToastUndo()">Desfazer</button>` : ''}`;
+      container.appendChild(t);
       clearTimeout(_tt);
-      _tt = setTimeout(() => { t.classList.remove('on'); _toastUndoFn = null; }, undoFn ? 5000 : 2800);
+      _tt = setTimeout(() => {
+        t.classList.add('out');
+        setTimeout(() => { if (t.parentNode) t.parentNode.removeChild(t); }, 250);
+      }, 2800);
     }
     function runToastUndo() {
       if (_toastUndoFn) _toastUndoFn();
@@ -4221,8 +4923,18 @@
     /* ══ HAMBURGER MENU ══ */
     function openHMenu() {
       /* Update counts */
-      document.getElementById('hmenuBmCount').textContent = S.bookmarks.length + ' capítulo(s) salvo(s)';
-      document.getElementById('hmenuHlCount').textContent = Object.keys(S.highlights).length + ' versículo(s) destacado(s)';
+      const bmN = S.bookmarks.length;
+      const hlN = Object.keys(S.highlights).length;
+      const notN = Object.keys(S.notes).length;
+      const histN = S.history.length;
+      const setBmC = (id, v) => { const el = document.getElementById(id); if (el) el.textContent = v; };
+      setBmC('hmenuBmCount', bmN + ' salvos');
+      setBmC('hmenuHlCount', hlN + ' versículos');
+      setBmC('hmenuBmSub', bmN + ' capítulos');
+      setBmC('hmenuHlSub', hlN + ' versículos');
+      setBmC('hmenuNotesSub', notN + ' anotações');
+      setBmC('hmenuHistSub', histN + ' capítulos lidos');
+      setBmC('hmenuHistCount', histN + ' lidos');
       document.getElementById('hmenuNotesCount').textContent = Object.keys(S.notes).length + ' anotação(ões)';
       document.getElementById('hmenuHistCount').textContent = S.history.length + ' capítulo(s) lido(s)';
 
@@ -4416,7 +5128,34 @@
       if (action === 'continue' && S.lastRead) doContinue();
       else if (action === 'daily') devGoRead();
     })();
+
   </script>
+
+  <script>
+    if ('serviceWorker' in navigator) {
+      window.addEventListener('load', () => {
+        navigator.serviceWorker.register('/bibliasagrada/sw.js').then(reg => {
+          setTimeout(requestNotifPermission, 3000);
+          reg.addEventListener('updatefound', () => {
+            const nw = reg.installing;
+            if (!nw) return;
+            nw.addEventListener('statechange', () => {
+              if (nw.state === 'installed' && navigator.serviceWorker.controller) {
+                setTimeout(silentUpdateCheck, 800);
+              }
+            });
+          });
+          let refreshing = false;
+          navigator.serviceWorker.addEventListener('controllerchange', () => {
+            if (refreshing) return; refreshing = true; window.location.reload();
+          });
+        }).catch(() => { });
+      });
+    }
+    window.addEventListener('online', () => updateOfflineBanner());
+    window.addEventListener('offline', () => updateOfflineBanner());
+  </script>
+
 </body>
 
 </html>
