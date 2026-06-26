@@ -1,5 +1,5 @@
 {
-  "version": "1.2.2",
-  "date": "21/06/2025",
-  "notes": "Correção definitiva do scroll — problema de layout flex no iOS resolvido"
+  "version": "2.0.0",
+  "date": "26/06/2025",
+  "notes": "Paleta azul royal, compartilhar versículo como texto e correção do banner de atualização"
 }
