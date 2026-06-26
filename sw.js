@@ -11,7 +11,9 @@
      - version.json: SEMPRE rede, nunca cache.
    ===================================================== */
 
-const CACHE_NAME = 'biblia-sagrada-v3';
+/* Incrementar este número a cada deploy para forçar atualização do SW */
+const SW_BUILD = '2025-06-26-v1';
+const CACHE_NAME = 'biblia-sagrada-v4-' + SW_BUILD;
 const DATA_CACHE = 'biblia-sagrada-data-v3';
 
 /* Assets do app shell — verificados a cada carregamento (network first) */

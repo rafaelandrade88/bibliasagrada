@@ -1,0 +1,32 @@
+## Service Worker — NUNCA cachear, browser deve sempre verificar se mudou
+/bibliasagrada/sw.js
+  Cache-Control: no-cache, no-store, must-revalidate
+  Pragma: no-cache
+  Expires: 0
+
+## HTML principal — revalidar sempre (garante que atualizações cheguem)
+/bibliasagrada/biblia-sagrada.html
+  Cache-Control: no-cache, must-revalidate
+  X-Content-Type-Options: nosniff
+
+## index.html do redirecionador
+/bibliasagrada/index.html
+  Cache-Control: no-cache, must-revalidate
+
+## manifest.json — curto TTL (PWA detecta mudanças de ícones/shortcuts)
+/bibliasagrada/manifest.json
+  Cache-Control: no-cache, must-revalidate
+
+## version.json — nunca cachear (controle de versão em tempo real)
+/bibliasagrada/version.json
+  Cache-Control: no-cache, no-store, must-revalidate
+  Pragma: no-cache
+  Expires: 0
+
+## Ícones e assets estáticos — podem ter cache longo (não mudam sem nome novo)
+/bibliasagrada/icons/*
+  Cache-Control: public, max-age=604800, immutable
+
+## Fontes Google (passam pelo CDN deles, mas por segurança)
+/*.woff2
+  Cache-Control: public, max-age=31536000, immutable
